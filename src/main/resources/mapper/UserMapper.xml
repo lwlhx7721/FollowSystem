@@ -6,7 +6,7 @@
 <mapper namespace="com.jxd.dao.IUserDao">
     <!--User getUserByUserId(int userId);-->
     <sql id="baseSql">
-        select userid,username,pwd,telephone,phone,email,note,flag,logintime,deptid from user
+        select userId,userName,pwd,telephone,phone,email,note,flag,loginTime,deptId from followsystem.user
     </sql>
     <select id="getUserByUserId" resultType="User">
         <include refid="baseSql"></include>

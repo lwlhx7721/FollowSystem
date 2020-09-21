@@ -54,6 +54,6 @@ public class UserController {
             response.addCookie(cookie1);
             response.addCookie(cookie2);
         }
-        return "index";
+        return "true";
     }
 }

@@ -25,7 +25,7 @@ public class User {
     /**
      *用户手机号
      */
-    private int phone;
+    private String phone;
     /**
      *邮箱
      */
@@ -50,7 +50,7 @@ public class User {
     public User() {
     }
 
-    public User(int userId, String userName, String pwd, String telephone, int phone, String email, String note, String flag, String loginTime, int deptId) {
+    public User(int userId, String userName, String pwd, String telephone, String phone, String email, String note, String flag, String loginTime, int deptId) {
         this.userId = userId;
         this.userName = userName;
         this.pwd = pwd;
@@ -63,7 +63,7 @@ public class User {
         this.deptId = deptId;
     }
 
-    public User(String userName, String pwd, String telephone, int phone, String email, String note, String flag, String loginTime, int deptId) {
+    public User(String userName, String pwd, String telephone, String phone, String email, String note, String flag, String loginTime, int deptId) {
         this.userName = userName;
         this.pwd = pwd;
         this.telephone = telephone;
@@ -107,11 +107,11 @@ public class User {
         this.telephone = telephone;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
