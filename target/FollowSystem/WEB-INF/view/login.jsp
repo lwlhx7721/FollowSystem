@@ -92,7 +92,7 @@
             elem: '#container'
             ,width: '100%' //设置容器宽度
             ,height: '100%'
-            ,arrow: 'always' //始终显示箭头
+            ,arrow: 'none' //始终显示箭头
             //,anim: 'updown' //切换动画方式
         });
     });
