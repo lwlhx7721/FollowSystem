@@ -105,13 +105,15 @@
             ,layer = layui.layer
             ,$ = layui.jquery;
         $("#ok").click(function () {
+            var rememberPwd =
+
             $.ajax({
                 type: "post",
                 url:"login",
                 data: {
                     userId: $("#userId").val(),
                     pwd: $("#pwd").val(),
-                    rememberPwd: $("input[name=rememberPwd]:checked").val()
+                    rememberPwd: ($("input[name=rememberPwd]:checked").val() == null ? 0:$("input[name=rememberPwd]:checked").val())
                 },
                 dataType: "text",
                 success: function (data) {
