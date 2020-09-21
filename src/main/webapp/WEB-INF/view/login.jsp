@@ -110,13 +110,14 @@
                 url:"login",
                 data: {
                     userId: $("#userId").val(),
-                    pwd: $("#pwd").val()
+                    pwd: $("#pwd").val(),
+                    rememberPwd: $("input[name=rememberPwd]:checked").val()
                 },
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
                         window.location = "index";
-                    } else if("userIsNotFound") {
+                    } else if("userIsNotFound" == data) {
                         layer.msg("用户名不存在");
                     } else {
                         layer.msg("密码错误");
