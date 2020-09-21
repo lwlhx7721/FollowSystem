@@ -45,6 +45,7 @@ public class Course {
     public void setCourseState(int courseState) {
         this.courseState = courseState;
     }
+
     public Course(){
 
     }
