@@ -20,7 +20,7 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
      * 通过用户id获取用户权限
      *
      * @param userId 用户id
-     * @return 用户角色关系信息
+     * @return 用户角色分配信息
      */
     @Override
     public UserRoleRelationship getUserRoleRelationshipByUserId(int userId) {
