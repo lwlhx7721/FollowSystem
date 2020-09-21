@@ -7,5 +7,5 @@ package com.jxd.model;
  */
 public class Class {
     private int classId;
-
+    private String className;
 }
