@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @author LuWenlong
  * @description Todo
@@ -34,7 +37,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public String login(int userId, String pwd, Model model) {
+    public String login(int userId, String pwd, int rememberPwd, Model model, HttpServletResponse response) {
         User user = userService.getUserByUserId(userId);
         if(user == null) {
             return "userIsNotFound";
@@ -45,6 +48,12 @@ public class UserController {
         UserRoleRelationship userRoleRelationship = userRoleRelationshipService.getUserRoleRelationshipByUserId(userId);
         model.addAttribute("user",user);
         model.addAttribute("userRoleRelationship",userRoleRelationship);
+        if(rememberPwd == 1) {
+            Cookie cookie1 = new Cookie("userId",userId + "");
+            Cookie cookie2 = new Cookie("pwd",pwd);
+            response.addCookie(cookie1);
+            response.addCookie(cookie2);
+        }
         return "index";
     }
 }
