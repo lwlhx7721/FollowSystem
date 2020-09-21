@@ -64,16 +64,17 @@
             <div class="layui-form">
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <br><br>
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="password" style="width: 250px; margin-left: 50px" required lay-verify="required" placeholder="请输入密码" class="layui-input" id="pwd" name="pwd">
+                        <input type="password" style="width: 250px; margin-left: 50px" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
                     </div>
                 </div>
                 <br>
+                <input type="checkbox" name="rememberPwd" value="1">下次自动登录
                 <br>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
@@ -92,7 +93,7 @@
             elem: '#container'
             ,width: '100%' //设置容器宽度
             ,height: '100%'
-            ,arrow: 'always' //始终显示箭头
+            ,arrow: 'none' //始终显示箭头
             //,anim: 'updown' //切换动画方式
         });
     });
@@ -109,13 +110,14 @@
                 url:"login",
                 data: {
                     userId: $("#userId").val(),
-                    pwd: $("#pwd").val()
+                    pwd: $("#pwd").val(),
+                    rememberPwd: $("input[name=rememberPwd]:checked").val()
                 },
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
                         window.location = "index";
-                    } else if("userIsNotFound") {
+                    } else if("userIsNotFound" == data) {
                         layer.msg("用户名不存在");
                     } else {
                         layer.msg("密码错误");
