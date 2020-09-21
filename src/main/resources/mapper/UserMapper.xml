@@ -5,4 +5,11 @@
 一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IUserDao">
     <!--User getUserByUserId(int userId);-->
+    <sql id="baseSql">
+        select userid,username,pwd,telephone,phone,email,note,flag,logintime,deptid from user
+    </sql>
+    <select id="getUserByUserId" resultType="User">
+        <include refid="baseSql"></include>
+        where userid = #{userid}
+    </select>
 </mapper>
