@@ -64,7 +64,7 @@
             <div class="layui-form">
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="text" id="username" style="width: 250px; margin-left: 50px" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <br><br>
@@ -108,19 +108,17 @@
                 type: "post",
                 url:"login",
                 data: {
-                    username: $("#username").val(),
+                    userId: $("#userId").val(),
                     pwd: $("#pwd").val()
                 },
                 dataType: "text",
                 success: function (data) {
-                    if("admin" == data) {
-                        window.location = "admin";
-                    } else if("teacher" == data) {
-                        window.location = "teacher";
-                    } else if("student" == data){
-                        window.location = "student";
+                    if("true" == data) {
+                        window.location = "index";
+                    } else if("userIsNotFound") {
+                        layer.msg("用户名不存在");
                     } else {
-                        layer.msg("用户名或密码错误");
+                        layer.msg("密码错误");
                     }
                 },
                 error:function () {
