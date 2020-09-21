@@ -18,7 +18,6 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
 
     /**
      * 通过用户id获取用户权限
-     *
      * @param userId 用户id
      * @return 用户角色分配信息
      */

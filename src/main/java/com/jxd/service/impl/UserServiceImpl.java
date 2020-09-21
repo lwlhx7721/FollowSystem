@@ -18,7 +18,6 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * 通过用户id获取用户信息
-     *
      * @param userId 用户id
      * @return 用户信息
      */
