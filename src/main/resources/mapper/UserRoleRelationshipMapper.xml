@@ -5,4 +5,8 @@
 一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IUserRoleRelationshipDao">
     <!--UserRoleRelationship getUserRoleRelationshipByUserId(int userRoleRelationship);-->
+    <select id="getUserRoleRelationshipByUserId" resultType="UserRoleRelationship">
+        SELECT userid,roleid from userrolerelationship
+        where userid = #{userid}
+    </select>
 </mapper>
