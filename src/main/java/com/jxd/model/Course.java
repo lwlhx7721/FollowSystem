@@ -6,4 +6,5 @@ package com.jxd.model;
  * @date 2020-09-21 10:05
  */
 public class Course {
+    private int courseId;
 }
