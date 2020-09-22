@@ -2,6 +2,8 @@ package com.jxd.dao;
 
 import com.jxd.model.UserRoleRelationship;
 
+import java.util.List;
+
 /**
  * @author LuWenlong
  * @description Todo
@@ -13,5 +15,5 @@ public interface IUserRoleRelationshipDao {
      * @param userId 用户id
      * @return
      */
-    UserRoleRelationship getUserRoleRelationshipByUserId(int userId);
+    List<UserRoleRelationship> getUserRoleRelationshipByUserId(int userId);
 }

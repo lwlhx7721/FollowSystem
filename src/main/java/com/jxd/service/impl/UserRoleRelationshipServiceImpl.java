@@ -6,6 +6,8 @@ import com.jxd.service.IUserRoleRelationshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author ZhangXinyun
  * @description Todo
@@ -23,7 +25,7 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
      * @return 用户角色关系信息
      */
     @Override
-    public UserRoleRelationship getUserRoleRelationshipByUserId(int userId) {
+    public List<UserRoleRelationship> getUserRoleRelationshipByUserId(int userId) {
         return userRoleRelationshipDao.getUserRoleRelationshipByUserId(userId);
     }
 }

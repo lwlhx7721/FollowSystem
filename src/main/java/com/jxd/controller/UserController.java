@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author LuWenlong
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020-09-21 09:46
  */
 @Controller
-@SessionAttributes({"user","userRoleRelationship"})
+@SessionAttributes({"user","role"})
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -45,15 +46,22 @@ public class UserController {
         if(pwd == null || !pwd.equals(user.getPwd())) {
             return "pwdError";
         }
-        UserRoleRelationship userRoleRelationship = userRoleRelationshipService.getUserRoleRelationshipByUserId(userId);
+        List<UserRoleRelationship> userRoleRelationship = userRoleRelationshipService.getUserRoleRelationshipByUserId(userId);
         model.addAttribute("user",user);
-        model.addAttribute("userRoleRelationship",userRoleRelationship);
         if(rememberPwd == 1) {
             Cookie cookie1 = new Cookie("userId",userId + "");
             Cookie cookie2 = new Cookie("pwd",pwd);
             response.addCookie(cookie1);
             response.addCookie(cookie2);
         }
-        return "true";
+        if(userRoleRelationship.size() == 1) {
+            model.addAttribute("role",userRoleRelationship.get(0).getRoleId());
+            return "index";
+        } else if(userRoleRelationship.size() > 1){
+            model.addAttribute("roles",userRoleRelationship);
+            return "roleChoose";
+        } else {
+            return "noRole";
+        }
     }
 }
