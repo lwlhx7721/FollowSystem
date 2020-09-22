@@ -1,7 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.jxd.model.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -127,14 +124,14 @@
                         layer.msg("用户名不存在");
                     } else if("pwdError" == data){
                         layer.msg("密码错误");
-                    } else if("noRole"==data) {
+                    } else if("noRole" == data) {
                         layer.msg("您没有权限登录系统，请等待系统管理员赋权");
-                    } else if("roleChoose") {
+                    } else if("roleChoose" == data) {
                         layer.open({
                            title:'权限选择'
-                            ,type:1
+                            ,type: 2
                             ,area:'300px'
-                            ,content:$("#roles")
+                            ,content: "rolesChoose"
                         })
                     }
                 },
@@ -144,30 +141,6 @@
             })
         })
     });
-</script>
-<div id="roles">
-    <select name="roles" id="role" layui-verify=requied>
-        <option value="0" selected>
-            请选择
-        </option>
-    <c:forEach items="${requestScope.roles}" var="roles" >
-            <option value="${roles.roleId}">
-                 ${roles.roleName}
-            </option>
-    </c:forEach>
-    </select>
-    <input type="button" id="btn" value="确定" class="layui-btn"></div>
-</div>
-<script>
-    $("#btn").click(function () {
-        $.ajax({
-            url:"roles"
-            ,type:"post"
-            ,data:{
-                roleId:$("#role").val()
-            }
-        })
-    })
 </script>
 </body>
 </html>

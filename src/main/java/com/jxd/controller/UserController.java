@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -23,12 +24,10 @@ import java.util.List;
  * @date 2020-09-21 09:46
  */
 @Controller
-@SessionAttributes({"user","role"})
+@SessionAttributes({"user","roles","role"})
 public class UserController {
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IUserRoleRelationshipService userRoleRelationshipService;
     @Autowired
     private IRoleService roleService;
 
@@ -69,18 +68,19 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/roles")
-    public String getRole(int roleId,Model model) {
-        if (roleId != 0) {
+    @RequestMapping("roles")
+    @ResponseBody
+    public String getRole(String roleId,Model model) {
+        if (!"0".equals(roleId)) {
             model.addAttribute("role",roleId);
             return "index";
-        } else {
-            return "login";
         }
+        return "login";
     }
 
     @RequestMapping("/logout")
-    public String loginOut() {
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
         return "login";
     }
 }
