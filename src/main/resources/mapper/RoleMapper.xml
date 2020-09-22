@@ -6,14 +6,14 @@
 <mapper namespace="com.jxd.dao.IRoleDao">
     <!--User getUserByUserId(int userId);-->
     <select id="getRoleByUserId" resultType="Role">
-        SELECT a.roleid,r.rolename
+        SELECT a.roleId,r.rolename
         FROM
-        (SELECT u.userid,us.roleid
+        (SELECT u.userId,us.roleId
         FROM `user` u
         LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE u.userid= #{userid} ) a
+        ON u.userId=us.userId
+        WHERE u.userId= #{userId} ) a
         LEFT JOIN role r
-        ON a.roleid=r.roleid
+        ON a.roleId=r.roleId
     </select>
 </mapper>
