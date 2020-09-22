@@ -24,12 +24,10 @@ import java.util.List;
  * @date 2020-09-21 09:46
  */
 @Controller
-@SessionAttributes({"user","role"})
+@SessionAttributes({"user","roles","role"})
 public class UserController {
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IUserRoleRelationshipService userRoleRelationshipService;
     @Autowired
     private IRoleService roleService;
 
@@ -71,13 +69,13 @@ public class UserController {
     }
 
     @RequestMapping("roles")
-    public String getRole(int roleId,Model model) {
-        if (roleId != 0) {
+    @ResponseBody
+    public String getRole(String roleId,Model model) {
+        if (!"0".equals(roleId)) {
             model.addAttribute("role",roleId);
             return "index";
-        } else {
-            return "login";
         }
+        return "login";
     }
 
     @RequestMapping("/logout")

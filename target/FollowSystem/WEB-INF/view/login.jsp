@@ -1,7 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.jxd.model.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -132,9 +129,9 @@
                     } else if("roleChoose" == data) {
                         layer.open({
                            title:'权限选择'
-                            ,type:1
+                            ,type: 2
                             ,area:'300px'
-                            ,content:$("#roles")
+                            ,content: "rolesChoose"
                         })
                     }
                 },
@@ -144,30 +141,6 @@
             })
         })
     });
-</script>
-<div id="roles" style="display: none">
-    <select name="roles" id="role" layui-verify=requied>
-        <option value="0" selected>
-            请选择
-        </option>
-    <c:forEach items="${roles}" var="role" >
-            <option value="${role.roleId}">
-                 ${role.roleName}
-            </option>
-    </c:forEach>
-    </select>
-    <input type="button" id="btn" value="确定" class="layui-btn"></div>
-</div>
-<script>
-    $("#btn").click(function () {
-        $.ajax({
-            url:"roles"
-            ,type:"post"
-            ,data:{
-                roleId:$("#role").val()
-            }
-        })
-    })
 </script>
 </body>
 </html>
