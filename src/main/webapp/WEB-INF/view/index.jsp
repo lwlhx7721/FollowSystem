@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -65,44 +66,21 @@
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="header">
-            <img src="../../static/images/header.png" alt="" style="float: left;margin-left: 20px">
-            <ul class="layui-nav layui-bg-green" style="height: 60px;float: right">
-                <li class="layui-nav-item">
-                    ${sessionScope.user.userName}
-                </li>
-                <li class="layui-nav-item">
-                    <a href="logout">退出</a>
-                </li>
-            </ul>
-        </div>
-        <div id="left">
-            <ul class="layui-nav layui-nav-tree layui-bg-green" lay-filter="demo" style="margin: 1px;margin-top: 20px" id="leftDemo">
-                <li class="layui-nav-item bluebtn" id="li1">
-                    <a href="courseList" target="main">课程管理</a>
-                </li>
-                <li class="layui-nav-item" id="li2">
-                    <a href="studentList" target="main">学生管理</a>
-                </li>
-                <li class="layui-nav-item bluebtn" id="li3">
-                    <a href="teacherList" target="main">教师管理</a>
-                </li>
-                <li class="layui-nav-item bluebtn" id="li4">
-                    <a href="userReset" target="main">账号密码重置</a>
-                </li>
-            </ul>
-        </div>
-        <div id="right">
-            <div id="body">
-                <iframe src="studentList" name="main" scrolling="no"></iframe>
-            </div>
-            <div id="footer">
-                @2020&nbsp;&nbsp;金桥教务查询系统&nbsp;&nbsp;
-            </div>
-        </div>
-    </div>
-
+<div>
+    <ul class="layui-nav layui-bg-cyan">
+        <li class="layui-nav-item"><a href="#"><img src="../../static/images/logo.png" alt="" style="width: 60px"></a></li>
+        <li class="layui-nav-item"><a href="#"><span style="font-size: 25px;margin-left: 65px">金桥学员成长追踪系统系统</span></a></li>
+        <li class="layui-nav-item" style="float: right"><a href="loginout"><span style="font-size: 16px">退出</span></a></li>
+        <li class="layui-nav-item" style="float: right;margin-right: 50px"><a href=""><span style="font-size: 16px">欢迎你 ${sessionScope.user.userName}</span></a></li>
+    </ul>
+</div>
+<div>
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
+        <c:forEach var="menu" items="menu">
+            <li class="layui-nav-item"><a href="${menu.address}">${menu.menuName}</a></li>
+        </c:forEach>
+    </ul>
+</div>
     <script>
         //注意：导航 依赖 element 模块，否则无法进行功能性操作
         layui.use(['element','layer'], function(){

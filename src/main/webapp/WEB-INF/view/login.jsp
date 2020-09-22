@@ -125,9 +125,9 @@
                         window.location = "index";
                     } else if("userIsNotFound" == data) {
                         layer.msg("用户名不存在");
-                    } else if("pwdError"){
+                    } else if("pwdError" == data){
                         layer.msg("密码错误");
-                    } else if("noRole") {
+                    } else if("noRole"==data) {
                         layer.msg("您没有权限登录系统，请等待系统管理员赋权");
                     } else if("roleChoose") {
                         layer.open({
