@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
+一 个mapper相当于一个dao接口的实现类 -->
+<mapper namespace="com.jxd.dao.IMenuDao">
+    <!--User getUserByUserId(int userId);-->
+    <select id="getMenuByRoleId" resultType="Menu">
+        SELECT m.menuId,m.parentmenuId,m.menuName,m.address,m.promptName,
+        m.goal,m.image,m.imageShow,m.menuShow,m.expressShun,m.deleteFlag
+        FROM `rolepower` r
+        LEFT JOIN menu m
+        on r.menuId=m.menuId
+        WHERE r.roleId=#{roleId}
+    </select>
+</mapper>
