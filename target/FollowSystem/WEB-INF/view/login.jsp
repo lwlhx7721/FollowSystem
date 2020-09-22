@@ -49,6 +49,10 @@
             left: 40px;
             background-image: url("../../static/images/title.png");
         }
+        .a{
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
     </style>
     <link rel="stylesheet" href="../../static/layui/css/layui.css">
     <script src="../../static/js/jquery-3.3.1.js"></script>
@@ -57,14 +61,14 @@
 <body>
 <div class="layui-carousel" id="container">
     <div carousel-item>
-        <div style="background-image: url('../../static/images/bg2.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg3.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg4.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg5.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg2.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg3.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg4.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg5.jpg')"></div>
     </div>
     <div id="title"></div>
     <div id="login">
-        <h1 style="color:#009688;margin: 30px;margin-top: 0px;font-family: 华文隶书">登录</h1>
+        <h1 style="color:#009688;margin: 30px;margin-top: 0px;font-family: 华文隶书">登&nbsp;&nbsp;&nbsp;&nbsp;录</h1>
         <div style="display: flex;justify-content: center">
             <div class="layui-form">
                 <div class="layui-form-item">
