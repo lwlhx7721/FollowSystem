@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2020-09-22 10:21
  */
 @Service
-public class MenuService implements IMenuService {
+public class MenuServiceImpl implements IMenuService {
     @Autowired
     private IMenuDao menuDao;
 
