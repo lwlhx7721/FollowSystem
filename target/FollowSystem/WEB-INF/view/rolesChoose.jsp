@@ -18,7 +18,7 @@
         </c:forEach>
     </select>
     <br>
-    <button id="btn" value="确定" class="layui-btn"></button>
+    <button id="btn" class="layui-btn">确定</button>
 </div>
 <script>
     $(function () {
