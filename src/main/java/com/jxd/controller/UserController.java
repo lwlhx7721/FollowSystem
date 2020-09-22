@@ -2,9 +2,7 @@ package com.jxd.controller;
 
 import com.jxd.model.Role;
 import com.jxd.model.User;
-import com.jxd.model.UserRoleRelationship;
 import com.jxd.service.IRoleService;
-import com.jxd.service.IUserRoleRelationshipService;
 import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,7 +70,7 @@ public class UserController {
     @ResponseBody
     public String getRole(String roleId,Model model) {
         if (!"0".equals(roleId)) {
-            model.addAttribute("role",roleId);
+            model.addAttribute("role",Integer.parseInt(roleId));
             return "index";
         }
         return "login";

@@ -3,83 +3,43 @@
 <html>
 <head>
     <title>金桥学员成长跟踪系统</title>
+    <link rel="stylesheet" href="../../static/css/index.css">
     <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
-    <style>
-        *{
-            border-radius: 2px;
-        }
-        html,body {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
-            border: 0px;
-            overflow-x: hidden;
-            background-color: #E7E3E7;
-        }
-        #container {
-            width: 100%;
-            height: 620px;
-            background-color: white;
-            margin: 0;
-            border: 0px;
-        }
-        #header {
-            width: 100%;
-            height: 60px;
-            background-image: linear-gradient(to right, #6495ED , #009688);
-        }
-        #body {
-            width: 100%;
-            height: 530px;
-            background-color: #393D49;
-        }
-        #left {
-            width: 15%;
-            height: 565px;
-            background-image: linear-gradient(to bottom, #6495ED,#6495ED, #f0f0f0);
-            float: left;
-        }
-        #right {
-            width: 85%;
-            height: 560px;
-            background-color: #00FF00;
-            float: right;
-        }
-        #footer {
-            width: 100%;
-            height: 30px;
-            background-color: #F0F0F0;
-            text-align: center;
-            padding-top: 5px;
-        }
-        .bluebtn {
-            background-color: #6495ED;
-        }
-        iframe {
-            width: 99%;
-            height: 99%;
-            margin: 1px;
-            overflow-y: hidden;
-        }
-    </style>
+    <script src="../../static/js/jquery-3.3.1.js"></script>
+    <script>
+        $(function () {
+            if (${menus.size() != 0}) {
+                $("#d1").css({'background-color': '#393D49','height':'600px','width':'200px'})
+            } else {
+                $("#d1").css('display','none')
+            }
+
+            $("#btn1").click(function () {
+                $("#d1").animate({width:'toggle'},200);
+            })
+        })
+    </script>
 </head>
 <body>
 <div>
     <ul class="layui-nav layui-bg-cyan">
         <li class="layui-nav-item"><a href="#"><img src="../../static/images/logo.png" alt="" style="width: 60px"></a></li>
         <li class="layui-nav-item"><a href="#"><span style="font-size: 25px;margin-left: 65px">金桥学员成长追踪系统系统</span></a></li>
-        <li class="layui-nav-item" style="float: right"><a href="loginout"><span style="font-size: 16px">退出</span></a></li>
+        <li class="layui-nav-item" style="float: right"><a href="logout"><span style="font-size: 16px">退出</span></a></li>
         <li class="layui-nav-item" style="float: right;margin-right: 50px"><a href=""><span style="font-size: 16px">欢迎你 ${sessionScope.user.userName}</span></a></li>
     </ul>
 </div>
-<div>
+<input type="button" value="《" id="btn1" style="margin-left: 200px">
+<div id="d1" style="float: left">
     <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin-right: 10px;">
-        <c:forEach var="menu" items="menu">
+        <c:forEach var="menu" items="${menus}" >
             <li class="layui-nav-item"><a href="${menu.address}">${menu.menuName}</a></li>
         </c:forEach>
     </ul>
+</div>
+<div style="float: left;background-color: red;width: 1100px;height: 700px">
+    我是工具栏
 </div>
     <script>
         //注意：导航 依赖 element 模块，否则无法进行功能性操作

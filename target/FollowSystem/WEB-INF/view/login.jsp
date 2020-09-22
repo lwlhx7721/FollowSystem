@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jxd.model.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -46,6 +49,10 @@
             left: 40px;
             background-image: url("../../static/images/title.png");
         }
+        .a{
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
     </style>
     <link rel="stylesheet" href="../../static/layui/css/layui.css">
     <script src="../../static/js/jquery-3.3.1.js"></script>
@@ -54,14 +61,14 @@
 <body>
 <div class="layui-carousel" id="container">
     <div carousel-item>
-        <div style="background-image: url('../../static/images/bg2.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg3.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg4.jpg')"></div>
-        <div style="background-image: url('../../static/images/bg5.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg2.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg3.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg4.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/bg5.jpg')"></div>
     </div>
     <div id="title"></div>
     <div id="login">
-        <h1 style="color:#009688;margin: 30px;margin-top: 0px;font-family: 华文隶书">登录</h1>
+        <h1 style="color:#009688;margin: 30px;margin-top: 0px;font-family: 华文隶书">登&nbsp;&nbsp;&nbsp;&nbsp;录</h1>
         <div style="display: flex;justify-content: center">
             <div class="layui-form">
                 <div class="layui-form-item">
@@ -124,14 +131,14 @@
                         layer.msg("用户名不存在");
                     } else if("pwdError" == data){
                         layer.msg("密码错误");
-                    } else if("noRole" == data) {
+                    } else if("noRole"==data) {
                         layer.msg("您没有权限登录系统，请等待系统管理员赋权");
-                    } else if("roleChoose" == data) {
+                    } else if("roleChoose") {
                         layer.open({
                            title:'权限选择'
-                            ,type: 2
+                            ,type:1
                             ,area:'300px'
-                            ,content: "rolesChoose"
+                            ,content:$("#roles")
                         })
                     }
                 },
@@ -141,6 +148,30 @@
             })
         })
     });
+</script>
+<div id="roles">
+    <select name="roles" id="role" layui-verify=requied>
+        <option value="0" selected>
+            请选择
+        </option>
+    <c:forEach items="${requestScope.roles}" var="roles" >
+            <option value="${roles.roleId}">
+                 ${roles.roleName}
+            </option>
+    </c:forEach>
+    </select>
+    <input type="button" id="btn" value="确定" class="layui-btn"></div>
+</div>
+<script>
+    $("#btn").click(function () {
+        $.ajax({
+            url:"roles"
+            ,type:"post"
+            ,data:{
+                roleId:$("#role").val()
+            }
+        })
+    })
 </script>
 </body>
 </html>
