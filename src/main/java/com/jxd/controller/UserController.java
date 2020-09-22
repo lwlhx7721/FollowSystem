@@ -69,7 +69,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping("roles")
+    @RequestMapping("/roles")
     public String getRole(int roleId,Model model) {
         if (roleId != 0) {
             model.addAttribute("role",roleId);
@@ -77,5 +77,10 @@ public class UserController {
         } else {
             return "login";
         }
+    }
+
+    @RequestMapping("/logout")
+    public String loginOut() {
+        return "login";
     }
 }
