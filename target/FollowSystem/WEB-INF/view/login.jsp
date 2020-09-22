@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jxd.model.Role" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -47,6 +51,7 @@
         }
     </style>
     <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <script src="../../static/js/jquery-3.3.1.js"></script>
     <script src="../../static/layui/layui.js"></script>
 </head>
 <body>
@@ -64,7 +69,7 @@
             <div class="layui-form">
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input">
+                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input t">
                     </div>
                 </div>
                 <br><br>
@@ -116,12 +121,22 @@
                 },
                 dataType: "text",
                 success: function (data) {
-                    if("true" == data) {
+                    if("index" == data) {
                         window.location = "index";
                     } else if("userIsNotFound" == data) {
                         layer.msg("用户名不存在");
-                    } else {
+                    } else if("pwdError"){
                         layer.msg("密码错误");
+                    } else if("noRole") {
+                        layer.msg("您没有权限登录系统，请等待系统管理员赋权");
+                    } else if("roleChoose") {
+                        layer.open({
+                           title:'权限选择'
+                            ,type:1
+                            ,area:'300px'
+                            ,content:$("#roles")
+                        })
+                        window.location = "index";
                     }
                 },
                 error:function () {
@@ -130,6 +145,24 @@
             })
         })
     });
+</script>
+<div id="roles">
+    <select name="roles" layui-verify=requied>
+    <c:forEach items="${requestScope.roles}" var="roles" >
+            <option value="${roles.roleName}">
+                 ${roles.roleName}
+            </option>
+    </c:forEach>
+    </select>
+    <input type="button" id="btn" value="确定" class="layui-btn"></div>
+</div>
+<script>
+    $("#btn").click(function () {
+        $.ajax({
+            url:roles
+            ,
+        })
+    })
 </script>
 </body>
 </html>

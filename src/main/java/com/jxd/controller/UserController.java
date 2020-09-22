@@ -64,4 +64,15 @@ public class UserController {
             return "noRole";
         }
     }
+
+    @RequestMapping("roles")
+    @ResponseBody
+    public String getRole(int roleId,Model model) {
+        if (roleId != 0) {
+            model.addAttribute("role",roleId);
+            return "index";
+        } else {
+            return "login";
+        }
+    }
 }
