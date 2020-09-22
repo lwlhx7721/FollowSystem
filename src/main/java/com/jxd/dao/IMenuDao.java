@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IMenuDao {
     /**
-     * 通过rolePower表获取（rolePower.roleId = roeId）符合要求的menuId（多个）
+     * 通过rolePower表获取（rolePower.roleId = menu.roleId）符合要求的menuId（多个）
      * 通过查询出的menuId获取所有的菜单信息
      * @param roleId
      * @return
