@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ZhangXinyun
@@ -20,12 +21,11 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
 
     /**
      * 通过用户id获取用户权限
-     *
      * @param userId 用户id
-     * @return 用户角色关系信息
+     * @return 用户角色分配信息
      */
     @Override
-    public List<UserRoleRelationship> getUserRoleRelationshipByUserId(int userId) {
+    public List<Map<String,Object>> getUserRoleRelationshipByUserId(int userId) {
         return userRoleRelationshipDao.getUserRoleRelationshipByUserId(userId);
     }
 }

@@ -1,7 +1,9 @@
 package com.jxd.controller;
 
+import com.jxd.model.Role;
 import com.jxd.model.User;
 import com.jxd.model.UserRoleRelationship;
+import com.jxd.service.IRoleService;
 import com.jxd.service.IUserRoleRelationshipService;
 import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private IUserRoleRelationshipService userRoleRelationshipService;
+    @Autowired
+    private IRoleService roleService;
 
     /**
      * 获取登录状态，根据用户名密码连接数据库（用户表，用户权限表），正确后生成map对象，
@@ -46,7 +50,7 @@ public class UserController {
         if(pwd == null || !pwd.equals(user.getPwd())) {
             return "pwdError";
         }
-        List<UserRoleRelationship> userRoleRelationship = userRoleRelationshipService.getUserRoleRelationshipByUserId(userId);
+        List<Role> roles = roleService.getRoleByUserId(userId);
         model.addAttribute("user",user);
         if(rememberPwd == 1) {
             Cookie cookie1 = new Cookie("userId",userId + "");
@@ -54,11 +58,11 @@ public class UserController {
             response.addCookie(cookie1);
             response.addCookie(cookie2);
         }
-        if(userRoleRelationship.size() == 1) {
-            model.addAttribute("role",userRoleRelationship.get(0).getRoleId());
+        if(roles.size() == 1) {
+            model.addAttribute("role",roles.get(0).getRoleId());
             return "index";
-        } else if(userRoleRelationship.size() > 1){
-            model.addAttribute("roles",userRoleRelationship);
+        } else if(roles.size() > 1){
+            model.addAttribute("roles",roles);
             return "roleChoose";
         } else {
             return "noRole";
