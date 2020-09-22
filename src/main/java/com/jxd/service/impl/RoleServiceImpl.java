@@ -16,6 +16,14 @@ import java.util.List;
 public class RoleServiceImpl implements IRoleService {
     @Autowired
     private IRoleService roleService;
+
+    /**
+     * 三表连接查询，通过user表userId查询出userrolerelationship
+     * 表中所有的roleId（user.userId = userrolerelationship.userId），
+     * 再将符合要求的roleId当做条件查询出role表的所有信息
+     * @param UserId 用户ID
+     * @return 符合条件的角色信息
+     */
     @Override
     public List<Role> getRoleByUserId(int UserId) {
         return roleService.getRoleByUserId(UserId);
