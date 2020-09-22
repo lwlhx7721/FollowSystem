@@ -73,8 +73,8 @@
                         <input type="password" style="width: 250px; margin-left: 50px" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
                     </div>
                 </div>
+                <input type="checkbox" name="rememberPwd" value="1" checked>下次自动登录
                 <br>
-                <input type="checkbox" name="rememberPwd" value="1">下次自动登录
                 <br>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
@@ -105,22 +105,30 @@
             ,layer = layui.layer
             ,$ = layui.jquery;
         $("#ok").click(function () {
+            var rememberPwd = $("input[name=rememberPwd]:checked").val() == null ? 0 : 1
             $.ajax({
                 type: "post",
                 url:"login",
                 data: {
                     userId: $("#userId").val(),
                     pwd: $("#pwd").val(),
-                    rememberPwd: ($("input[name=rememberPwd]:checked").val() == null ? 0:$("input[name=rememberPwd]:checked").val())
+                    rememberPwd: rememberPwd
                 },
                 dataType: "text",
                 success: function (data) {
-                    if("true" == data) {
+                    if("index" == data) {
                         window.location = "index";
                     } else if("userIsNotFound" == data) {
                         layer.msg("用户名不存在");
-                    } else {
+                    } else if("pwdError"){
                         layer.msg("密码错误");
+                    } else if("noRole") {
+                        layer.msg("您没有权限登录系统，请等待系统管理员赋权");
+                    } else if("roleChoose") {
+                        layer.open({
+
+                        });
+                        window.location = "index";
                     }
                 },
                 error:function () {

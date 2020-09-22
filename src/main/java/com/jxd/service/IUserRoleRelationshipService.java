@@ -2,6 +2,9 @@ package com.jxd.service;
 
 import com.jxd.model.UserRoleRelationship;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author LuWenlong
  * @description Todo
@@ -13,5 +16,5 @@ public interface IUserRoleRelationshipService {
      * @param userId 用户id
      * @return
      */
-    UserRoleRelationship getUserRoleRelationshipByUserId(int userId);
+    List<Map<String,Object>> getUserRoleRelationshipByUserId(int userId);
 }
