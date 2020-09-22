@@ -127,7 +127,7 @@
                     } else if("roleChoose") {
                         layer.open({
 
-                        })
+                        });
                         window.location = "index";
                     }
                 },
