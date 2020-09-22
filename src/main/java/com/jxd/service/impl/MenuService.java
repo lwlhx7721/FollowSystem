@@ -1,5 +1,6 @@
 package com.jxd.service.impl;
 
+import com.jxd.dao.IMenuDao;
 import com.jxd.model.Menu;
 import com.jxd.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class MenuService implements IMenuService {
     @Autowired
-    private IMenuService menuService;
+    private IMenuDao menuDao;
 
     /**
      * 通过rolePower表获取（rolePower.roleId = roeId）符合要求的menuId（多个）
@@ -25,6 +26,6 @@ public class MenuService implements IMenuService {
      */
     @Override
     public List<Menu> getMenuByRoleId(int roleId) {
-        return menuService.getMenuByRoleId(roleId);
+        return menuDao.getMenuByRoleId(roleId);
     }
 }

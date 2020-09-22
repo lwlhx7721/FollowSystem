@@ -1,5 +1,6 @@
 package com.jxd.service.impl;
 
+import com.jxd.dao.IRoleDao;
 import com.jxd.model.Role;
 import com.jxd.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements IRoleService {
     @Autowired
-    private IRoleService roleService;
+    private IRoleDao roleDao;
 
     /**
      * 三表连接查询，通过user表userId查询出userrolerelationship
@@ -26,6 +27,6 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public List<Role> getRoleByUserId(int UserId) {
-        return roleService.getRoleByUserId(UserId);
+        return roleDao.getRoleByUserId(UserId);
     }
 }
