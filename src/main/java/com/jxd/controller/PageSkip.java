@@ -11,12 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageSkip {
-    /**
-     * 跳转到index.jsp页面
-     * @return
-     */
-    @RequestMapping("/index")
-    public String login() {
-        return "index";
-    }
+
 }
