@@ -6,6 +6,8 @@ import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,39 +31,52 @@ public class UserServiceImpl implements IUserService {
         return userDao.getUserByUserId(userId);
     }
 
+    /**
+     * 设置用户登录时间(insert),service层获取现在的系统时间，
+     * 调用dao层的setLoginTime(int userId,String loginTime)
+     * @param userId
+     * @return
+     */
     @Override
     public boolean setLoginTime(int userId) {
-        return false;
+        Date date = new Date();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String insert = sf.format(date);
+        return userDao.setLoginTime(userId, insert);
     }
 
+    /**
+     * 通过用户名和部门获取所有用户
+     * @return 部门id改为部门名，其它与User类一致
+     */
     @Override
     public List<Map<String, Object>> getAllUsers(String userName, int deptId) {
-        return null;
+        return userDao.getAllUsers(userName,deptId);
     }
 
     @Override
     public List<Map<String, Object>> getAllUserByPage(int pageSize, int pageIndex, String userName, int deptId) {
-        return null;
+        return userDao.getAllUserByPage(pageSize,pageIndex,userName,deptId);
     }
 
     @Override
     public boolean addUser(User user) {
-        return false;
+        return userDao.addUser(user);
     }
 
     @Override
     public boolean updUser(User user) {
-        return false;
+        return userDao.updUser(user);
     }
 
     @Override
     public boolean delUserByUserId(int userId) {
-        return false;
+        return userDao.delUserByUserId(userId);
     }
 
     @Override
     public boolean delUsersByUserId(String userIds) {
-        return false;
+        return userDao.delUsersByUserId(userIds);
     }
 
 }

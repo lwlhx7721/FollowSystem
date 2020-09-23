@@ -12,7 +12,28 @@ import java.util.List;
 public interface IDeptService {
     /**
      * 获取所有部门信息
-     * @return
+     * @return 部门信息
      */
     List<Dept> getAllDept();
+
+    /**
+     * 添加部门信息
+     * @param dept 新增部门对象
+     * @return 是否新增成功的标志
+     */
+    boolean addDept(Dept dept);
+
+    /**
+     * 修改部门信息
+     * @param dept 修改部门对象
+     * @return 是否修改成功的标志
+     */
+    boolean updateDept(Dept dept);
+
+    /**
+     * 删除部门信息
+     * @param deptid 部门编号
+     * @return 是否删除成功的标志
+     */
+    boolean delDept(int deptid);
 }
