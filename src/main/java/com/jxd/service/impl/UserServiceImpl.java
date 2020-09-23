@@ -6,6 +6,9 @@ import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author ZhangXinyun
  * @description Todo
@@ -25,4 +28,40 @@ public class UserServiceImpl implements IUserService {
     public User getUserByUserId(int userId) {
         return userDao.getUserByUserId(userId);
     }
+
+    @Override
+    public boolean setLoginTime(int userId) {
+        return false;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllUsers(String userName, int deptId) {
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllUserByPage(int pageSize, int pageIndex, String userName, int deptId) {
+        return null;
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean updUser(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean delUserByUserId(int userId) {
+        return false;
+    }
+
+    @Override
+    public boolean delUsersByUserId(String userIds) {
+        return false;
+    }
+
 }
