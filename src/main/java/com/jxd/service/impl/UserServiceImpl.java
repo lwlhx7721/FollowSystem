@@ -59,7 +59,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<Map<String, Object>> getAllUserByPage(int pageSize, int pageIndex, String userName, int deptId) {
-        return userDao.getAllUserByPage(pageSize,pageIndex,userName,deptId);
+        int index = (pageIndex - 1) * pageSize;
+        return userDao.getAllUserByPage(pageSize,index,userName,deptId);
     }
 
     @Override

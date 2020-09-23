@@ -27,18 +27,19 @@
 <div align="center">
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
-            <input class="layui-input" style="width: 500px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">
+            <input class="layui-input" style="width: 200px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">
         </div>
         <div class="layui-input-inline">
-            <select name="deptId" id="deptId" lay-verify="required">
+            <select name="deptId" id="deptId" style="width: 200px;" lay-verify="required">
                 <option value="0">请选择部门查找</option>
                 <c:forEach items="${deptList}" var="dept">
                     <option value="${dept.deptId}">${dept.deptName}</option>
                 </c:forEach>
             </select>
         </div>
-        <button class="layui-btn" style="width: 200px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
-        <button class="layui-btn" style="width: 200px;background-color: skyblue;margin-left: 200px;" data-type="add">添加</button>
+        <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
+        <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
+        <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>
     </div>
     <table class="layui-hide" id="userList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
@@ -89,10 +90,11 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'numbers',title: '序号'}
-                ,{field:'id',title:'学号',sort:true}
+                {type:'checkbox',width:'10%'}
+                ,{type:'numbers',title: '序号'}
+                ,{field:'userId',title:'学号',sort:true}
                 ,{field:'userName',title: '用户名'}
-                ,{field:'telePhone',title: '座机'}
+                ,{field:'telephone',title: '座机'}
                 ,{field:'phone',title: '手机号'}
                 ,{field:'email',title: '邮箱'}
                 ,{field:'loginTime',title:'上次登录时间'}

@@ -10,50 +10,50 @@
     </sql>
     <select id="getUserByUserId" resultType="User">
         <include refid="baseSql"></include>
-        where userid = #{userid}
+        where userid = #{userId}
     </select>
     <update id="setLoginTime">
-        UPDATE `user`
+        UPDATE followsystem.user
         SET loginTime=#{loginTime}
         WHERE userId=#{userId}
     </update>
     <select id="getAllUsers" resultType="Map">
         SELECT u.userId,u.userName,u.pwd,u.telephone,u.phone,u.email,u.note,u.flag,u.loginTime,d.deptName
-        FROM `user` u
+        FROM followsystem.user u
         LEFT JOIN dept d
         ON u.deptId=d.deptId
         <where>
-            <if test="u.userName != null and u.userName !=''">
+            <if test="userName !=''">
                 u.userName like concat('%', #{userName}, '%')
             </if>
-            <if test="u.deptId != null and u.deptId !=''">
-                u.deptId=#{deptId}
+            <if test="deptId != 0">
+                and u.deptId = #{deptId}
             </if>
         </where>
     </select>
 
     <select id="getAllUserByPage" resultType="Map">
         SELECT u.userId,u.userName,u.pwd,u.telephone,u.phone,u.email,u.note,u.flag,u.loginTime,d.deptName
-        FROM `user` u
+        FROM followsystem.user u
         LEFT JOIN dept d
         ON u.deptId=d.deptId
         <where>
-            <if test="u.userName != null and u.userName !=''">
+            <if test="userName !=''">
                 u.userName like concat('%', #{userName}, '%')
             </if>
-            <if test="u.deptId != null and u.deptId !=''">
-                u.deptId=#{deptId}
+            <if test="deptId != 0">
+                and u.deptId=#{deptId}
             </if>
         </where>
         order by u.userId
         limit #{pageIndex},#{pageSize}
     </select>
     <insert id="addUser">
-        INSERT INTO `user`(userName,pwd,telephone,phone,email,note,deptId)
+        INSERT INTO followsystem.user(userName,pwd,telephone,phone,email,note,deptId)
         VALUES (#{userName},#{pwd},#{telephone},#{phone},#{email},#{note},#{deptId})
     </insert>
     <update id="updUser">
-        UPDATE `user`
+        UPDATE followsystem.user
         SET userName=#{userName}
         ,pwd=#{pwd}
         ,telephone=#{telephone}
@@ -66,16 +66,12 @@
 
     <!--boolean delUserByUserId(int userId);-->
     <delete id="delUserByUserId">
-        delete from user where userId = #{userId}
+        delete from followsystem.user where userId = #{userId}
     </delete>
 
     <!--boolean delUsersByUserId(String userIds);-->
     <delete id="delUsersByUserId">
-        delete from user where userId in ${userIds}
+        delete from followsystem.user where userId in ${userIds}
     </delete>
-    <delete id="delUsersByUserId">
-        DELETE from `user` WHERE userId in #{userIds}
-    </delete>
-
 
 </mapper>

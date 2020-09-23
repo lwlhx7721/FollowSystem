@@ -1,6 +1,7 @@
 package com.jxd.dao;
 
 import com.jxd.model.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -29,13 +30,13 @@ public interface IUserDao {
      * 通过用户名和部门获取所有用户
      * @return 部门id改为部门名，其它与User类一致
      */
-    List<Map<String,Object>> getAllUsers(String userName, int deptId);
+    List<Map<String,Object>> getAllUsers(@Param("userName") String userName,@Param("deptId") int deptId);
 
     /**
      * 通过用户名和部门获取所有用户分页查询
      * @return 部门id改为部门名，其它与User类一致
      */
-    List<Map<String,Object>> getAllUserByPage(int pageSize,int pageIndex,String userName,int deptId);
+    List<Map<String,Object>> getAllUserByPage(@Param("pageSize") int pageSize,@Param("pageIndex") int pageIndex,@Param("userName") String userName,@Param("deptId") int deptId);
 
     /**
      * 添加用户（userId，flag，loginTime不作添加）

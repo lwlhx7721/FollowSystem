@@ -41,13 +41,13 @@
         </c:if>
         <div id="right">
             <div id="body">
-                <div style="background-color: red">
+                <%--<div style="background-color: red">
                     <c:if test="${menus.size() != 0}">
                         <input type="button" value="《" id="btn1">
                     </c:if>
                     我是工具栏
-                </div>
-                <iframe src="userList" frameborder="0" ></iframe>
+                </div>--%>
+                <iframe src="userList" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
