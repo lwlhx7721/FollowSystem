@@ -17,6 +17,6 @@
 
     <!--boolean delUserRoleRelationshipsByUserId(String userIds);-->
     <delete id="delUserRoleRelationshipsByUserId">
-        delete from userrolerrelationship where userId = ${userIds}
+        delete from userrolerrelationship where userId in ${userIds}
     </delete>
 </mapper>

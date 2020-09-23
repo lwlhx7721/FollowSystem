@@ -31,6 +31,8 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IDeptService deptService;
 
     /**
      *
@@ -88,10 +90,11 @@ public class UserController {
 
     @RequestMapping("/getUserList")
     @ResponseBody
-    public ListData getUserList(int limit, int page, String name, int deptId) {
+    public ListData getUserList(int limit, int page, String name, String deptId) {
         String username = name == null ? "" : name;
-        List<Map<String, Object>> userList = userService.getAllUserByPage(limit,page,username,deptId);
-        int size = userService.getAllUsers(username,deptId).size();
+        int dpId = deptId == null ? 0 : Integer.parseInt(deptId);
+        List<Map<String, Object>> userList = userService.getAllUserByPage(limit,page,username,dpId);
+        int size = userService.getAllUsers(username,dpId).size();
         ListData userData = new ListData(size,userList);
         return userData;
     }
@@ -106,8 +109,9 @@ public class UserController {
     }
 
     @RequestMapping("/userList")
-    public String userList() {
-        return "userList";
+    public String userList(Model model) {
+        model.addAttribute("deptList",deptService.getAllDept());
+        return "user/userList";
     }
 
 }
