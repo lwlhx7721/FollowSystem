@@ -30,7 +30,7 @@ public interface ICourseDao {
      * @param course 课程信息
      * @return 是否成功
      */
-    String updCourse(Course course);
+    boolean updCourse(Course course);
 
     /**
      * 根据课程编号删除课程

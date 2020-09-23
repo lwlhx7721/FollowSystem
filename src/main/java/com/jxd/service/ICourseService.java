@@ -29,7 +29,7 @@ public interface ICourseService {
      * @param course 课程
      * @return 是否成功
      */
-    String updCourse(Course course);
+    boolean updCourse(Course course);
 
     /**
      * 根据课程编号删除课程

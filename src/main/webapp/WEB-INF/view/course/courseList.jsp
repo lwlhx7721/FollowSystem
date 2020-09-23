@@ -67,7 +67,7 @@
                 layer.open({
                     type: 2,
                     title: "新增课程",
-                    content: "addCourse",
+                    content:'addcourse',
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
@@ -105,15 +105,20 @@
             var data = obj.data;
             //查看消息
             if(obj.event == 'udp'){
-                layer.open({
-                    type:2,
-                    content:"updCourse?courseId=" + data.courseId,
-                    title:"编辑课程信息",
-                    area:['800px','500px'],//设置弹框的宽高
-                }),
-                    table.reload("courseList",  {
-                        url:"getCourseList"
+                var checkStatus = table.checkStatus("courseList").data;
+                if (checkStatus.length != 1) {
+                    layer.msg("请选择一条要修改的数据");
+                    return;
+                }else {
+                    layer.open({
+                        type: 2,
+                        content: "updcourse?courseId=" + data.courseId,
+                        title: "编辑课程信息",
+                        area: ['800px', '500px'],//设置弹框的宽高
+                    }), table.reload("courseList", {
+                        url: "getCourseList"
                     })
+                }
             } else if(obj.event == 'del'){
                 //删除消息
                 var checkStatus = table.checkStatus("courseList").data;
@@ -124,9 +129,9 @@
                     layer.confirm('确定删除吗', '删除指令', function(){
                         $.ajax({
                             type: "post",
-                            url: "delCourse",
+                            url: "delCourse?courseId=" + data.courseId,
                             data: {
-                                courseId: data.courseId
+                                courseId: data.courseId,
                             },
                             dataType: "text",
                             success: function(data) {

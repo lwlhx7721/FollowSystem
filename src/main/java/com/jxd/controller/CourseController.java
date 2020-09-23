@@ -2,7 +2,6 @@ package com.jxd.controller;
 
 import com.jxd.model.Course;
 import com.jxd.model.ListData;
-import com.jxd.model.User;
 import com.jxd.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,15 +49,17 @@ public class CourseController {
     public boolean addCourse(Course course){
         return courseService.addCourse(course);
     }
+
     /**
      * 根据课程编号删除课程
      * @param course 课程
      * @return 是否成功
      */
-    @RequestMapping("/delCourse")
+    @RequestMapping(value = "delCourse",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String delCourse(Course course){
-        if (course.getCourseId()==1){
+        int a = course.getCourseState();
+        if (course.getCourseState()==1){
          return "该课程已选，无法删除";
         }else {
             boolean flag = courseService.delCourse(course.getCourseId());
@@ -69,12 +70,19 @@ public class CourseController {
             }
         }
     }
+
+    @RequestMapping("/updcourse")
+    public String updCourse(int courseId,Model model){
+        model.addAttribute("course",courseService.getCourse(courseId));
+        return "course/updcourse";
+    }
+
     @RequestMapping("/updCourse")
     @ResponseBody
-    public String updCourse(int courseId,Model model){
-        Course course = courseService.getCourse(courseId);
-        model.addAttribute("course",course);
-
-        return "";
+    public boolean updCourse(Course course) {
+        if (course.getCourseName()==null){
+            return false;
+        }
+        return courseService.updCourse(course);
     }
 }

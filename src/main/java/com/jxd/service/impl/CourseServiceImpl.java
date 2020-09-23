@@ -43,7 +43,7 @@ public class CourseServiceImpl implements ICourseService {
      * @return 是否成功
      */
     @Override
-    public String updCourse(Course course) {
+    public boolean updCourse(Course course) {
         return courseDao.updCourse(course);
     }
     /**

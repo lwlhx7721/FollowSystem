@@ -26,8 +26,8 @@
     </select>
 
     <insert id="addCourse">
-       INSERT INTO course(coursename,coursestate)
-       VALUES (#{courseName},0)
+       INSERT INTO course(courseName,courseState)
+       VALUES (#{courseName},#{courseState})
    </insert>
     <update id="updCourse">
         UPDATE course SET coureseName=#{courseName},courseState=#{courseState}
