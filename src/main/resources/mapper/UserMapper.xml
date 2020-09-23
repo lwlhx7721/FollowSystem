@@ -73,5 +73,9 @@
     <delete id="delUsersByUserId">
         delete from user where userId in ${userIds}
     </delete>
+    <delete id="delUsersByUserId">
+        DELETE from `user` WHERE userId in #{userIds}
+    </delete>
+
 
 </mapper>
