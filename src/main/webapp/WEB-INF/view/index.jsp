@@ -47,9 +47,9 @@
                     </c:if>
                     我是工具栏
                 </div>
-                <iframe src="" frameborder="0"></iframe>
+                <iframe src="userList" frameborder="0" ></iframe>
             </div>
-            <div id="footer"></div>
+            <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
     </div>
     <script>

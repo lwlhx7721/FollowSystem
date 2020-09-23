@@ -1,7 +1,9 @@
 package com.jxd.controller;
 
+import com.jxd.model.ListData;
 import com.jxd.model.Role;
 import com.jxd.model.User;
+import com.jxd.service.IDeptService;
 import com.jxd.service.IRoleService;
 import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LuWenlong
@@ -30,11 +33,12 @@ public class UserController {
     private IRoleService roleService;
 
     /**
-     * 获取登录状态，根据用户名密码连接数据库（用户表，用户权限表），正确后生成map对象，
-     * 存（用户对象，用户权限对象），存到session里面，完善后修改注释
-     * @param userId 前台传递的用户名
-     * @param pwd 前台传递密码
+     *
+     * @param userId
+     * @param pwd
+     * @param rememberPwd
      * @param model
+     * @param response
      * @return
      */
     @RequestMapping("/login")
@@ -81,4 +85,29 @@ public class UserController {
         request.getSession().removeAttribute("user");
         return "login";
     }
+
+    @RequestMapping("/getUserList")
+    @ResponseBody
+    public ListData getUserList(int limit, int page, String name, int deptId) {
+        String username = name == null ? "" : name;
+        List<Map<String, Object>> userList = userService.getAllUserByPage(limit,page,username,deptId);
+        int size = userService.getAllUsers(username,deptId).size();
+        ListData userData = new ListData(size,userList);
+        return userData;
+    }
+
+    @RequestMapping("/updUser")
+    @ResponseBody
+    public boolean updUsers(User user) {
+        if(user.getUserName() == null) {
+            return false;
+        }
+        return userService.updUser(user);
+    }
+
+    @RequestMapping("/userList")
+    public String userList() {
+        return "userList";
+    }
+
 }

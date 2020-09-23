@@ -1,6 +1,7 @@
 package com.jxd.service.impl;
 
 import com.jxd.dao.IUserDao;
+import com.jxd.dao.IUserRoleRelationshipDao;
 import com.jxd.model.User;
 import com.jxd.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
+    @Autowired
+    private IUserRoleRelationshipDao userRoleRelationshipDao;
 
     /**
      * 通过用户id获取用户信息
@@ -71,11 +74,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean delUserByUserId(int userId) {
+        userRoleRelationshipDao.delUserRoleRelationshipByUserId(userId);
         return userDao.delUserByUserId(userId);
     }
 
     @Override
     public boolean delUsersByUserId(String userIds) {
+        userRoleRelationshipDao.delUserRoleRelationshipsByUserId(userIds);
         return userDao.delUsersByUserId(userIds);
     }
 
