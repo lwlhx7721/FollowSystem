@@ -12,4 +12,14 @@
         <include refid="baseSql"></include>
         where userid = #{userid}
     </select>
+
+    <!--boolean delUserByUserId(int userId);-->
+    <delete id="delUserByUserId">
+        delete from user where userId = #{userId}
+    </delete>
+
+    <!--boolean delUsersByUserId(String userIds);-->
+    <delete id="delUsersByUserId">
+        delete from user where userId in ${userIds}
+    </delete>
 </mapper>
