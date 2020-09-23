@@ -34,7 +34,7 @@
             <div id="left">
                 <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin: 5px;">
                     <c:forEach var="menu" items="${menus}" >
-                        <li class="layui-nav-item"><a href="${menu.address}">${menu.menuName}</a></li>
+                        <li class="layui-nav-item"><a href="${menu.address}" target="main">${menu.menuName}</a></li>
                     </c:forEach>
                 </ul>
             </div>

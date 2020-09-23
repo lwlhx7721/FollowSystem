@@ -99,19 +99,46 @@ public class UserController {
         return userData;
     }
 
-    @RequestMapping("/updUser")
-    @ResponseBody
-    public boolean updUsers(User user) {
-        if(user.getUserName() == null) {
-            return false;
-        }
-        return userService.updUser(user);
-    }
-
     @RequestMapping("/userList")
     public String userList(Model model) {
         model.addAttribute("deptList",deptService.getAllDept());
         return "user/userList";
     }
 
+    @RequestMapping("/adduser")
+    public String adduser(Model model) {
+        model.addAttribute("deptList",deptService.getAllDept());
+        return "user/adduser";
+    }
+
+    @RequestMapping("/addUser")
+    @ResponseBody
+    public boolean addUser(User user) {
+        return userService.addUser(user);
+    }
+
+    @RequestMapping("/upduser")
+    public String upduser(int userId, Model model) {
+        model.addAttribute("upduser",userService.getUserByUserId(userId));
+        model.addAttribute("deptList",deptService.getAllDept());
+        return "user/upduser";
+    }
+
+    @RequestMapping("/updUser")
+    @ResponseBody
+    public boolean updUser(User user) {
+        if(user.getUserName() == null) {
+            return false;
+        }
+        return userService.updUser(user);
+    }
+
+    @RequestMapping("/delUser")
+    @ResponseBody
+    public boolean delUser(String userId) {
+        if(userId == null) {
+            return false;
+        }
+        return userService.delUserByUserId(Integer.parseInt(userId));
+    }
 }

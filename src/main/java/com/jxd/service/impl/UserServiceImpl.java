@@ -76,7 +76,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean delUserByUserId(int userId) {
         userRoleRelationshipDao.delUserRoleRelationshipByUserId(userId);
-        return userDao.delUserByUserId(userId);
+        boolean isDel = userDao.delUserByUserId(userId);
+        return isDel;
     }
 
     @Override
