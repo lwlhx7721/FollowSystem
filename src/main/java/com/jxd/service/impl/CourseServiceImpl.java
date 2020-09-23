@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author WangLingzhe
@@ -31,18 +32,19 @@ public class CourseServiceImpl implements ICourseService {
      * @return 课程集合
      */
     @Override
-    public List<Course> getAllCourse() {
-        return courseDao.getAllCourse();
+    public List<Map<String, Object>> getAllCourseByPage(int pageSize, int pageIndex, String courseName) {
+        return courseDao.getAllCourseByPage(pageSize,pageIndex,courseName);
     }
+
 
     /**
      * 根据课程编号修改课程名或课程状态
-     * @param courseId 课程编号
+     * @param course 课程
      * @return 是否成功
      */
     @Override
-    public boolean updCourse(int courseId) {
-        return courseDao.updCourse(courseId);
+    public String updCourse(Course course) {
+        return courseDao.updCourse(course);
     }
     /**
      * 根据课程编号删除课程
@@ -52,5 +54,13 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public boolean delCourse(int courseId) {
         return courseDao.delCourse(courseId);
+    }
+    /**
+     *遍历所有的课程
+     * @return 课程集合
+     */
+    @Override
+    public Course getCourse(int courseId) {
+        return courseDao.getCourse(courseId);
     }
 }

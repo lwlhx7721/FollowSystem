@@ -1,8 +1,10 @@
 package com.jxd.dao;
 
 import com.jxd.model.Course;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author WangLingzhe
@@ -18,17 +20,17 @@ public interface ICourseDao {
     boolean addCourse(Course course);
 
     /**
-     * 遍历所有课程
+     * 遍历所有课程，分页
      * @return 课程集合
      */
-    List<Course> getAllCourse();
+    List<Map<String,Object>> getAllCourseByPage(@Param("pageSize") int pageSize, @Param("pageIndex") int pageIndex, @Param("courseName") String courseName);
 
     /**
      * 根据课程编号修改课程名或课程状态
-     * @param courseId 课程编号
+     * @param course 课程信息
      * @return 是否成功
      */
-    boolean updCourse(int courseId);
+    String updCourse(Course course);
 
     /**
      * 根据课程编号删除课程
@@ -36,4 +38,11 @@ public interface ICourseDao {
      * @return 是否成功
      */
     boolean delCourse(int courseId);
+
+    /**
+     * 根据id获取课程信息
+     * @param courseId 课程编号
+     * @return
+     */
+    Course getCourse(int courseId);
 }

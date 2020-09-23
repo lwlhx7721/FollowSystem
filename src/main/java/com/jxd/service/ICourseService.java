@@ -3,6 +3,7 @@ package com.jxd.service;
 import com.jxd.model.Course;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author WangLingzhe
@@ -21,14 +22,14 @@ public interface ICourseService {
      * 遍历所有课程
      * @return 课程集合
      */
-    List<Course> getAllCourse();
+    List<Map<String,Object>> getAllCourseByPage(int pageSize, int pageIndex, String courseName);
 
     /**
      * 根据课程编号修改课程名或课程状态
-     * @param courseId 课程编号
+     * @param course 课程
      * @return 是否成功
      */
-    boolean updCourse(int courseId);
+    String updCourse(Course course);
 
     /**
      * 根据课程编号删除课程
@@ -36,4 +37,10 @@ public interface ICourseService {
      * @return 是否成功
      */
     boolean delCourse(int courseId);
+
+    /**
+     *遍历所有的课程
+     * @return 课程集合
+     */
+    Course getCourse(int courseId);
 }
