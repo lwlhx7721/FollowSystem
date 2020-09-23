@@ -8,4 +8,15 @@
        INSERT INTO course(coursename,coursestate)
        VALUES (#{courseName},0)
    </insert>
+    <select id="getAllCourse" resultType="course">
+        SELECT courseId,courseName,courseState
+        FROM course
+    </select>
+    <update id="updCourse">
+        UPDATE course SET coureseName=#{courseName},courseState=#{courseState}
+        WHERE courseId=#{courseId}
+    </update>
+    <delete id="delCourse">
+        DELETE FROM course WHERE courseId=#{courseId}
+    </delete>
 </mapper>
