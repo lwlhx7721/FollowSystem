@@ -66,5 +66,9 @@
     <delete id="delUserByUserId">
         DELETE from `user` WHERE userId = #{userId}
     </delete>
+    <delete id="delUsersByUserId">
+        DELETE from `user` WHERE userId in #{userIds}
+    </delete>
+
 
 </mapper>
