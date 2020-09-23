@@ -31,6 +31,8 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IDeptService deptService;
 
     /**
      *
@@ -106,8 +108,9 @@ public class UserController {
     }
 
     @RequestMapping("/userList")
-    public String userList() {
-        return "userList";
+    public String userList(Model model) {
+        model.addAttribute("deptList",deptService.getAllDept());
+        return "user/userList";
     }
 
 }

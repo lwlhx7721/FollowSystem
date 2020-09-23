@@ -28,12 +28,19 @@
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
             <input class="layui-input" style="width: 500px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">
-
+        </div>
+        <div class="layui-input-inline">
+            <select name="deptId" id="deptId" lay-verify="required">
+                <option value="0">请选择部门查找</option>
+                <c:forEach items="${deptList}" var="dept">
+                    <option value="${dept.deptId}">${dept.deptName}</option>
+                </c:forEach>
+            </select>
         </div>
         <button class="layui-btn" style="width: 200px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
-        <button class="layui-btn" style="width: 200px;background-color: skyblue;margin-left: 200px;" data-type="add">增加</button>
+        <button class="layui-btn" style="width: 200px;background-color: skyblue;margin-left: 200px;" data-type="add">添加</button>
     </div>
-    <table class="layui-hide" id="studentList"  lay-filter="demo" lay-skin="nob"></table>
+    <table class="layui-hide" id="userList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
@@ -52,11 +59,13 @@
             reload: function(){
                 //获取查询框的值
                 var name = $('#name').val();
+                var deptId = $('#deptId').val();
                 //执行重载
-                table.reload('studentList', {
-                    url:'getAllStudentList'
+                table.reload('userList', {
+                    url:'getUserList'
                     ,where: {
-                        name:name
+                        name: name,
+                        deptId: deptId
                     },
                     page: {
                         curr: 1 //重新从第 1 页开始
@@ -66,8 +75,8 @@
             add:function() {
                 layer.open({
                     type: 2,
-                    title: "新增学生",
-                    content: "addStudent",
+                    title: "新增用户",
+                    content: "addUser",
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
@@ -75,24 +84,19 @@
         };
 
         table.render({
-            elem: '#studentList'//对应table的id属性
-            ,url:'getAllStudentList'
+            elem: '#userList'//对应table的id属性
+            ,url:'getUserList'
             ,width: 1150
             ,height: 480
             ,cols: [[
                 {type:'numbers',title: '序号'}
                 ,{field:'id',title:'学号',sort:true}
-                ,{field:'name',title: '姓名'}
-                ,{field:'sex',title:'性别',templet:function (d) {
-                        if(d.sex == 0) {
-                            return "女";
-                        } else {
-                            return "男";
-                        }
-                    }}
-                ,{field:'birthday',title:'出生年月',sort:true}
-                ,{field:'grade',title:'入学时间',sort:true}
-                ,{field:'collegename',title:'学院',sort:true}
+                ,{field:'userName',title: '用户名'}
+                ,{field:'telePhone',title: '座机'}
+                ,{field:'phone',title: '手机号'}
+                ,{field:'email',title: '邮箱'}
+                ,{field:'loginTime',title:'上次登录时间'}
+                ,{field:'deptName',title:'部门',sort:true}
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
@@ -106,7 +110,7 @@
                     "data": res.list //解析数据列表
                 };
             }
-            ,id: 'studentList'
+            ,id: 'userList'
         });
         //监听工具条
         table.on('tool(demo)', function(obj){
@@ -115,21 +119,21 @@
             if(obj.event == 'udp'){
                 layer.open({
                     type:2,
-                    content:"updStudent?id=" + data.id,
+                    content:"updUser?userId=" + data.userId,
                     title:"编辑学生信息",
                     area:['800px','500px'],//设置弹框的宽高
                 }),
-                    table.reload("studentList",  {
-                        url:"getAllStudentList"
+                    table.reload("userList",  {
+                        url:"getUserList"
                     })
             } else if(obj.event == 'del'){
                 //删除消息
                 layer.confirm('确定删除吗', '删除指令', function(){
                     $.ajax({
                         type: "post",
-                        url: "delStudentById",
+                        url: "delUserById",
                         data: {
-                            id: data.id
+                            userId: data.userId
                         },
                         dataType: "text",
                         success: function(data) {
@@ -138,8 +142,8 @@
                             } else {
                                 layer.msg("删除失败");
                             }
-                            table.reload("studentList",  {
-                                url: "getAllStudentList"
+                            table.reload("userList",  {
+                                url: "getUserList"
                             })
                         },
                         error: function (data) {
