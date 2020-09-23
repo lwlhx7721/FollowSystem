@@ -43,4 +43,10 @@ public interface ICourseService {
      * @return 课程集合
      */
     Course getCourse(int courseId);
+
+    /**
+     * 获得所有课程信息
+     * @return 结果集
+     */
+    List<Course> getAllCourse();
 }

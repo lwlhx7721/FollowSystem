@@ -41,13 +41,27 @@ public class CourseController {
 
     /**
      * 添加课程信息
-     * @param course 课程
+     * @param
      * @return 是否成功
      */
+    @RequestMapping("/addcourse")
+    public String addCourse(){
+        return "course/addcourse";
+    }
     @RequestMapping("/addCourse")
     @ResponseBody
-    public boolean addCourse(Course course){
-        return courseService.addCourse(course);
+    public String addCourse(Course course){
+        List<Course> list = courseService.getAllCourse();
+        String isAdd = null;
+        for(Course course1 : list){
+            if (course1.getCourseName().equals(course.getCourseName())){
+                isAdd = "已有相同课程";
+                return isAdd;
+            }
+        }
+            courseService.addCourse(course);
+            isAdd ="新增成功";
+            return isAdd;
     }
 
     /**
@@ -80,7 +94,7 @@ public class CourseController {
     @RequestMapping("/updCourse")
     @ResponseBody
     public boolean updCourse(Course course) {
-        if (course.getCourseName()==null){
+        if (course.getCourseName() == null){
             return false;
         }
         return courseService.updCourse(course);

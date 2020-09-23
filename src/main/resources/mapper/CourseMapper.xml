@@ -28,11 +28,14 @@
     <insert id="addCourse">
        INSERT INTO course(courseName,courseState)
        VALUES (#{courseName},#{courseState})
-   </insert>
+     </insert>
+
     <update id="updCourse">
-        UPDATE course SET coureseName=#{courseName},courseState=#{courseState}
-        WHERE courseId=#{courseId}
+        UPDATE course
+        SET couresename=#{coursename},coursentate=#{coursestate}
+        WHERE courseid=#{courseid}
     </update>
+
     <delete id="delCourse">
         DELETE FROM course WHERE courseId=#{courseId}
     </delete>
@@ -41,5 +44,10 @@
         SELECT courseId,courseName,coursestate
         FROM course
         WHERE courseId=#{courseId}
+    </select>
+
+    <select id="getAllCourse" resultType="Course">
+         SELECT courseId,courseName,coursestate
+            FROM course
     </select>
 </mapper>

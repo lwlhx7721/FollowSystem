@@ -45,4 +45,10 @@ public interface ICourseDao {
      * @return
      */
     Course getCourse(int courseId);
+
+    /**
+     * 获得所有课程信息
+     * @return 结果集
+     */
+    List<Course> getAllCourse();
 }

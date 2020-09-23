@@ -63,4 +63,12 @@ public class CourseServiceImpl implements ICourseService {
     public Course getCourse(int courseId) {
         return courseDao.getCourse(courseId);
     }
+    /**
+     * 获得所有课程信息
+     * @return 结果集
+     */
+    @Override
+    public List<Course> getAllCourse() {
+        return courseDao.getAllCourse();
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
+一 个mapper相当于一个dao接口的实现类 -->
+<mapper namespace="com.jxd.dao.IScoreDao">
+    <select id="getAllScoreByPage" resultType="Map">
+        SELECT a.stuid,a.stuname,co.coursename,a.score
+        FROM(SELECT c.stuid,s.stuname,c.score,c.courseid
+            FROM score c
+            LEFT JOIN student s
+            on c.stuid = s.stuid)a
+        LEFT JOIN course co
+        ON a.courseid = co.courseid
+        <where>
+            <if test="stuName !=''">
+                stuName like concat('%', #{stuName}, '%')
+            </if>
+        </where>
+        order by stuId
+        limit #{pageIndex},#{pageSize}
+    </select>
+</mapper>

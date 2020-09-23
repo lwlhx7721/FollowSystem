@@ -43,12 +43,8 @@
                 },
                 dataType: "text",
                 success: function (data) {
-                    if("true" == data) {
-                        layer.msg("新增成功");
+                        layer.msg(data);
                         setTimeout('closeLayer();',1000);
-                    } else {
-                        layer.msg("新增失败");
-                    }
                 },
                 error:function () {
                     layer.msg("执行失败");
