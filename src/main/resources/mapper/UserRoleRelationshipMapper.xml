@@ -12,11 +12,11 @@
 
     <!-- boolean delUserRoleRelationshipByUserId(int userId);-->
     <delete id="delUserRoleRelationshipByUserId">
-        delete from userrolerrelationship where userId = #{userId}
+        delete from userrolerelationship where userId = #{userId}
     </delete>
 
     <!--boolean delUserRoleRelationshipsByUserId(String userIds);-->
     <delete id="delUserRoleRelationshipsByUserId">
-        delete from userrolerrelationship where userId in ${userIds}
+        delete from userrolerelationship where userId in ${userIds}
     </delete>
 </mapper>
