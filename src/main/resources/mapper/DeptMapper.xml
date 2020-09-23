@@ -3,27 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
 一 个mapper相当于一个dao接口的实现类 -->
-<mapper namespace="com.jxd.dao.IDeptDao">
-  <!--  boolean addDept(Dept dept);-->
-    <insert id="addDept">
-        insert into dept(deptid,deptname,deptaddress)
-        values (#{deptId},#{deptName},#{deptAddress})
-    </insert>
-
-<!--    boolean updateDept(Dept dept);-->
-    <update id="updateDept">
-        update dept set deptname = #{deptName},deptaddress = #{deptAddress}
-        where deptid = #{deptid}
-    </update>
-<!--    boolean delDept(int deptid);-->
-    <delete id="delDept">
-        delete from dept where deptid = #{deptid}
-    </delete>
-  <!--  List<Dept> getAllDept();-->
-    <select id="getAllDept" resultType="Dept">
-        select deptid,deptname,deptaddress from dept
+<mapper namespace="com.jxd.dao.IMenuDao">
+    <!--List<Dept> getAllDept();-->
+    <select id="getAllDept()" resultType="Dept">
+        select deptid, deptname, deptaddress from dept
     </select>
-
-
-    
 </mapper>
