@@ -17,4 +17,18 @@ public interface IUserRoleRelationshipDao {
      * @return
      */
     List<Map<String,Object>> getUserRoleRelationshipByUserId(int userId);
+
+    /**
+     * 删除userId为此的用户角色分配表中的信息
+     * @param userId
+     * @return
+     */
+    boolean delUserRoleRelationshipByUserId(int userId);
+
+    /**
+     * 批量删除
+     * @param userIds
+     * @return
+     */
+    boolean delUserRoleRelationshipsByUserId(String userIds);
 }
