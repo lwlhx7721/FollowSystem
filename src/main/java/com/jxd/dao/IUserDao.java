@@ -19,7 +19,7 @@ public interface IUserDao {
     User getUserByUserId(int userId);
 
     /**
-     * 设置用户登录时间(insert)
+     * 设置用户登录时间(update)
      * @param userId
      * @return
      */

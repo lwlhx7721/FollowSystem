@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageSkip {
+
     @RequestMapping("/rolesChoose")
     public String rolesChoose() {
         return "rolesChoose";
     }
+
 }
