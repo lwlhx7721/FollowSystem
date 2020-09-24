@@ -23,7 +23,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
-                        <dd><a id="resetpwd">修改密码</a></dd>
+                        <dd><a id="reset">修改个人信息</a></dd>
                         <dd><a href="logout">退出</a></dd>
                     </dl>
                 </li>
@@ -62,8 +62,14 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#resetpwd").click(function () {
-
+            $("#reset").click(function () {
+                layer.open({
+                    type: 2,
+                    title: "修改信息",
+                    content: "upduser?userId=" + data.userId,
+                    area: ['800px', '500px'],//设置弹框的宽高
+                    shadeClose: true //点击遮罩是否关闭弹窗
+                })
             })
         });
     </script>

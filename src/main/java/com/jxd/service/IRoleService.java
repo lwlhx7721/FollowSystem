@@ -1,5 +1,6 @@
 package com.jxd.service;
 
+import com.jxd.model.Dept;
 import com.jxd.model.Role;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface IRoleService {
      * @return
      */
     List<Role> getRoleByUserId(int UserId);
+
+    /**
+     * 获取所有身份信息
+     * @return 身份信息
+     */
+    List<Role> getAllRole();
 }

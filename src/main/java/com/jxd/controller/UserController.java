@@ -34,6 +34,7 @@ public class UserController {
     @Autowired
     private IDeptService deptService;
 
+
     /**
      *
      * @param userId
@@ -146,4 +147,37 @@ public class UserController {
     public boolean delUsers(String userIds) {
         return userService.delUsersByUserId(userIds);
     }
+
+    @RequestMapping("/getPwdList")
+    @ResponseBody
+    public ListData getPwdList(int limit, int page, String name, String roleId) {
+        String username = name == null ? "" : name;
+        int roId = roleId == null ? 0 : Integer.parseInt(roleId);
+        List<Map<String, Object>> userList = userService.getAllUserByRole(limit,page,username,roId);
+        int size = userService.getAllUsers(username,roId).size();
+        ListData userData = new ListData(size,userList);
+        return userData;
+    }
+
+    @RequestMapping("/pwdList")
+    public String pwdList(Model model) {
+        model.addAttribute("roleList",roleService.getAllRole());
+        return "user/pwdList";
+    }
+
+
+    @RequestMapping("/updpwd")
+    public String updpwd(int userId, Model model) {
+        model.addAttribute("upduser",userService.getUserByUserId(userId));
+        return "user/updpwd";
+    }
+    @RequestMapping("/updPwd")
+    @ResponseBody
+    public boolean updPwd(User user) {
+        if(user.getUserName() == null) {
+            return false;
+        }
+        return userService.updUser(user);
+    }
+
 }

@@ -16,4 +16,10 @@
         LEFT JOIN role r
         ON a.roleId=r.roleId
     </select>
+
+    <select id="getAllRole" resultType="Role">
+        SELECT roleId,roleName
+        FROM role
+        WHERE NOT roleId = 1
+    </select>
 </mapper>

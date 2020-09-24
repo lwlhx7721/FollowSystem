@@ -29,4 +29,12 @@ public class RoleServiceImpl implements IRoleService {
     public List<Role> getRoleByUserId(int UserId) {
         return roleDao.getRoleByUserId(UserId);
     }
+    /**
+     * 获取所有身份信息
+     * @return 身份信息
+     */
+    @Override
+    public List<Role> getAllRole() {
+        return roleDao.getAllRole();
+    }
 }
