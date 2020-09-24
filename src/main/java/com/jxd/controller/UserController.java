@@ -110,12 +110,12 @@ public class UserController {
         model.addAttribute("deptList",deptService.getAllDept());
         return "user/adduser";
     }
-
     @RequestMapping("/addUser")
     @ResponseBody
     public boolean addUser(User user) {
         return userService.addUser(user);
     }
+
 
     @RequestMapping("/upduser")
     public String upduser(int userId, Model model) {
@@ -123,7 +123,6 @@ public class UserController {
         model.addAttribute("deptList",deptService.getAllDept());
         return "user/upduser";
     }
-
     @RequestMapping("/updUser")
     @ResponseBody
     public boolean updUser(User user) {
