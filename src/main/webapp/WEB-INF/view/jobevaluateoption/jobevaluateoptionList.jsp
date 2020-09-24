@@ -54,7 +54,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use(['table','layer','$'], function(){
+    layui.use(['table','layer'], function(){
         var table = layui.table
             ,$ = layui.jquery
             ,layer = layui.layer;

@@ -59,7 +59,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use(['table', 'layer', '$'], function () {
+    layui.use(['table', 'layer'], function () {
         var table = layui.table
             , $ = layui.jquery
             , layer = layui.layer;
@@ -93,18 +93,19 @@
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
             },
-            del: function () {
+            delAll: function () {
                 var checkStatus = table.checkStatus("deptList").data;
                 if (checkStatus.length == 0) {
                     layer.msg('请选择一条数据');
                     return;
                 }
                 layer.confirm("确定删除吗", "删除", function () {
-                    var deptIds = "";
+                    var deptIds = "(";
                     for (var i = 0; i < checkStatus.length; i++) {
                         deptIds += checkStatus[i].deptId + ",";
                     }
                     deptIds = deptIds.substring(0, deptIds.length - 1);
+                    deptIds += ")";
                     $.ajax({
                         type: "post",
                         url: "delDepts",

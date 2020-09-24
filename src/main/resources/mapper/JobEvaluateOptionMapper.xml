@@ -6,8 +6,8 @@
 <mapper namespace="com.jxd.dao.IJobEvaluateOptionDao">
     <!--  boolean addJobEvaluateOption(JobEvaluateOption jobEvaluateOption);添加分项信息-->
     <insert id="addJobEvaluateOption">
-        insert into jobevaluateoption(optionId,optionName,optionState)
-        values (#{optionId},#{optionName},#{optionState})
+        insert into jobevaluateoption(optionName,optionState)
+        values (#{optionName},#{optionState})
     </insert>
 
     <!--  boolean updJobEvaluateOption(JobEvaluateOption jobEvaluateOption);修改分项信息-->

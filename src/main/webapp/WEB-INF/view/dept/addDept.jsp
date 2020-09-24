@@ -15,13 +15,6 @@
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">部门ID</label>
-        <div class="layui-input-inline">
-            <input type="text" name="deptId" id="deptId" lay-verify="title" autocomplete="off" placeholder="请输入部门ID"
-                   class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">部门名称</label>
         <div class="layui-input-inline">
             <input type="text" name="deptName" id="deptName" lay-verify="required" placeholder="请输入部门名称"
@@ -38,14 +31,14 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <div class="layui-input-inline">
+        <div class="layui-input-block">
             <button type="submit" id="add" class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </div>
 <script>
-    layui.use(['$'], function () {
+    layui.use(['layer'], function () {
         var $ = layui.jquery,
             layer = layui.layer;
         $("#add").click(function () {
@@ -53,7 +46,6 @@
                 type: "post",
                 url: "toAddDepts",
                 data: {
-                    deptId: $("#deptId").val(),
                     deptName: $("#deptName").val(),
                     deptAddress: $("#deptAddress").val()
                 },

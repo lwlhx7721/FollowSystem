@@ -32,8 +32,8 @@
 
    <!-- boolean addDept(Dept dept);-->
     <insert id="addDept">
-        insert into dept(deptId,deptName,deptAddress)
-        values (#{deptId},#{deptName},#{deptAddress})
+        insert into dept(deptName,deptAddress)
+        values (#{deptName},#{deptAddress})
     </insert>
 
    <!-- boolean updateDept(Dept dept);-->
@@ -49,7 +49,7 @@
 
  <!--   boolean delDeptsByDeptids(String deptIds);-->
     <delete id="delDeptsByDeptids">
-        delete from dept where deptId in '('  ${deptIds}  ')'
+        delete from dept where deptId in ${deptIds}
     </delete>
 
 </mapper>
