@@ -18,7 +18,7 @@
         FROM course
         <where>
             <if test="courseName !=''">
-                courseName like concat('%', #{courseName}, '%')
+                courseName like concat('%',#{courseName},'%')
             </if>
         </where>
         order by courseId

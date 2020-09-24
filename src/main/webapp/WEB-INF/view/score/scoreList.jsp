@@ -66,8 +66,8 @@
             add:function() {
                 layer.open({
                     type: 2,
-                    title: "新增课程",
-                    content:'addcourse',
+                    title: "新增成绩",
+                    content:'addscore',
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
@@ -106,23 +106,23 @@
             var data = obj.data;
             //查看消息
             if(obj.event == 'udp'){
-                var checkStatus = table.checkStatus("courseList").data;
+                var checkStatus = table.checkStatus("scoreList").data;
                 if (checkStatus.length != 1) {
                     layer.msg("请选择一条要修改的数据");
                     return;
                 }else {
                     layer.open({
                         type: 2,
-                        content: "updcourse?courseId=" + data.courseId,
-                        title: "编辑课程信息",
+                        content: "updscore?stuId=" + data.stuId,
+                        title: "编辑学生成绩",
                         area: ['800px', '500px'],//设置弹框的宽高
-                    }), table.reload("courseList", {
-                        url: "getCourseList"
+                    }), table.reload("scoreList", {
+                        url: "getScoreList"
                     })
                 }
             } else if(obj.event == 'del'){
                 //删除消息
-                var checkStatus = table.checkStatus("courseList").data;
+                var checkStatus = table.checkStatus("scoreList").data;
                 if (checkStatus.length == 0) {
                     layer.msg("请选择要删除的数据");
                     return;
@@ -130,15 +130,16 @@
                     layer.confirm('确定删除吗', '删除指令', function(){
                         $.ajax({
                             type: "post",
-                            url: "delCourse?courseId=" + data.courseId,
+                            url: "delScore",
                             data: {
-                                courseId: data.courseId,
+                                stuId:data.stuId,
+                                courseId:data.courseId
                             },
                             dataType: "text",
                             success: function(data) {
                                 layer.msg(data);
-                                table.reload("courseList",  {
-                                    url: "getCourseList"
+                                table.reload("scoreList",  {
+                                    url: "getScoreList"
                                 })
                             },
                             error: function (data) {

@@ -14,10 +14,42 @@
         ON a.courseid = co.courseid
         <where>
             <if test="stuName !=''">
-                stuName like concat('%', #{stuName}, '%')
+                stuName like concat('%',#{stuName},'%')
             </if>
         </where>
         order by stuId
         limit #{pageIndex},#{pageSize}
     </select>
+
+    <select id="getStuName" resultType="Student">
+        SELECT stuid,stuName
+        FROM student
+    </select>
+
+    <select id="getAllScore" resultType="Score">
+        SELECT stuId,courseId,score
+        FROM score
+    </select>
+
+    <insert id="addScore">
+        INSERT INTO score(stuId,courseId,score)
+        VALUES (#{stuId},#{courseId},#{score})
+    </insert>
+
+    <select id="getScoreByStuId" resultType="Score">
+        SELECT stuId,courseId,score
+        FROM score
+        WHERE stuId=#{stuId}
+    </select>
+
+    <update id="updScore">
+        UPDATE score
+        SET score = #{score},courseId=#{courseId}
+        WHERE stuId=#{stuId}
+    </update>
+
+    <delete id="delScore">
+        DELETE FROM score
+        WHERE stuId=#{stuId} and courseId=#{courseId}
+    </delete>
 </mapper>
