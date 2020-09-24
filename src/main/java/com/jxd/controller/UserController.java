@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2020-09-21 09:46
  */
 @Controller
-@SessionAttributes({"user","roles","role"})
+@SessionAttributes({"loginUser","roles","role"})
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -54,7 +54,7 @@ public class UserController {
             return "pwdError";
         }
         List<Role> roles = roleService.getRoleByUserId(userId);
-        model.addAttribute("user",user);
+        model.addAttribute("loginUser",user);
         if(rememberPwd == 1) {
             Cookie cookie1 = new Cookie("userId",userId + "");
             Cookie cookie2 = new Cookie("pwd",pwd);
@@ -140,5 +140,11 @@ public class UserController {
             return false;
         }
         return userService.delUserByUserId(Integer.parseInt(userId));
+    }
+
+    @RequestMapping("/delUsers")
+    @ResponseBody
+    public boolean delUsers(String userIds) {
+        return userService.delUsersByUserId(userIds);
     }
 }

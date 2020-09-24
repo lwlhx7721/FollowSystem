@@ -21,7 +21,7 @@
             <a href="#"><img src="../../static/images/header.png" alt=""></a>
             <ul class="layui-nav layui-bg-cyan" style="height: 60px;float: right">
                 <li class="layui-nav-item">
-                    <a href="javascript:">${sessionScope.user.userName}</a>
+                    <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
                         <dd><a id="resetpwd">修改密码</a></dd>
                         <dd><a href="logout">退出</a></dd>

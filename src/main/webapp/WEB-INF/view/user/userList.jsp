@@ -81,6 +81,41 @@
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
+            },
+            delAll:function () {
+                var checkStatus = table.checkStatus("userList").data;
+                if(checkStatus.length == 0) {
+                    layer.msg("请选择要删除的数据");
+                } else {
+                    layer.confirm("确定删除吗？","删除",function () {
+                        debugger;
+                        var userIds = "(";
+                        for(var i = 0; i < checkStatus.length; i++) {
+                            userIds += checkStatus[i].userId + ",";
+                        }
+                        userIds = userIds.substr(0,userIds.length - 1);
+                        userIds += ")";
+
+                        $.ajax({
+                            type:"post",
+                            url:"delUsers",
+                            data: {
+                                userIds:userIds
+                            },
+                            dataType:"text",
+                            success: function (data) {
+                                if("true" == data) {
+                                    layer.msg("删除成功");
+                                } else {
+                                    layer.msg("删除失败")
+                                }
+                                table.reload("userList",function () {
+                                    url: 'getUserList'
+                                })
+                            }
+                        })
+                    })
+                }
             }
         };
 

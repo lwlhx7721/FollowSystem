@@ -63,14 +63,13 @@
         WHERE userId=#{userId}
     </update>
 
-    <!--boolean delUserByUserId(int userId);-->
-    <delete id="delUserByUserId">
-        delete from followsystem.user where userId = #{userId}
-    </delete>
-
     <!--boolean delUsersByUserId(String userIds);-->
     <delete id="delUsersByUserId">
         delete from followsystem.user where userId in ${userIds}
     </delete>
 
+    <!--boolean delUserByUserId(int userId);-->
+    <delete id="delUserByUserId">
+        delete from followsystem.user where userId = #{userId}
+    </delete>
 </mapper>
