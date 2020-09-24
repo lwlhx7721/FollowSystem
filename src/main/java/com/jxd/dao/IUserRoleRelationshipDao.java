@@ -1,6 +1,7 @@
 package com.jxd.dao;
 
 import com.jxd.model.UserRoleRelationship;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -30,5 +31,5 @@ public interface IUserRoleRelationshipDao {
      * @param userIds
      * @return
      */
-    boolean delUserRoleRelationshipsByUserId(String userIds);
+    boolean delUserRoleRelationshipsByUserId(@Param("userIds") String userIds);
 }
