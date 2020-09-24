@@ -55,6 +55,7 @@ public class UserController {
         }
         List<Role> roles = roleService.getRoleByUserId(userId);
         model.addAttribute("loginUser",user);
+        userService.setLoginTime(userId);
         if(rememberPwd == 1) {
             Cookie cookie1 = new Cookie("userId",userId + "");
             Cookie cookie2 = new Cookie("pwd",pwd);

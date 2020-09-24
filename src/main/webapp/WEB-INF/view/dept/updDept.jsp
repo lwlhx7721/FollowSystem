@@ -15,13 +15,6 @@
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">部门ID</label>
-        <div class="layui-input-inline">
-            <input type="text" name="deptId" id="deptId"  value="${requestScope.dept.deptId}" lay-verify="title" autocomplete="off" placeholder="请输入部门ID"
-                   class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <label class="layui-form-label">部门名称</label>
         <div class="layui-input-inline">
             <input type="text" name="deptName" id="deptName" value="${requestScope.dept.deptName}" lay-verify="required" placeholder="请输入部门名称"
@@ -53,7 +46,6 @@
                 type: "post",
                 url: "toUpdateDept",
                 data: {
-                    deptId: $("#deptId").val(),
                     deptName: $("#deptName").val(),
                     deptAddress: $("#deptAddress").val()
                 },

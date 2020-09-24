@@ -22,7 +22,6 @@ public class DeptController {
     @Autowired
     private IDeptService deptService;
 
-
     /**
      * 跳转到新增页面
      * @return

@@ -36,14 +36,6 @@
             <input class="layui-input" style="width: 200px;" name="deptName" id="deptName" placeholder="请输入部门名称进行查询"
                    autocomplete="off">
         </div>
-        <div class="layui-input-inline">
-            <select name="deptId" id="deptId" style="width: 200px;" lay-verify="required">
-                <option value="0">请选择部门查找</option>
-                <c:forEach items="${deptList}" var="dept">
-                    <option value="${dept.deptId}">${dept.deptName}</option>
-                </c:forEach>
-            </select>
-        </div>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询
         </button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加
@@ -71,13 +63,11 @@
             reload: function () {
                 //获取查询框的值
                 var deptName = $('#deptName').val();
-                var deptId = $('#deptId').val();
                 //执行重载
                 table.reload('deptList', {
                     url: 'getDeptList'
                     , where: {
-                        deptName: deptName,
-                        deptId: deptId
+                        deptName: deptName
                     },
                     page: {
                         curr: 1 //重新从第 1 页开始
