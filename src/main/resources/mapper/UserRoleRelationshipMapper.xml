@@ -10,13 +10,13 @@
         where userid = #{userId}
     </select>
 
-    <!-- boolean delUserRoleRelationshipByUserId(int userId);-->
-    <delete id="delUserRoleRelationshipByUserId">
-        delete from userrolerelationship where userId = #{userId}
-    </delete>
-
     <!--boolean delUserRoleRelationshipsByUserId(String userIds);-->
     <delete id="delUserRoleRelationshipsByUserId">
         delete from userrolerelationship where userId in ${userIds}
+    </delete>
+
+    <!-- boolean delUserRoleRelationshipByUserId(int userId);-->
+    <delete id="delUserRoleRelationshipByUserId">
+        delete from userrolerelationship where userId = #{userId}
     </delete>
 </mapper>

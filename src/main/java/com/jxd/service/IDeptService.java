@@ -1,6 +1,7 @@
 package com.jxd.service;
 
 import com.jxd.model.Dept;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -10,11 +11,34 @@ import java.util.List;
  * @date 2020-09-23 01:33
  */
 public interface IDeptService {
-    /**
+   /**
      * 获取所有部门信息
      * @return 部门信息
      */
     List<Dept> getAllDept();
+
+    /**
+     * 通过部门名称进行模糊查询
+     * @param deptName 部门名称
+     * @return 部门信息
+     */
+    List<Dept> getAllDeptByDeptname(String deptName);
+
+    /**
+     * 通过部门名称分页查询
+     * @param limit 每页的条数
+     * @param page 页数
+     * @param deptName 部门名称
+     * @return 部门信息
+     */
+    List<Dept> getAllDeptByPage(@Param("limit") int limit, @Param("page") int page, @Param("deptName") String deptName);
+
+    /**
+     * 通过部门ID获取部门信息
+     * @param deptId
+     * @return
+     */
+    Dept getDeptByDeptId(int deptId);
 
     /**
      * 添加部门信息
@@ -32,8 +56,15 @@ public interface IDeptService {
 
     /**
      * 删除部门信息
-     * @param deptid 部门编号
+     * @param deptId 部门编号
      * @return 是否删除成功的标志
      */
-    boolean delDept(int deptid);
+    boolean delDeptByDeptid(int deptId);
+
+    /**
+     * 批量删除部门信息
+     * @param deptIds 部门编号
+     * @return 是否删除成功标志
+     */
+    boolean delDeptsByDeptids(String deptIds);
 }

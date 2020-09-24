@@ -24,7 +24,7 @@ public interface IUserDao {
      * @param userId
      * @return
      */
-    boolean setLoginTime(int userId,String loginTime);
+    boolean setLoginTime(@Param("userId") int userId,@Param("loginTime") String loginTime);
 
     /**
      * 通过用户名和部门获取所有用户
@@ -40,8 +40,8 @@ public interface IUserDao {
 
     /**
      * 添加用户（userId，flag，loginTime不作添加）
-     * @param user
-     * @return
+     * @param user 用户
+     * @return 是否添加成功
      */
     boolean addUser(User user);
 
@@ -65,5 +65,5 @@ public interface IUserDao {
      * @param userIds
      * @return
      */
-    boolean delUsersByUserId(String userIds);
+    boolean delUsersByUserId(@Param("userIds") String userIds);
 }
