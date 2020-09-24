@@ -29,6 +29,38 @@ public class DeptServiceImpl implements IDeptService {
     }
 
     /**
+     * 通过部门名称进行模糊查询
+     * @param deptName 部门名称
+     * @return 部门信息
+     */
+    @Override
+    public List<Dept> getAllDeptByDeptname(String deptName) {
+        System.out.println(deptDao);
+        return deptDao.getAllDeptByDeptname(deptName);
+    }
+    /**
+     * 通过部门名称分页查询
+     * @param limit 每页的条数
+     * @param page 页数
+     * @param deptName 部门名称
+     * @return 部门信息
+     */
+    @Override
+    public List<Dept> getAllDeptByPage(int limit, int page, String deptName) {
+        return deptDao.getAllDeptByPage(limit, page, deptName);
+    }
+
+    /**
+     * 通过部门ID获取部门信息
+     * @param deptId
+     * @return
+     */
+    @Override
+    public Dept getDeptByDeptId(int deptId) {
+        return deptDao.getDeptByDeptId(deptId);
+    }
+
+    /**
      * 添加部门信息
      * @param dept 新增部门对象
      * @return 是否新增成功的标志
@@ -50,11 +82,22 @@ public class DeptServiceImpl implements IDeptService {
 
     /**
      * 删除部门信息
-     * @param deptid 部门编号
+     * @param deptId 部门编号
      * @return 是否删除成功的标志
      */
     @Override
-    public boolean delDept(int deptid) {
-        return deptDao.delDept(deptid);
+    public boolean delDeptByDeptid(int deptId) {
+        return deptDao.delDeptByDeptid(deptId);
     }
+
+    /**
+     * 批量删除部门信息
+     * @param deptIds 部门编号
+     * @return 是否删除成功标志
+     */
+    @Override
+    public boolean delDeptsByDeptids(String deptIds) {
+        return deptDao.delDeptsByDeptids(deptIds);
+    }
+
 }
