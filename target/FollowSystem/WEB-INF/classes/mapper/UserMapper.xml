@@ -103,4 +103,10 @@
         order by a.userId
         limit #{pageIndex},#{pageSize}
     </select>
+
+    <update id="updUserByUser">
+        UPDATE `user`
+        SET pwd=#{pwd},phone=#{phone},email=#{email},note=#{note}
+        WHERE userid=#{userId}
+    </update>
 </mapper>
