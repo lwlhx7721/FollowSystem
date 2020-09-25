@@ -62,8 +62,13 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#resetpwd").click(function () {
-
+            $("#updSelf").click(function () {
+                layer.open({
+                    type:2,
+                    content:"updpwd?userId=" + ${sessionScope.loginUser.userId},
+                    title:"修改个人资料",
+                    area:['400px','200px'],//设置弹框的宽高
+                })
             })
         });
     </script>

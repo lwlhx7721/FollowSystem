@@ -101,7 +101,6 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            //查看消息
             if(obj.event == 'udp'){
                 layer.open({
                     type:2,
@@ -109,9 +108,9 @@
                     title:"重置密码",
                     area:['400px','200px'],//设置弹框的宽高
                 }),
-                    table.reload("pwdList",  {
-                        url:"getPwdList"
-                    })
+                table.reload("pwdList",  {
+                    url:"getPwdList"
+                })
             }
         });
     });
