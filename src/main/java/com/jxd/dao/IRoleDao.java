@@ -18,4 +18,10 @@ public interface IRoleDao {
      * @return
      */
     List<Role> getRoleByUserId(int UserId);
+
+    /**
+     * 获取所有身份信息
+     * @return 身份信息
+     */
+    List<Role> getAllRole();
 }

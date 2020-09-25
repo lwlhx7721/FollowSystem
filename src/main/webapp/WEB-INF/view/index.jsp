@@ -47,7 +47,7 @@
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
+                <iframe src="deptList" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
@@ -62,7 +62,7 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#updSelf").click(function () {
+            $("#resetpwd").click(function () {
 
             })
         });

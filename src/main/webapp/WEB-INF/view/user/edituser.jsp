@@ -2,55 +2,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>修改用户信息</title>
+    <title>修改个人信息</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="layui-form">
+
     <div class="layui-form-item">
-        <label class="layui-form-label">姓名</label>
+        <label class="layui-form-label">密码</label>
         <div class="layui-input-inline">
-            <input type="text" id="name" name="name" required  lay-verify="required" value="${upduser.userName}" autocomplete="off" class="layui-input">
+            <input type="text" id="pwd" name="pwd" required value="${user.pwd}" lay-verify="required|pwd" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">手机</label>
         <div class="layui-input-inline">
-            <input type="text" id="phone" name="phone" required value="${upduser.phone}" lay-verify="required|phone" placeholder="1XX XXXX XXXX" autocomplete="off" class="layui-input">
+            <input type="text" id="phone" name="phone" required value="${user.phone}" lay-verify="required|phone"  autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-inline">
-            <input type="text" id="email" name="email" required value="${upduser.email}" lay-verify="required|email" autocomplete="off" class="layui-input">
+            <input type="text" id="email" name="email" required value="${user.email}" lay-verify="required|email" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">部门</label>
-        <div class="layui-input-inline">
-            <select name="deptId" id="deptId" lay-verify="required">
-                <c:forEach items="${deptList}" var="dept">
-                    <c:if test="${dept.deptId == upduser.deptId}">
-                        <option value="${dept.deptId}" selected>${dept.deptName}</option>
-                    </c:if>
-                    <c:if test="${dept.deptId != upduser.deptId}">
-                        <option value="${dept.deptId}">${dept.deptName}</option>
-                    </c:if>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">上次登录时间</label>
-        <div class="layui-input-inline">
-            <input type="text" id="loginTime" name="loginTime" required  lay-verify="required" value="${upduser.loginTime}" autocomplete="off" class="layui-input" readonly>
-        </div>
-    </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea name="desc" id="note" class="layui-textarea">${upduser.note}</textarea>
+            <textarea name="desc" id="note" class="layui-textarea">${user.note}</textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -75,22 +56,21 @@
         $("#ok").click(function () {
             $.ajax({
                 type: "post",
-                url:"updUser",
+                url:"updUserByUser",
                 data: {
-                    userId: ${upduser.userId},
-                    userName: $("#name").val(),
+                    userId: ${user.userId},
+                    pwd: $("#pwd").val(),
                     phone: $("#phone").val(),
                     email: $("#email").val(),
-                    deptId: $("#deptId").val(),
                     note: $("#note").val(),
                 },
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
-                        layer.msg("新增成功");
+                        layer.msg("修改成功");
                         setTimeout('closeLayer();',1000);
                     } else {
-                        layer.msg("新增失败");
+                        layer.msg("修改失败");
                     }
                 },
                 error:function () {

@@ -18,34 +18,43 @@
         WHERE userId=#{userId}
     </update>
     <select id="getAllUsers" resultType="Map">
-        SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,d.deptName
-        FROM followsystem.user u
+        SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,a.loginTime,d.deptName
+        FROM (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
+        FROM `user`u
+        LEFT JOIN userrolerelationship us
+        ON u.userid=us.userid
+        WHERE NOT us.roleid = 1) a
         LEFT JOIN dept d
-        ON u.deptId=d.deptId
+        ON a.deptId=d.deptId
         <where>
             <if test="userName !=''">
-                u.userName like concat('%', #{userName}, '%')
+                a.userName like concat('%', #{userName}, '%')
             </if>
             <if test="deptId != 0">
-                and u.deptId = #{deptId}
+                and a.deptId = #{deptId}
             </if>
         </where>
     </select>
 
     <select id="getAllUserByPage" resultType="Map">
-        SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,d.deptName
-        FROM followsystem.user u
+        SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,a.loginTime,d.deptName
+        FROM
+        (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
+        FROM `user`u
+        LEFT JOIN userrolerelationship us
+        ON u.userid=us.userid
+        WHERE NOT us.roleid = 1) a
         LEFT JOIN dept d
-        ON u.deptId=d.deptId
+        ON a.deptid=d.deptid
         <where>
             <if test="userName !=''">
-                u.userName like concat('%', #{userName}, '%')
+                a.userName like concat('%', #{userName}, '%')
             </if>
             <if test="deptId != 0">
-                and u.deptId=#{deptId}
+                and a.deptId=#{deptId}
             </if>
         </where>
-        order by u.userId
+        order by a.userId
         limit #{pageIndex},#{pageSize}
     </select>
     <insert id="addUser">
@@ -72,4 +81,26 @@
     <delete id="delUserByUserId">
         delete from followsystem.user where userId = #{userId}
     </delete>
+
+    <select id="getAllUserByRole" resultType="Map">
+        SELECT a.userid,a.userName,a.pwd,r.roleName
+        FROM
+        (SELECT u.userId,u.userName,u.pwd,us.roleid
+        FROM `user`u
+        LEFT JOIN userrolerelationship us
+        ON u.userid=us.userid
+        WHERE NOT us.roleid = 1) a
+        LEFT JOIN role r
+        ON a.roleid=r.roleid
+        <where>
+            <if test="userName !=''">
+                a.userName like concat('%', #{userName}, '%')
+            </if>
+            <if test="roleId != 0">
+                and a.roleId=#{roleId}
+            </if>
+        </where>
+        order by a.userId
+        limit #{pageIndex},#{pageSize}
+    </select>
 </mapper>
