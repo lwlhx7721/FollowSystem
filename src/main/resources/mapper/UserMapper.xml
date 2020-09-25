@@ -33,7 +33,7 @@
     </select>
 
     <select id="getAllUserByPage" resultType="Map">
-        SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,d.deptName
+        SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,DATE_FORMAT(u.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
         FROM followsystem.user u
         LEFT JOIN dept d
         ON u.deptId=d.deptId
