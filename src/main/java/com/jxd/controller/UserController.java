@@ -181,7 +181,7 @@ public class UserController {
         return userService.updUser(user);
     }
 
-    @RequestMapping("/upduser")
+    @RequestMapping("/edituser")
     public String updUser(int userId,Model model) {
         model.addAttribute("user",userService.getUserByUserId(userId));
         return "user/edituser";
