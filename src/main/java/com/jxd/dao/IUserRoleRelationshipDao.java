@@ -32,4 +32,26 @@ public interface IUserRoleRelationshipDao {
      * @return
      */
     boolean delUserRoleRelationshipsByUserId(@Param("userIds") String userIds);
+
+    /**
+     * 获取所有的对应关系
+     * @return 结果集
+     */
+    List<UserRoleRelationship> getAllUserRole();
+
+    /**
+     * 添加权限
+     * @param userID 用户id
+     * @param roleId 权限id
+     * @return
+     */
+    boolean addRole(int userID,int roleId);
+
+    /**
+     * 收回权限
+     * @param userId 用户id
+     * @param roleId 用户权限
+     * @return 是否成功
+     */
+    boolean delRole(int userId,int roleId);
 }

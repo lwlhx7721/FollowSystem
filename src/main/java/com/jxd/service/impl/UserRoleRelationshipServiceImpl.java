@@ -28,4 +28,29 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
     public List<Map<String,Object>> getUserRoleRelationshipByUserId(int userId) {
         return userRoleRelationshipDao.getUserRoleRelationshipByUserId(userId);
     }
+    /**
+     * 获取所有的对应关系
+     * @return 结果集
+     */
+    @Override
+    public List<UserRoleRelationship> getAllUserRole() {
+        return userRoleRelationshipDao.getAllUserRole();
+    }
+
+    @Override
+    public boolean addRole(int userID, int roleId) {
+        return userRoleRelationshipDao.addRole(userID, roleId);
+    }
+    /**
+     * 收回权限
+     * @param userId 用户id
+     * @param roleId 用户权限
+     * @return 是否成功
+     */
+    @Override
+    public boolean delRole(int userId, int roleId) {
+        return userRoleRelationshipDao.delRole(userId, roleId);
+    }
+
+
 }

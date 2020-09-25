@@ -96,8 +96,8 @@
             if(obj.event == 'add'){
                 layer.open({
                     type:2,
-                    content:"upduser?userId=" + data.userId,
-                    title:"编辑学生信息",
+                    content:"addrole?userId=" + data.userId,
+                    title:"授予用户权限",
                     area:['800px','500px'],//设置弹框的宽高
                 }),
                     table.reload("roleList",  {
@@ -115,9 +115,9 @@
                         dataType: "text",
                         success: function(data) {
                             if(data) {
-                                layer.msg("删除成功");
+                                layer.msg("权限已收回");
                             } else {
-                                layer.msg("删除失败");
+                                layer.msg("用户未拥有该权限");
                             }
                             table.reload("roleList",  {
                                 url: "getRoleList"
