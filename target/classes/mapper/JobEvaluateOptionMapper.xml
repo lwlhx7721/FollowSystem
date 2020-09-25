@@ -12,7 +12,7 @@
 
     <!--  boolean updJobEvaluateOption(JobEvaluateOption jobEvaluateOption);修改分项信息-->
     <update id="updJobEvaluateOption">
-        update jobevaluateoption set optionName = #{optionName}
+        update jobevaluateoption set optionName = #{optionName},optionState = #{optionState}
         where optionId = #{optionId}
     </update>
 
