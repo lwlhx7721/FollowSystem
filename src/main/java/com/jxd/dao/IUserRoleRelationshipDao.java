@@ -41,11 +41,10 @@ public interface IUserRoleRelationshipDao {
 
     /**
      * 添加权限
-     * @param userID 用户id
-     * @param roleId 权限id
-     * @return
+     * @param userRoleRelationship 权限
+     * @return 是否成功
      */
-    boolean addRole(int userID,int roleId);
+    boolean addRole(UserRoleRelationship userRoleRelationship);
 
     /**
      * 收回权限

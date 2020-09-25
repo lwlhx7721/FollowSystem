@@ -36,10 +36,14 @@ public class UserRoleRelationshipServiceImpl implements IUserRoleRelationshipSer
     public List<UserRoleRelationship> getAllUserRole() {
         return userRoleRelationshipDao.getAllUserRole();
     }
-
+    /**
+     * 添加权限
+     * @param userRoleRelationship 对应关系
+     * @return 是否成功
+     */
     @Override
-    public boolean addRole(int userID, int roleId) {
-        return userRoleRelationshipDao.addRole(userID, roleId);
+    public boolean addRole(UserRoleRelationship userRoleRelationship) {
+        return userRoleRelationshipDao.addRole(userRoleRelationship);
     }
     /**
      * 收回权限

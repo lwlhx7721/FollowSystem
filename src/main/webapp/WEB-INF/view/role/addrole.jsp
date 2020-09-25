@@ -8,6 +8,9 @@
 </head>
 <body>
 <form class="layui-form">
+    <div style="display: none">
+        <input type="text" value="${userId}" id="userId">
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">权限</label>
         <div class="layui-input-inline">
@@ -43,6 +46,7 @@
                 url:"addRole",
                 async: false,
                 data: {
+                    userId: $("#userId").val(),
                     roleId: $("#roleId").val()
                 },
                 dataType: "text",

@@ -26,11 +26,10 @@ public interface IUserRoleRelationshipService {
 
     /**
      * 添加权限
-     * @param userID 用户id
-     * @param roleId 权限id
+     * @param userRoleRelationship 对应关系
      * @return 是否成功
      */
-    boolean addRole(int userID,int roleId);
+    boolean addRole(UserRoleRelationship userRoleRelationship);
 
     /**
      * 收回权限
