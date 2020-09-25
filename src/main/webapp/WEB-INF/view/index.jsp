@@ -62,6 +62,7 @@
             element.on('nav(demo)', function(elem){
 
             });
+            var active ={}
             $("#reset").click(function () {
                 layer.open({
                     type: 2,
@@ -71,6 +72,10 @@
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
             })
+        });
+        $('#reset').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
         });
     </script>
 </body>

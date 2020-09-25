@@ -74,4 +74,10 @@ public interface IUserService {
      */
     List<Map<String,Object>> getAllUserByRole(int pageSize,int pageIndex,String userName,int roleId);
 
+    /**
+     * 用户自己修改自己的信息
+     * @param user 用户
+     * @return 是否成功
+     */
+    boolean updUserByUser(User user);
 }

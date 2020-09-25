@@ -101,4 +101,13 @@ public class UserServiceImpl implements IUserService {
     public List<Map<String, Object>> getAllUserByRole(int pageSize, int pageIndex, String userName, int roleId) {
         return userDao.getAllUserByRole(pageSize,pageIndex,userName,roleId);
     }
+    /**
+     * 用户自己修改自己的信息
+     * @param user 用户
+     * @return 是否成功
+     */
+    @Override
+    public boolean updUserByUser(User user) {
+        return userDao.updUserByUser(user);
+    }
 }
