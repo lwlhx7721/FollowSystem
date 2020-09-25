@@ -130,29 +130,26 @@
                         url:"getJobEvaluateOptionList"
                     })
             } else if(obj.event == 'update'){
-                //停用或者启用状态
-                layer.confirm('确定启用/停用吗', '启用/停用指令', function(){
-                    $.ajax({
-                        type: "post",
-                        url: "updJobEvaluateOptionByOptionId",
-                        data: {
-                            optionId: data.optionId
-                        },
-                        dataType: "text",
-                        success: function(data) {
-                            if("true" == data) {
-                                layer.msg("启用/停用成功");
-                            }else {
-                                layer.msg("启用/停用失败");
-                            }
-                            table.reload("jobevaluateoptionList",  {
-                                url:"getJobEvaluateOptionList"
-                            })
-                        },
-                        error: function (data) {
-                            layer.msg("执行失败");
+                $.ajax({
+                    type: "post",
+                    url: "updJobEvaluateOptionByOptionId",
+                    data: {
+                        optionId: data.optionId
+                    },
+                    dataType: "text",
+                    success: function(data) {
+                        if("true" == data) {
+                            layer.msg("启用/停用成功");
+                        }else {
+                            layer.msg("启用/停用失败");
                         }
-                    })
+                        table.reload("jobevaluateoptionList",  {
+                            url:"getJobEvaluateOptionList"
+                        })
+                    },
+                    error: function (data) {
+                        layer.msg("执行失败");
+                    }
                 })
             }
         });
