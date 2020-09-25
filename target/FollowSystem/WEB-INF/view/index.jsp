@@ -47,7 +47,7 @@
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="deptList" frameborder="0"  name="main" scrolling="no"></iframe>
+                <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
@@ -62,8 +62,13 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#resetpwd").click(function () {
-
+            $("#updSelf").click(function () {
+                layer.open({
+                    type:2,
+                    content:"edituser?userId=" + ${sessionScope.loginUser.userId},
+                    title:"修改个人资料",
+                    area:['800px','600px'],//设置弹框的宽高
+                })
             })
         });
     </script>
