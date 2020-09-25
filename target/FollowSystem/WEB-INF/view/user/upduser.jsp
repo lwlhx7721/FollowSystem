@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>修改用户信息</title>
+    <title>添加用户</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 </head>

@@ -16,11 +16,11 @@
         }
 
         table tr:nth-child(odd) {
-            background: #A1C7EE;
+            background: #00FFFF;
         }
 
         table tr:nth-child(even) {
-            background: #D1CDE6;
+            background: #FFB800;
         }
 
         table th {
@@ -39,6 +39,9 @@
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询
         </button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加
+        </button>
+        <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">
+            一键删除
         </button>
     </div>
     <table class="layui-hide" id="deptList" lay-filter="demo" lay-skin="nob"></table>
@@ -79,6 +82,42 @@
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
+            },
+            delAll: function () {
+                var checkStatus = table.checkStatus("deptList").data;
+                if (checkStatus.length == 0) {
+                    layer.msg('请选择一条数据');
+                    return;
+                }
+                layer.confirm("确定删除吗", "删除", function () {
+                    var deptIds = "(";
+                    for (var i = 0; i < checkStatus.length; i++) {
+                        deptIds += checkStatus[i].deptId + ",";
+                    }
+                    deptIds = deptIds.substring(0, deptIds.length - 1);
+                    deptIds += ")";
+                    $.ajax({
+                        type: "post",
+                        url: "delDepts",
+                        data: {
+                            deptIds: deptIds
+                        },
+                        dataType: "text",
+                        success: function (data) {
+                            if ("true" == data) {
+                                layer.msg("删除成功");
+                            } else {
+                                layer.msg("删除失败");
+                            }
+                            table.reload("deptList", {
+                                url: "getDeptList"
+                            })
+                        },
+                        error: function () {
+                            alert("执行失败")
+                        }
+                    })
+                })
             }
         };
 
@@ -88,7 +127,8 @@
             , width: 1150
             , height: 480
             , cols: [[
-                {type: 'numbers', title: '序号'}
+                {type: 'checkbox', width: '10%'}
+                , {type: 'numbers', title: '序号'}
                 , {field: 'deptId', title: '部门编号', sort: true}
                 , {field: 'deptName', title: '部门名称'}
                 , {field: 'deptAddress', title: '部门地址'}
