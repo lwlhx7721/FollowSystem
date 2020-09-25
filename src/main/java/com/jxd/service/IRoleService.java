@@ -4,6 +4,7 @@ import com.jxd.model.Dept;
 import com.jxd.model.Role;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LuWenlong
@@ -25,4 +26,10 @@ public interface IRoleService {
      * @return 身份信息
      */
     List<Role> getAllRole();
+
+    /**
+     * 获取用户，用户名及用户权限
+     * @return 用户登录信息及权限
+     */
+    List<Map<String,Object>> getUserAndRole(int pageSize, int pageIndex, String userName);
 }
