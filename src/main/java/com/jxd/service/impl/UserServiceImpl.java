@@ -91,4 +91,23 @@ public class UserServiceImpl implements IUserService {
         }
         return isDel;
     }
+
+
+    /**
+     * 通过用户名和身份获取所有用户分页查询
+     * @return 用户登录信息及权限
+     */
+    @Override
+    public List<Map<String, Object>> getAllUserByRole(int pageSize, int pageIndex, String userName, int roleId) {
+        return userDao.getAllUserByRole(pageSize,pageIndex,userName,roleId);
+    }
+    /**
+     * 用户自己修改自己的信息
+     * @param user 用户
+     * @return 是否成功
+     */
+    @Override
+    public boolean updUserByUser(User user) {
+        return userDao.updUserByUser(user);
+    }
 }

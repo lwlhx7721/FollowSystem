@@ -68,4 +68,16 @@ public interface IUserService {
      */
     boolean delUsersByUserId(String userIds);
 
+    /**
+     * 通过用户名和身份获取所有用户分页查询
+     * @return 用户登录信息及权限
+     */
+    List<Map<String,Object>> getAllUserByRole(int pageSize,int pageIndex,String userName,int roleId);
+
+    /**
+     * 用户自己修改自己的信息
+     * @param user 用户
+     * @return 是否成功
+     */
+    boolean updUserByUser(User user);
 }

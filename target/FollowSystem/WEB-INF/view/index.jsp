@@ -63,7 +63,12 @@
 
             });
             $("#updSelf").click(function () {
-
+                layer.open({
+                    type:2,
+                    content:"edituser?userId=" + ${sessionScope.loginUser.userId},
+                    title:"修改个人资料",
+                    area:['800px','600px'],//设置弹框的宽高
+                })
             })
         });
     </script>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
+一 个mapper相当于一个dao接口的实现类 -->
+<mapper namespace="com.jxd.dao.IDeptDao">
+    <!--List<Dept> getAllDept();-->
+    <select id="getAllDept" resultType="Dept">
+        select deptId, deptName, deptAddress from dept
+    </select>
+
+  <!--  List<Dept> getAllDeptByDeptname(String deptName);-->
+    <select id="getAllDeptByDeptname" resultType="Dept">
+        select deptId, deptName, deptAddress from dept
+        where deptName like concat('%',#{deptName},'%')
+    </select>
+
+  <!--  List<Dept> getAllDeptByPage(@Param("pageSize") int pageSize,@Param("pageIndex") int pageIndex,
+    @Param("deptName") String deptName);
+-->
+    <select id="getAllDeptByPage" resultType="Dept">
+        select deptId, deptName, deptAddress from dept
+        where deptName  like concat('%',#{deptName},'%')
+        order by deptid limit #{page},#{limit}
+    </select>
+
+<!--    Dept getDeptByDeptId(int deptId);-->
+    <select id="getDeptByDeptId" resultType="Dept">
+        select deptId, deptName, deptAddress from dept
+        where deptId = #{deptId}
+    </select>
+
+   <!-- boolean addDept(Dept dept);-->
+    <insert id="addDept">
+        insert into dept(deptName,deptAddress)
+        values (#{deptName},#{deptAddress})
+    </insert>
+
+   <!-- boolean updateDept(Dept dept);-->
+    <update id="updateDept">
+        update dept set deptName = #{deptName},deptAddress = #{deptAddress}
+        where deptId = #{deptId}
+    </update>
+
+<!--    boolean delDeptByDeptid(int deptId);-->
+    <delete id="delDeptByDeptid">
+        delete from dept where deptId = #{deptId}
+    </delete>
+
+ <!--   boolean delDeptsByDeptids(String deptIds);-->
+    <delete id="delDeptsByDeptids">
+        delete from dept where deptId in ${deptIds}
+    </delete>
+
+</mapper>

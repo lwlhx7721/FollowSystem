@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ZhangXinyun
@@ -28,5 +29,21 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public List<Role> getRoleByUserId(int UserId) {
         return roleDao.getRoleByUserId(UserId);
+    }
+    /**
+     * 获取所有身份信息
+     * @return 身份信息
+     */
+    @Override
+    public List<Role> getAllRole() {
+        return roleDao.getAllRole();
+    }
+    /**
+     * 获取用户，用户名及用户权限
+     * @return 用户登录信息及权限
+     */
+    @Override
+    public List<Map<String, Object>> getUserAndRole(int pageSize, int pageIndex, String userName) {
+        return roleDao.getUserAndRole(pageSize, pageIndex, userName);
     }
 }
