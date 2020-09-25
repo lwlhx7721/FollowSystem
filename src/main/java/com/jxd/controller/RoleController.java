@@ -31,4 +31,5 @@ public class RoleController {
         ListData roleData = new ListData(size,roleList);
         return roleData;
     }
+
 }
