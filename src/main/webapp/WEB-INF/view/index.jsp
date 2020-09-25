@@ -23,7 +23,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
-                        <dd><a id="resetpwd">修改密码</a></dd>
+                        <dd><a id="updSelf">修改个人资料</a></dd>
                         <dd><a href="logout">退出</a></dd>
                     </dl>
                 </li>
@@ -47,7 +47,7 @@
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="deptList" frameborder="0"  name="main" scrolling="no"></iframe>
+                <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
@@ -62,7 +62,7 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#resetpwd").click(function () {
+            $("#updSelf").click(function () {
 
             })
         });

@@ -51,7 +51,7 @@
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: green;" lay-event="del">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -100,7 +100,14 @@
                 ,{type:'numbers',title: '序号'}
                 ,{field:'optionId',title:'评分项ID',sort:true}
                 ,{field:'optionName',title: '评分项名'}
-                ,{field:'optionState',title: '评分项状态'}
+                ,{field:'optionState',title: '评分项状态',templet:function (d){
+                        if(d.optionState == 1) {
+                            return "在用";
+                        } else {
+                            return "未用";
+                        }
+                    }
+                }
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true

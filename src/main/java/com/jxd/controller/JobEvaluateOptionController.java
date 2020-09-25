@@ -22,6 +22,10 @@ public class JobEvaluateOptionController {
     @Autowired
     private IJobEvaluateOptionService jobEvaluateOptionService;
 
+    @RequestMapping("/jobEvaluateOptionList")
+    public String jobEvaluateOptionList() {
+        return "jobevaluateoption/jobEvaluateoptionList";
+    }
     /**
      * 跳转到添加评分项页面
      * @return
@@ -85,7 +89,7 @@ public class JobEvaluateOptionController {
      */
     @RequestMapping("/delJobEvaluateOptionByOptionId")
     @ResponseBody
-    public String delJobEvaluateOptionByOptionId(int optionId,Model model){
+    public String delJobEvaluateOptionByOptionId(int optionId){
         JobEvaluateOption jobEvaluateOption = jobEvaluateOptionService.getJobEvaluateOptionByoptionId(optionId);
         int optionState = jobEvaluateOption.getOptionState();
         String msg = null;

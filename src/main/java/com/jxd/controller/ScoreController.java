@@ -24,6 +24,11 @@ public class ScoreController {
     private IScoreService scoreService;
     @Autowired
     private ICourseService courseService;
+
+    @RequestMapping("/scoreList")
+    public String scoreList() {
+        return "score/scoreList";
+    }
     /**
      * 获取所有的课程信息
      * @param limit 分页
@@ -35,7 +40,7 @@ public class ScoreController {
     @ResponseBody
     public ListData getCourseList(int limit, int page, String name) {
         String scoreName = name ==null? "" : name;
-        List<Map<String, Object>> scoreList=scoreService.getAllScoreByPage(limit,page,scoreName);
+        List<Map<String, Object>> scoreList = scoreService.getAllScoreByPage(limit,page,scoreName);
         int size = scoreList.size();
         ListData scoreData = new ListData(size,scoreList);
         return scoreData;
