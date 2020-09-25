@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
+一 个mapper相当于一个dao接口的实现类 -->
+<mapper namespace="com.jxd.dao.IJobEvaluateOptionDao">
+    <!--  boolean addJobEvaluateOption(JobEvaluateOption jobEvaluateOption);添加分项信息-->
+    <insert id="addJobEvaluateOption">
+        insert into jobevaluateoption(optionName,optionState)
+        values (#{optionName},#{optionState})
+    </insert>
+
+    <!--  boolean updJobEvaluateOption(JobEvaluateOption jobEvaluateOption);修改分项信息-->
+    <update id="updJobEvaluateOption">
+        update jobevaluateoption set optionName = #{optionName}
+        where optionId = #{optionId}
+    </update>
+
+   <!-- boolean updJobEvaluateOptionByOptionId(@Param("optionId") int optionId,
+    @Param("optionState") int optionState);修改评分项状态-->
+    <update id="updJobEvaluateOptionByOptionId">
+        update jobevaluateoption set optionState = #{optionState}
+        where optionId = #{optionId}
+    </update>
+
+    <!-- boolean delJobEvaluateOptionsByOptionId(int[] optionIds);批量删除-->
+    <delete id="delJobEvaluateOptionsByOptionId">
+        delete from jobevaluateoption where optionId in
+            <foreach collection="array" item="optionId" open="(" close=")" separator=",">
+                #{optionId}
+            </foreach>
+    </delete>
+
+    <!-- List<JobEvaluateOption> getAllJobEvaluateOptionByOptionname(String optionName);根据分项名称进行查询-->
+    <select id="getAllJobEvaluateOptionByOptionname" resultType="JobEvaluateOption">
+        select optionId,optionName,optionState from jobevaluateoption
+        where optionName like concat('%',#{optionName},'%')
+    </select>
+
+    <!--  List<JobEvaluateOption> getAllJobEvaluateOption(@Param("pageSize") int pageSize,
+      @Param("pageIndex") int pageIndex, @Param("optionName") String optionName);分页查询-->
+    <select id="getAllJobEvaluateOption" resultType="JobEvaluateOption">
+      select optionId,optionName,optionState from jobevaluateoption
+      where optionName like concat('%',#{optionName},'%')
+      order by optionId limit #{page},#{limit}
+    </select>
+
+    <!-- 查询出optionState，用于删除时判断 JobEvaluateOption getJobEvaluateOptionByoptionId(int optionId);-->
+    <select id="getJobEvaluateOptionByoptionId" resultType="JobEvaluateOption">
+        select optionId,optionName,optionState from jobevaluateoption
+        where optionId = #{optionId}
+    </select>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
+一 个mapper相当于一个dao接口的实现类 -->
+<mapper namespace="com.jxd.dao.ICourseDao">
+
+    <select id="getAllCourseByPage" resultType="Map">
+        SELECT courseId,courseName,
+        (
+            CASE coursestate
+            WHEN '0' THEN
+                '未选'
+            WHEN '1' THEN
+                '已选'
+            END
+        ) AS courseState
+        FROM course
+        <where>
+            <if test="courseName !=''">
+                courseName like concat('%',#{courseName},'%')
+            </if>
+        </where>
+        order by courseId
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <insert id="addCourse">
+       INSERT INTO course(courseName,courseState)
+       VALUES (#{courseName},#{courseState})
+     </insert>
+
+    <update id="updCourse">
+        UPDATE course
+        SET couresename=#{coursename},coursentate=#{coursestate}
+        WHERE courseid=#{courseid}
+    </update>
+
+    <delete id="delCourse">
+        DELETE FROM course WHERE courseId=#{courseId}
+    </delete>
+
+    <select id="getCourse" resultType="Course">
+        SELECT courseId,courseName,coursestate
+        FROM course
+        WHERE courseId=#{courseId}
+    </select>
+
+    <select id="getAllCourse" resultType="Course">
+         SELECT courseId,courseName,coursestate
+            FROM course
+    </select>
+</mapper>
