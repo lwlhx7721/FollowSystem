@@ -33,7 +33,7 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button type="submit" id="add" class="layui-btn" lay-submit="" lay-filter="demo1">添加</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
 </div>
@@ -41,6 +41,11 @@
     layui.use(['layer'], function () {
         var $ = layui.jquery,
             layer = layui.layer;
+        $("#close").click(function () {
+            //当你在iframe页面关闭自身时
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+        })
         $("#add").click(function () {
             $.ajax({
                 type: "post",
@@ -53,6 +58,7 @@
                 success: function (data) {
                     if ("true" == data) {
                         layer.msg("新增成功");
+                        setTimeout('closeLayer();',1000);
                     } else {
                         layer.msg("新增失败");
                     }
@@ -64,7 +70,9 @@
         })
 
     });
-
+    var closeLayer = function () {
+        parent.location.reload();
+    }
 </script>
 </body>
 </html>

@@ -79,7 +79,7 @@
                         <input type="password" style="width: 250px; margin-left: 50px" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
                     </div>
                 </div>
-                <input type="checkbox" name="rememberPwd" value="1" checked>下次自动登录
+                <input type="checkbox" name="rememberPwd" value="1" checked>记住密码
                 <br>
                 <br>
                 <div class="layui-form-item">
