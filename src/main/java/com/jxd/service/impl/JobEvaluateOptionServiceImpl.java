@@ -39,13 +39,14 @@ public class JobEvaluateOptionServiceImpl implements IJobEvaluateOptionService {
     }
 
     /**
-     * 删除工作评分项的信息
+     * 通过评分项ID修改评分项状态
      * @param optionId 评分项ID
-     * @return 是否删除成功的标志
+     * @param optionState
+     * @return 是否修改成功的标志
      */
     @Override
-    public boolean delJobEvaluateOptionByOptionId(int optionId) {
-        return jobEvaluateOptionDao.delJobEvaluateOptionByOptionId(optionId);
+    public boolean updJobEvaluateOptionByOptionId(int optionId, int optionState) {
+        return jobEvaluateOptionDao.updJobEvaluateOptionByOptionId(optionId,optionState);
     }
 
     /**

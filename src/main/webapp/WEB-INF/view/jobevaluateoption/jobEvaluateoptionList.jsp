@@ -51,7 +51,7 @@
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: green;" lay-event="del">启用/停用</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: green;" lay-event="update">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -129,23 +129,21 @@
                     table.reload("jobevaluateoptionList",  {
                         url:"getJobEvaluateOptionList"
                     })
-            } else if(obj.event == 'del'){
-                //删除消息
-                layer.confirm('确定删除吗', '删除指令', function(){
+            } else if(obj.event == 'update'){
+                //停用或者启用状态
+                layer.confirm('确定启用/停用吗', '启用/停用指令', function(){
                     $.ajax({
                         type: "post",
-                        url: "delJobEvaluateOptionByOptionId",
+                        url: "updJobEvaluateOptionByOptionId",
                         data: {
                             optionId: data.optionId
                         },
                         dataType: "text",
                         success: function(data) {
                             if("true" == data) {
-                                layer.msg("删除成功");
-                            } else if("msg" == data) {
-                               layer.msg("该分项正在使用，不能删除")
-                            } else {
-                                layer.msg("删除失败");
+                                layer.msg("启用/停用成功");
+                            }else {
+                                layer.msg("启用/停用失败");
                             }
                             table.reload("jobevaluateoptionList",  {
                                 url:"getJobEvaluateOptionList"
