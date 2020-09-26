@@ -1,7 +1,7 @@
 package com.jxd.model;
 
 /**
- * @author LuWenlong
+ * @author ShiWenZhe
  * @description 学生表
  * @date 2020-09-21 11:17
  */
@@ -15,12 +15,12 @@ public class Student {
      */
     private String stuName;
     /**
-     *学生性别
+     *性别
      * 0为男生，1为女生
      */
     private int sex;
     /**
-     *学生民族
+     *民族
      */
     private String nation;
     /**
@@ -28,23 +28,23 @@ public class Student {
      */
     private String birthday;
     /**
-     *学生籍贯
+     *籍贯
      */
     private String birthPlace;
     /**
-     *学生是否已婚，0表示未婚，1表示已婚
+     *学生婚否，0表示未婚，1表示已婚
      */
     private int marry;
     /**
-     *学生电话
+     *联系电话
      */
     private int telephone;
     /**
-     *学生身份证号
+     *身份证号
      */
     private int idCard;
     /**
-     *学生毕业院校
+     *毕业院校
      */
     private String university;
     /**
@@ -52,7 +52,7 @@ public class Student {
      */
     private String major;
     /**
-     *学生照片
+     *照片
      */
     private String photo;
     /**
@@ -64,11 +64,11 @@ public class Student {
      */
     private String state;
     /**
-     *学生班级id
+     *班级id
      */
     private int classId;
     /**
-     *学生部门id
+     *部门id
      */
     private int deptId;
 

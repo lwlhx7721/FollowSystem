@@ -21,7 +21,7 @@
             <a href="#"><img src="../../static/images/header.png" alt=""></a>
             <ul class="layui-nav layui-bg-cyan" style="height: 60px;float: right">
                 <li class="layui-nav-item">
-                    <a href="javascript:">${sessionScope.loginUser.userName}</a>
+                    <a href="javascript:">${sessionScope.user.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
                         <dd><a id="resetpwd">修改密码</a></dd>
                         <dd><a href="logout">退出</a></dd>
@@ -34,20 +34,20 @@
             <div id="left">
                 <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin: 5px;">
                     <c:forEach var="menu" items="${menus}" >
-                        <li class="layui-nav-item"><a href="${menu.address}" target="main">${menu.menuName}</a></li>
+                        <li class="layui-nav-item"><a href="${menu.address}">${menu.menuName}</a></li>
                     </c:forEach>
                 </ul>
             </div>
         </c:if>
         <div id="right">
-            <div id="body">
+            <div id="body" style="background-color: #FFFFFF;height: 566px">
                 <%--<div style="background-color: red">
                     <c:if test="${menus.size() != 0}">
                         <input type="button" value="《" id="btn1">
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="deptList" frameborder="0"  name="main" scrolling="no"></iframe>
+                <iframe src="stuList" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
