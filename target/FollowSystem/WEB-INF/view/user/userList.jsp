@@ -73,7 +73,6 @@
                     layer.msg("请选择要删除的数据");
                 } else {
                     layer.confirm("确定删除吗？","删除",function () {
-                        debugger;
                         var userIds = "(";
                         for(var i = 0; i < checkStatus.length; i++) {
                             userIds += checkStatus[i].userId + ",";

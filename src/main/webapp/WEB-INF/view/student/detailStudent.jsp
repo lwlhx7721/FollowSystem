@@ -17,7 +17,7 @@
         td {
             text-align: center;
         }
-       body{
+        body{
             background: url("../../../static/images/student_bg.png");
             background-repeat: no-repeat;
            background-size: 100% 100%;
@@ -25,8 +25,8 @@
     </style>
 </head>
 <body>
-    <div align="center">
-        <table style="width: 80%" class="layui-table">
+    <div align="center" style="margin-top: 50px">
+        <table style="width: 95%;background-color: rgba(255,255,255,0.5);" class="layui-table">
             <tr>
                 <td>姓名</td>
                 <td>${list.stuName}</td>

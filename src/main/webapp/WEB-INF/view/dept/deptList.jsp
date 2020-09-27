@@ -118,7 +118,7 @@
                             })
                         },
                         error: function (data) {
-                            layer.msg("执行失败");
+                            layer.msg("该部门下有学员，不能删除");
                         }
                     })
                 })

@@ -19,11 +19,12 @@
     </update>
     <select id="getAllUsers" resultType="Map">
         SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
-        FROM (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
-        FROM `user`u
-        LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE NOT us.roleid = 1) a
+        FROM (SELECT userId,userName,pwd,phone,email,note,flag,loginTime,deptid FROM `user`
+        WHERE userId IN (
+        SELECT userId
+        FROM userrolerelationship
+        WHERE roleid != 1
+        )) a
         LEFT JOIN dept d
         ON a.deptId=d.deptId
         GROUP BY a.userId
@@ -40,11 +41,12 @@
     <select id="getAllUserByPage" resultType="Map">
         SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
         FROM
-        (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
-        FROM `user`u
-        LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE NOT us.roleid = 1) a
+        (SELECT userId,userName,pwd,phone,email,note,flag,loginTime,deptid FROM `user`
+        WHERE userId IN (
+        SELECT userId
+        FROM userrolerelationship
+        WHERE roleid != 1
+        )) a
         LEFT JOIN dept d
         ON a.deptid=d.deptid
         GROUP BY a.userId

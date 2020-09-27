@@ -50,6 +50,9 @@
                     if ("true" == data) {
                         layer.msg("修改成功");
                         setTimeout('closeLayer();',1000);
+                        table.reload("jobevaluateoptionList",  {
+                            url:"getJobEvaluateOptionList"
+                        })
                     } else {
                         layer.msg("修改失败");
                     }

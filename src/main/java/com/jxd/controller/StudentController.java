@@ -47,7 +47,6 @@ public class StudentController {
         int cId = classId == null ? 0 : Integer.parseInt(classId);
         int limit1 = limit == null ? 0 : Integer.parseInt(limit);
         int page1 = page == null ? 0 : Integer.parseInt(page);
-        System.out.println(limit);
         int dId = deptId == null ? 0 : Integer.parseInt(deptId);
         List<Map<String, Object>> studentList = studentService.getAllStudentByPage(stuName, cId, dId, page1, limit1);
         int size = studentService.getAllStudent(stuName, cId, dId).size();
@@ -200,5 +199,12 @@ public class StudentController {
         } else {
             return "删除失败";
         }
+    }
+
+    @RequestMapping("/delAllStudentsById")
+    @ResponseBody
+    public Boolean delAllStudentById(String stuIds) {
+        System.out.println(stuIds);
+        return studentService.delStudentsById(stuIds);
     }
 }
