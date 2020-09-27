@@ -10,27 +10,11 @@
 <head>
     <title>部门信息页面</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css ">
-    <style>
-        body {
-            background-color: #393D49;
-        }
-
-        table tr:nth-child(odd) {
-            background: #A1C7EE;
-        }
-
-        table tr:nth-child(even) {
-            background: #D1CDE6;
-        }
-
-        table th {
-            background: #01AAED;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../static/css/list.css">
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center">
+<div align="center" class="layui-form">
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="deptName" id="deptName" placeholder="请输入部门名称进行查询"

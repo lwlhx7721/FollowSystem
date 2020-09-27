@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
     <script src="../../static/js/jquery-3.3.1.js"></script>
-    <script>
+    <%--<script>
         $(function () {
             $("#btn1").click(function () {
                 $("#left").animate({width:'toggle'},200);
             })
         })
-    </script>
+    </script>--%>
 </head>
 <body>
     <div id="container">
         <div id="header">
             <a href="#"><img src="../../static/images/header.png" alt=""></a>
-            <ul class="layui-nav layui-bg-cyan" style="height: 60px;float: right">
+            <ul class="layui-nav" style="height: 60px;float: right;background-color: #265160">
                 <li class="layui-nav-item">
                     <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
@@ -34,7 +34,7 @@
             <div id="left">
                 <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin: 5px;">
                     <c:forEach var="menu" items="${menus}" >
-                        <li class="layui-nav-item"><a href="${menu.address}" target="main">${menu.menuName}</a></li>
+                        <li class="layui-nav-item" style="background-color: cornflowerblue"><a href="${menu.address}" target="main">${menu.menuName}</a></li>
                     </c:forEach>
                 </ul>
             </div>

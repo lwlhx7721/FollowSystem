@@ -4,23 +4,7 @@
 <head>
     <title>修改密码</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css ">
-    <style>
-        body {
-            background-color: #393D49;
-        }
-        table tr:nth-child(odd)
-        {
-            background: #00FFFF;
-        }
-        table tr:nth-child(even)
-        {
-            background: #FFB800;
-        }
-        table th
-        {
-            background: #01AAED;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../static/css/list.css">
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
@@ -77,12 +61,10 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'userId',title:'用户编号',sort:true}
                 ,{field:'userName',title: '用户名'}
                 ,{field:'pwd',title: '密码'}
-                ,{field:'roleName',title:'身份',sort:true}
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
