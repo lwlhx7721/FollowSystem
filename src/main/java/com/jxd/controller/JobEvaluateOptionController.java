@@ -22,6 +22,10 @@ public class JobEvaluateOptionController {
     @Autowired
     private IJobEvaluateOptionService jobEvaluateOptionService;
 
+    @RequestMapping("/jobEvaluateOptionList")
+    public String jobEvaluateOptionList() {
+        return "jobevaluateoption/jobEvaluateoptionList";
+    }
     /**
      * 跳转到添加评分项页面
      * @return
@@ -78,30 +82,24 @@ public class JobEvaluateOptionController {
     }
 
     /**
-     * 执行删除操作
+     * 修改评分项状态
      * @param optionId 评分项ID
-     * @param model
      * @return
      */
-    @RequestMapping("/delJobEvaluateOptionByOptionId")
+    @RequestMapping("/updJobEvaluateOptionByOptionId")
     @ResponseBody
-    public String delJobEvaluateOptionByOptionId(int optionId,Model model){
+    public Boolean updJobEvaluateOptionByOptionId(int optionId){
         JobEvaluateOption jobEvaluateOption = jobEvaluateOptionService.getJobEvaluateOptionByoptionId(optionId);
         int optionState = jobEvaluateOption.getOptionState();
-        String msg = null;
+        boolean isUpdate = false;
         if(optionState == 1) {
-            msg = "msg";
-           return msg;
+            optionState = 0;
+            isUpdate = jobEvaluateOptionService.updJobEvaluateOptionByOptionId(optionId,optionState);
+            return isUpdate;
         }else {
-            boolean isDel = jobEvaluateOptionService.delJobEvaluateOptionByOptionId(optionId);
-            if(isDel) {
-                msg = "true";
-                return msg;
-            } else {
-                msg = "false";
-                return msg;
-            }
-
+            optionState = 1;
+            isUpdate = jobEvaluateOptionService.updJobEvaluateOptionByOptionId(optionId,optionState);
+           return isUpdate;
         }
     }
 

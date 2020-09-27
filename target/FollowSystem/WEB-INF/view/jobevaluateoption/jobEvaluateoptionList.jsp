@@ -10,23 +10,7 @@
 <head>
     <title>评价分项页面</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css ">
-    <style>
-        body {
-            background-color: #393D49;
-        }
-        table tr:nth-child(odd)
-        {
-            background: #00FFFF;
-        }
-        table tr:nth-child(even)
-        {
-            background: #FFB800;
-        }
-        table th
-        {
-            background: #01AAED;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../static/css/list.css">
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
@@ -51,7 +35,7 @@
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: green;" lay-event="update">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -100,7 +84,14 @@
                 ,{type:'numbers',title: '序号'}
                 ,{field:'optionId',title:'评分项ID',sort:true}
                 ,{field:'optionName',title: '评分项名'}
-                ,{field:'optionState',title: '评分项状态'}
+                ,{field:'optionState',title: '评分项状态',templet:function (d){
+                        if(d.optionState == 1) {
+                            return "在用";
+                        } else {
+                            return "未用";
+                        }
+                    }
+                }
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
@@ -122,32 +113,27 @@
                     table.reload("jobevaluateoptionList",  {
                         url:"getJobEvaluateOptionList"
                     })
-            } else if(obj.event == 'del'){
-                //删除消息
-                layer.confirm('确定删除吗', '删除指令', function(){
-                    $.ajax({
-                        type: "post",
-                        url: "delJobEvaluateOptionByOptionId",
-                        data: {
-                            optionId: data.optionId
-                        },
-                        dataType: "text",
-                        success: function(data) {
-                            if("true" == data) {
-                                layer.msg("删除成功");
-                            } else if("msg" == data) {
-                               layer.msg("该分项正在使用，不能删除")
-                            } else {
-                                layer.msg("删除失败");
-                            }
-                            table.reload("jobevaluateoptionList",  {
-                                url:"getJobEvaluateOptionList"
-                            })
-                        },
-                        error: function (data) {
-                            layer.msg("执行失败");
+            } else if(obj.event == 'update'){
+                $.ajax({
+                    type: "post",
+                    url: "updJobEvaluateOptionByOptionId",
+                    data: {
+                        optionId: data.optionId
+                    },
+                    dataType: "text",
+                    success: function(data) {
+                        if("true" == data) {
+                            layer.msg("启用/停用成功");
+                        }else {
+                            layer.msg("启用/停用失败");
                         }
-                    })
+                        table.reload("jobevaluateoptionList",  {
+                            url:"getJobEvaluateOptionList"
+                        })
+                    },
+                    error: function (data) {
+                        layer.msg("执行失败");
+                    }
                 })
             }
         });

@@ -26,11 +26,11 @@ public interface IJobEvaluateOptionService {
     boolean updJobEvaluateOption(JobEvaluateOption jobEvaluateOption);
 
     /**
-     * 删除工作评分项的信息
+     * 通过评分项ID修改评分项状态
      * @param optionId 评分项ID
-     * @return 是否删除成功的标志
+     * @return 是否修改成功的标志
      */
-    boolean delJobEvaluateOptionByOptionId(int optionId);
+    boolean updJobEvaluateOptionByOptionId(int optionId,int optionState);
 
     /**
      * 批量删除工作评分项的信息

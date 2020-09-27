@@ -12,14 +12,16 @@
 
     <!--  boolean updJobEvaluateOption(JobEvaluateOption jobEvaluateOption);修改分项信息-->
     <update id="updJobEvaluateOption">
-        update jobevaluateoption set optionName = #{optionName},optionState = #{optionState}
+        update jobevaluateoption set optionName = #{optionName}
         where optionId = #{optionId}
     </update>
 
-    <!-- boolean delJobEvaluateOptionByOptionId(int optionId);根据id删除分项信息-->
-    <delete id="delJobEvaluateOptionByOptionId">
-        delete from jobevaluateoption where optionId = #{optionId}
-    </delete>
+   <!-- boolean updJobEvaluateOptionByOptionId(@Param("optionId") int optionId,
+    @Param("optionState") int optionState);修改评分项状态-->
+    <update id="updJobEvaluateOptionByOptionId">
+        update jobevaluateoption set optionState = #{optionState}
+        where optionId = #{optionId}
+    </update>
 
     <!-- boolean delJobEvaluateOptionsByOptionId(int[] optionIds);批量删除-->
     <delete id="delJobEvaluateOptionsByOptionId">

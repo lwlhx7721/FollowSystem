@@ -22,6 +22,10 @@ public class CourseController {
     @Autowired
     private ICourseService courseService;
 
+    @RequestMapping("courseList")
+    public String courseList() {
+        return "course/courseList";
+    }
     /**
      * 获取所有的课程信息
      * @param limit 分页

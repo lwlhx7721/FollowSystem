@@ -66,4 +66,17 @@ public interface IUserDao {
      * @return
      */
     boolean delUsersByUserId(@Param("userIds") String userIds);
+
+    /**
+     * 通过用户名和身份获取所有用户分页查询
+     * @return 用户登录信息及权限
+     */
+    List<Map<String,Object>> getAllUserByRole(@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex,@Param("userName")String userName,@Param("roleId") int roleId);
+
+    /**
+     * 用户自己修改自己的信息
+     * @param user 用户
+     * @return 是否成功
+     */
+    boolean updUserByUser(User user);
 }

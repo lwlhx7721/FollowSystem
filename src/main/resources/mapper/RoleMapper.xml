@@ -16,4 +16,30 @@
         LEFT JOIN role r
         ON a.roleId=r.roleId
     </select>
+
+    <select id="getAllRole" resultType="Role">
+        SELECT roleId,roleName
+        FROM role
+        WHERE NOT roleId = 1
+    </select>
+
+    <select id="getUserAndRole" resultType="Map">
+        SELECT a.userid AS userId,a.username AS userName,GROUP_CONCAT(r.rolename) AS roleName
+        FROM
+        (SELECT u.userid,u.username,us.roleid
+        FROM `user` u
+        LEFT JOIN userrolerelationship us
+        On u.userid=us.userid
+        WHERE NOT us.roleid=1) a
+        LEFT JOIN role r
+        ON a.roleid=r.roleid
+        GROUP BY a.userid
+        <where>
+            <if test="userName !=''">
+                userName like concat('%', #{userName}, '%')
+            </if>
+        </where>
+        order by a.userId
+        limit #{pageIndex},#{pageSize}
+    </select>
 </mapper>

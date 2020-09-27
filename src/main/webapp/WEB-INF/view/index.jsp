@@ -7,23 +7,23 @@
     <link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">
     <script src="../../static/layui/layui.js" charset="utf-8"></script>
     <script src="../../static/js/jquery-3.3.1.js"></script>
-    <script>
+    <%--<script>
         $(function () {
             $("#btn1").click(function () {
                 $("#left").animate({width:'toggle'},200);
             })
         })
-    </script>
+    </script>--%>
 </head>
 <body>
     <div id="container">
         <div id="header">
             <a href="#"><img src="../../static/images/header.png" alt=""></a>
-            <ul class="layui-nav layui-bg-cyan" style="height: 60px;float: right">
+            <ul class="layui-nav" style="height: 60px;float: right;background-color: #265160">
                 <li class="layui-nav-item">
-                    <a href="javascript:">${sessionScope.user.userName}</a>
+                    <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
-                        <dd><a id="resetpwd">修改密码</a></dd>
+                        <dd><a id="updSelf">修改个人资料</a></dd>
                         <dd><a href="logout">退出</a></dd>
                     </dl>
                 </li>
@@ -34,20 +34,20 @@
             <div id="left">
                 <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" style="margin: 5px;">
                     <c:forEach var="menu" items="${menus}" >
-                        <li class="layui-nav-item"><a href="${menu.address}">${menu.menuName}</a></li>
+                        <li class="layui-nav-item" style="background-color: cornflowerblue"><a href="${menu.address}" target="main">${menu.menuName}</a></li>
                     </c:forEach>
                 </ul>
             </div>
         </c:if>
         <div id="right">
-            <div id="body" style="background-color: #FFFFFF;height: 566px">
+            <div id="body">
                 <%--<div style="background-color: red">
                     <c:if test="${menus.size() != 0}">
                         <input type="button" value="《" id="btn1">
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="stuList" frameborder="0"  name="main" scrolling="no"></iframe>
+                <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
@@ -62,8 +62,13 @@
             element.on('nav(demo)', function(elem){
 
             });
-            $("#resetpwd").click(function () {
-
+            $("#updSelf").click(function () {
+                layer.open({
+                    type:2,
+                    content:"edituser?userId=" + ${sessionScope.loginUser.userId},
+                    title:"修改个人资料",
+                    area:['800px','600px'],//设置弹框的宽高
+                })
             })
         });
     </script>
