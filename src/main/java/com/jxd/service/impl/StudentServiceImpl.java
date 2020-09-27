@@ -40,7 +40,7 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public List<Map<String, Object>> getStudentById(int stuId) {
+    public Map<String, Object> getStudentById(int stuId) {
         return studentDao.getStudentById(stuId);
     }
 
