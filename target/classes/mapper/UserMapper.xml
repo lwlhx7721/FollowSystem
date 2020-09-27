@@ -96,6 +96,7 @@
         WHERE NOT us.roleid = 1) a
         LEFT JOIN role r
         ON a.roleid=r.roleid
+        GROUP BY a.userid
         <where>
             <if test="userName !=''">
                 a.userName like concat('%', #{userName}, '%')
