@@ -26,6 +26,7 @@
         WHERE NOT us.roleid = 1) a
         LEFT JOIN dept d
         ON a.deptId=d.deptId
+        GROUP BY a.userId
         <where>
             <if test="userName !=''">
                 a.userName like concat('%', #{userName}, '%')
@@ -46,6 +47,7 @@
         WHERE NOT us.roleid = 1) a
         LEFT JOIN dept d
         ON a.deptid=d.deptid
+        GROUP BY a.userId
         <where>
             <if test="userName !=''">
                 a.userName like concat('%', #{userName}, '%')

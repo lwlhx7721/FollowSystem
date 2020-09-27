@@ -67,6 +67,7 @@
             ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
+
         $("#close").click(function () {
             //当你在iframe页面关闭自身时
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
