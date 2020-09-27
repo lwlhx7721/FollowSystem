@@ -24,7 +24,7 @@ html,body {
 }
 #body {
     width: 100%;
-    height: 530px;
+    height: 545px;
     background-color: #f2f2f2;
 }
 #left {
@@ -35,13 +35,13 @@ html,body {
 }
 #right {
     width: 85%;
-    height: 560px;
+    height: 565px;
     background-color: #00FF00;
     float: right;
 }
 #footer {
     width: 100%;
-    height: 30px;
+    height: 15px;
     background-color: #F0F0F0;
     text-align: center;
     padding-top: 5px;

@@ -15,7 +15,6 @@
         </div>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
-        <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>
     </div>
     <table class="layui-hide" id="courseList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
@@ -64,8 +63,7 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'courseId',title:'课程号',sort:true}
                 ,{field:'courseName',title: '课程名'}
                 ,{field:'courseState',title: '课程状态'}
@@ -103,36 +101,32 @@
                         url: "getCourseList"
                     })
                 }
-            } else if(obj.event == 'del'){
+            } else if(obj.event == 'del') {
                 //删除消息
                 var checkStatus = table.checkStatus("courseList").data;
-                if (checkStatus.length == 0) {
-                    layer.msg("请选择要删除的数据");
-                    return;
-                }else{
-                    layer.confirm('确定删除吗', '删除指令', function(){
-                        $.ajax({
-                            type: "post",
-                            url: "delCourse?courseId=" + data.courseId,
-                            data: {
-                                courseId: data.courseId,
-                            },
-                            dataType: "text",
-                            success: function(data) {
-                                layer.msg(data);
-                                table.reload("courseList",  {
-                                    url: "getCourseList"
-                                })
-                            },
-                            error: function (data) {
-                                layer.msg("执行失败");
-                            }
-                        })
+                layer.confirm('确定删除吗', '删除指令', function () {
+                    $.ajax({
+                        type: "post",
+                        url: "delCourse?courseId=" + data.courseId,
+                        data: {
+                            courseId: data.courseId,
+                        },
+                        dataType: "text",
+                        success: function (data) {
+                            layer.msg(data);
+                            table.reload("courseList", {
+                                url: "getCourseList"
+                            })
+                        },
+                        error: function (data) {
+                            layer.msg("执行失败");
+                        }
                     })
-                }
+                })
             }
         });
-    });
+});
+
 </script>
 </body>
 </html>

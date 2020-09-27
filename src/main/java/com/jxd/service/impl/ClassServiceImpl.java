@@ -16,6 +16,11 @@ import java.util.List;
 public class ClassServiceImpl implements IClassService {
     @Autowired
     private IClassDao classDao;
+
+    /**
+     * 获取所有班级信息
+     * @return 班级信息
+     */
     @Override
     public List<Class> getAllClass() {
         return classDao.getAllClass();
