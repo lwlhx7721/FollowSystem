@@ -53,8 +53,7 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'userId',title:'用户号',sort:true}
                 ,{field:'userName',title: '用户名'}
                 ,{field:'roleName',title: '已有权限'}

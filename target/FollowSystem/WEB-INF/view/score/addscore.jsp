@@ -9,7 +9,7 @@
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">学生id</label>
+        <label class="layui-form-label">学生姓名</label>
         <div class="layui-input-inline">
             <select name="stuId" id="stuId" lay-verify="required">
                 <c:forEach items="${stuList}" var="student">
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">课程id</label>
+        <label class="layui-form-label">课程名</label>
         <div class="layui-input-inline">
             <select name="courseId" id="courseId" lay-verify="required">
                 <c:forEach items="${courseList}" var="course">
