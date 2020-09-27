@@ -39,7 +39,14 @@
                 </ul>
             </div>
         </c:if>
-        <div id="right">
+        <c:choose>
+            <c:when test="${menus.size() != 0}">
+                <div id="right">
+            </c:when>
+            <c:otherwise>
+                <div id="right" style="width: 100%">
+            </c:otherwise>
+        </c:choose>
             <div id="body">
                 <%--<div style="background-color: red">
                     <c:if test="${menus.size() != 0}">
@@ -47,7 +54,14 @@
                     </c:if>
                     我是工具栏
                 </div>--%>
-                <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
+                <c:choose>
+                    <c:when test="${menus.size() != 0}">
+                        <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
+                    </c:when>
+                    <c:otherwise>
+                        <iframe src="stuList" frameborder="0"  name="main" scrolling="no"></iframe>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div id="footer">@2020&nbsp;&nbsp;金桥&nbsp;&nbsp;&nbsp;&nbsp;学员成长跟踪系统</div>
         </div>
