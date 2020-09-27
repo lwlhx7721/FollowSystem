@@ -21,11 +21,15 @@ import java.util.Map;
  */
 @Controller
 public class RoleController {
-
     @Autowired
     private IRoleService roleService;
     @Autowired
     private IUserRoleRelationshipService userRoleRelationshipService;
+
+    @RequestMapping("/roleList")
+    public String roleList() {
+        return "role/roleList";
+    }
 
     @RequestMapping("/getRoleList")
     @ResponseBody
