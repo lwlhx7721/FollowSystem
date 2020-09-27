@@ -17,4 +17,11 @@ public interface ICityDao {
      * @return 返回城市名、父级城市id、城市类型的集合
      */
     List<Map<String, Object>> getCity(int parentId);
+
+    /**
+     * 根据id查询城市名
+     * @param id 接收id
+     * @return 返回city对象
+     */
+    City getCityById(int id);
 }

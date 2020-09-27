@@ -9,4 +9,9 @@
         select id, pid, cityName, city.type from city
         where pid = #{pid}
     </select>
+    <!--City getCityById(int id);-->
+    <select id="getCityById" resultType="City">
+        select id, pid, cityName, city.type from city
+        where id = #{id}
+    </select>
 </mapper>

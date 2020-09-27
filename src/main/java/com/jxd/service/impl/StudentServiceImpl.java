@@ -1,6 +1,7 @@
 package com.jxd.service.impl;
 
 import com.jxd.dao.IStudentDao;
+import com.jxd.model.Student;
 import com.jxd.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,26 @@ public class StudentServiceImpl implements IStudentService {
     public List<Map<String, Object>> getAllStudentByPage(String stuName, int classId, int deptId, int pageIndex, int pageSize) {
         int PageIndex = (pageIndex - 1)*pageSize;
         return studentDao.getAllStudentByPage(stuName, classId, deptId, PageIndex, pageSize);
+    }
+
+    @Override
+    public boolean addStudents(Student student) {
+        return studentDao.addStudents(student);
+    }
+
+    @Override
+    public List<Map<String, Object>> getStudentById(int stuId) {
+        return studentDao.getStudentById(stuId);
+    }
+
+    @Override
+    public boolean updStudents(Student student) {
+        return studentDao.updStudents(student);
+    }
+
+    @Override
+    public boolean delStudentByStuId(int stuId) {
+        return studentDao.delStudentByStuId(stuId);
     }
 
 }

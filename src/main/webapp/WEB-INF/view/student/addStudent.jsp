@@ -14,7 +14,7 @@
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
-<div class="layui-form">
+<form class="layui-form" id="addForm">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-inline">
@@ -39,24 +39,20 @@
         <div class="layui-input-inline">
             <select name="province" id="province" lay-filter="province">
                 <option value="">请选择省</option>
-                <c:forEach items="${city1List}" var="city">
+                <c:forEach items="${cityList}" var="city">
                     <option value="${city.id}">${city.cityName}</option>
                 </c:forEach>
             </select>
         </div>
         <div class="layui-input-inline">
             <select name="city" id="city" lay-filter="city">
-                <option value="">请选择市</option>
-                <c:forEach items="${city2List}" var="city">
-                    <option value="${city.id}">${city.cityName}</option>
-                </c:forEach>
+                <option value="">--请选择市--</option>
+
             </select>
         </div>
         <div class="layui-input-inline">
             <select name="area" id="area" lay-filter="area">
-                <c:forEach items="${city3List}" var="city">
-                    <option value="${city.id}">${city.cityName}</option>
-                </c:forEach>
+                <option value="">--请选择县--</option>
             </select>
         </div>
     </div>
@@ -110,7 +106,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-inline">
-            <select name="class" id="class">
+            <select name="classId" id="classId">
                 <option value="">请选择班级</option>
                 <c:forEach items="${classList}" var="class1">
                     <option value="${class1.classId}">${class1.className}</option>
@@ -118,26 +114,33 @@
             </select>
         </div>
     </div>
-    <div class="layui-upload" style="margin-left: 112px">
-        <button type="button" class="layui-btn" id="test1">上传照片</button>
-        <div class="layui-upload-list">
-            <img class="layui-upload-img" id="demo1">
-            <p id="demoText"></p>
+
+    <input type="hidden" name="photo" class="image">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label ">照片:</label>
+        <div class="layui-upload">
+            <input type="button" class="layui-btn" id="test1">上传照片</input>
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" id="demo1" style="width: 90px;margin-left: 110px">
+                <p id="demoText"></p>
+            </div>
         </div>
     </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入备注" class="layui-textarea"></textarea>
+            <textarea placeholder="请输入备注" class="layui-textarea" id="note"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="ok">确定</button>
+            <a class="layui-btn" id="ok">确定</a>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
-</div>
+</form>
 <script>
     //Demo
     layui.use(['form','laydate','layer','upload'], function(){
@@ -160,57 +163,91 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            , url: 'https://httpbin.org/post' //改成您自己的上传接口
-            , before: function (obj) {
-                //预读本地文件示例，不支持ie8
-                obj.preview(function (index, file, result) {
-                    $('#demo1').attr('src', result); //图片链接（base64）
+            ,url: '/upload/'
+            ,accept:'images'
+            ,size:50000
+            ,before: function(obj){
+
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result);
                 });
             }
-            , done: function (res) {
+            ,done: function(res){
                 //如果上传失败
-                if (res.code > 0) {
+                if(res.code > 0){
                     return layer.msg('上传失败');
                 }
                 //上传成功
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #4cae4c;margin-left: 110px">上传成功</span>');
+
+                var fileupload = $(".image");
+                fileupload.attr("value",res.data.src);
+                console.log(fileupload.attr("value"));
             }
-            , error: function () {
+            ,error: function(){
                 //演示失败状态，并实现重传
                 var demoText = $('#demoText');
                 demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function () {
+                demoText.find('.demo-reload').on('click', function(){
                     uploadInst.upload();
                 });
             }
-        })
-        layui.form.on('select(province)', function (data) {
+        });
+
+        form.render('select');
+        //一级下拉框
+        form.on('select(province)', function(data) {
+            var parentId = data.value;
             $.ajax({
-                url:"cityList",
-                type:"post"
-                ,data:{
-                    parentId:$("#province").val(),
-                    type:2
-                },success:function (data) {
-                    form.render('select');
-                    <%--$('#city').html('<option value="0">请选择市</option>')--%>
-                    <%--<c:forEach items="${city2List}" var="city">--%>
-                    <%--    $('#city').append(new Option(${city.cityName}, ${city.id}));--%>
-                    <%--</c:forEach>--%>
-                    <%--form.render('select');--%>
+                type : "post",
+                url : "getCity",
+                data : {parentId:parentId},
+                dataType : "json",
+                success : function(d) {
+                    var tmp = '<option value="">--请选择市--</option>';
+                    //改变时第三级下拉框回复原样
+                    $("#city").html(tmp);
+                    for ( var i in d) {
+                        tmp += '<option value="' + d[i].id +  '">' + d[i].cityName + '</option>';
+                    }
+                    $("#city").html(tmp);
+                    form.render();
+                },
+                error:function(){
+                    layer.alert('请求失败，稍后再试', {icon: 5});
                 }
-            })
-        })
+
+            });
+        });
+
+        //二级联框
+        form.on('select(city)',function(data){
+            var parentId = data.value;
+            $.ajax({
+                type : "post",
+                url : "getCity",
+                data : {parentId:parentId},
+                dataType : "json",
+                success : function(d) {
+                    var tmp = '<option value="">--请选择县--</option>';
+                    for ( var i in d) {
+                        tmp += '<option value="' + d[i].id +  '">' + d[i].cityName + '</option>';
+                    }
+                    $("#area").html(tmp);
+                    form.render();
+                },
+                error:function(){
+                    layer.alert('请求失败，稍后再试', {icon: 5});
+                }
+            });
+        });
+
         $("#ok").click(function () {
             $.ajax({
                 type: "post",
                 url:"addStudents",
-                data: {
-                    name:$("#name").val(),
-                    sex:$("input[name=sex]:checked").val(),
-                    birthday:$("#birthday").val(),
-                    grade: $("#grade").val(),
-                    collegeid: $("#collegeid").val(),
-                },
+                data:$("#addForm").serialize(),
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {

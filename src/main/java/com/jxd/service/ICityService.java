@@ -12,9 +12,16 @@ import java.util.Map;
  */
 public interface ICityService {
     /**
-     * 根据id查询对应城市名
+     * 根据父级id查询对应城市名
      * @param parentId 接收id查询城市名
      * @return 返回城市名、父级城市id、城市类型的集合
      */
     List<Map<String, Object>> getCity(int parentId);
+
+    /**
+     * 根据id查询城市名
+     * @param id 接收id
+     * @return 返回city对象
+     */
+    City getCityById(int id);
 }

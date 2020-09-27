@@ -23,4 +23,9 @@ public class CityServiceImpl implements ICityService {
     public List<Map<String, Object>> getCity(int parentId) {
         return cityDao.getCity(parentId);
     }
+
+    @Override
+    public City getCityById(int id) {
+        return cityDao.getCityById(id);
+    }
 }

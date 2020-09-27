@@ -1,5 +1,8 @@
 package com.jxd.service;
 
+import com.jxd.model.City;
+import com.jxd.model.Student;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,4 +23,32 @@ public interface IStudentService {
      * @return 返回查询到的学员信息集合
      */
     List<Map<String, Object>> getAllStudentByPage(String stuName, int classId, int deptId, int pageIndex, int pageSize);
+
+    /**
+     * 新增学员信息
+     * @param student 接收一个学员对象，里面封装了学员的信息
+     * @return 返回是否新增成功
+     */
+    boolean addStudents(Student student);
+
+    /**
+     * 根据id查看该学员信息
+     * @param stuId 学员id
+     * @return 返回学员对象
+     */
+    List<Map<String, Object>> getStudentById(int stuId);
+
+    /**
+     * 修改学员信息
+     * @param student 接收学员对象
+     * @return
+     */
+    boolean updStudents(Student student);
+
+    /**
+     * 根据id删除学员
+     * @param stuId 学员id
+     * @return 返回是否成功
+     */
+    boolean delStudentByStuId(int stuId);
 }

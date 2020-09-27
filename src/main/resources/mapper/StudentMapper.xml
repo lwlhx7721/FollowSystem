@@ -46,4 +46,34 @@
         </where>
         order by s.stuId limit #{pageIndex}, #{pageSize}
     </select>
+
+    <!-- boolean addStudents(Student student);-->
+    <insert id="addStudents">
+        insert into student(stuname, sex, nation, birthday, birthPlace, marry, telephone, idCard, university, major, note, photo, classId, deptId,state)
+        values (#{stuName}, #{sex}, #{nation}, #{birthday}, #{birthPlace}, #{marry}, #{telephone}, #{idCard}, #{university}, #{major}, #{note}, #{photo}, #{classId}, 1000006, '培训')
+    </insert>
+    <!-- boolean updStudents(Student student);-->
+    <update id="updStudents">
+        update student set stuname = #{stuName}, sex = #{sex}, nation = #{nation}, birthday = #{birthday}, birthPlace = #{birthPlace}, marry = #{marry},
+         telephone = #{telephone}, idCard = #{idCard}, university = #{university}, major = #{major}, note = #{note}, photo = #{photo}, classId = #{classId}
+        where stuId = #{stuId}
+    </update>
+
+    <!--List<Map<String, Object>> getStudentsById(int stuId);-->
+    <select id="getStudentById" resultType="map">
+        SELECT
+        s.stuId,s.stuName,s.sex,s.nation,s.birthday,s.birthPlace,s.marry,
+        s.telephone,s.idCard,s.university,s.major,s.photo,s.note,s.state,
+        s.classId,s.deptId,cl.className,d.deptName
+        FROM
+        student AS s
+        INNER JOIN class AS cl ON s.classId = cl.classId
+        INNER JOIN dept AS d ON s.deptId = d.deptId
+        where s.stuId = #{stuId}
+    </select>
+
+    <!--boolean delStudentByStuId(String stuId);-->
+    <delete id="delStudentByStuId">
+        delete from student where stuId = #{stuId}
+    </delete>
 </mapper>

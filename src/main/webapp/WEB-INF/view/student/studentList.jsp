@@ -123,13 +123,13 @@
                     type:2
                     ,area:['800px','500px']
                     ,title:data.stuName + '的个人信息'
-                    ,content:'detailStudent??stuId=' + data.stuId
+                    ,content:'detailStudent?stuId=' + data.stuId
                 })
             } else if(obj.event == 'udp'){
                 layer.open({
                     type:2,
-                    content:"updStudent?stuId=" + data.stuId,
-                    title:"编辑学生信息",
+                    content:"updStudent?parentId=1&stuId=" + data.stuId,
+                    title:"修改学生信息",
                     area:['800px','500px'],//设置弹框的宽高
                 }),
                     table.reload("studentList",  {
@@ -146,11 +146,7 @@
                         },
                         dataType: "text",
                         success: function(data) {
-                            if(data) {
-                                layer.msg("删除成功");
-                            } else {
-                                layer.msg("删除失败");
-                            }
+                            layer.msg(data);
                             table.reload("studentList",  {
                                 url: "getStudentList"
                             })
