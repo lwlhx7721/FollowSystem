@@ -36,10 +36,10 @@
         GROUP BY a.userid
         <where>
             <if test="userName !=''">
-                b.userName like concat('%', #{userName}, '%')
+                userName like concat('%', #{userName}, '%')
             </if>
         </where>
-        order by b.userId
+        order by a.userId
         limit #{pageIndex},#{pageSize}
     </select>
 </mapper>

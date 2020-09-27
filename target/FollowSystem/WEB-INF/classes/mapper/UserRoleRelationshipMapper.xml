@@ -19,4 +19,14 @@
     <delete id="delUserRoleRelationshipByUserId">
         delete from userrolerelationship where userId = #{userId}
     </delete>
+
+    <insert id="addRole">
+        INSERT INTO UserRoleRelationship(userId,roleId)
+        VALUES (#{userID},#{roleId})
+    </insert>
+
+    <delete id="delRole">
+        DELETE FROM role
+        WHERE userId=#{userId}
+    </delete>
 </mapper>
