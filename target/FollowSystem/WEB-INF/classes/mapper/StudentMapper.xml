@@ -76,4 +76,9 @@
     <delete id="delStudentByStuId">
         delete from student where stuId = #{stuId}
     </delete>
+
+    <!--boolean delStudentsById(String stuIds);-->
+    <delete id="delStudentsById">
+        delete from student where stuId in ${stuIds}
+    </delete>
 </mapper>

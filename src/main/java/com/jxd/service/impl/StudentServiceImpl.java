@@ -28,30 +28,64 @@ public class StudentServiceImpl implements IStudentService {
         return studentDao.getAllStudent(stuName, classId, deptId);
     }
 
+    /**
+     * 分页查询学员信息
+     * @return 返回查询到的学员信息集合
+     */
     @Override
     public List<Map<String, Object>> getAllStudentByPage(String stuName, int classId, int deptId, int pageIndex, int pageSize) {
         int PageIndex = (pageIndex - 1)*pageSize;
         return studentDao.getAllStudentByPage(stuName, classId, deptId, PageIndex, pageSize);
     }
 
+    /**
+     * 新增学员信息
+     * @param student 接收一个学员对象，里面封装了学员的信息
+     * @return 返回是否新增成功
+     */
     @Override
     public boolean addStudents(Student student) {
         return studentDao.addStudents(student);
     }
 
+    /**
+     * 根据id查看该学员信息
+     * @param stuId 学员id
+     * @return 返回学员对象
+     */
     @Override
     public List<Map<String, Object>> getStudentById(int stuId) {
         return studentDao.getStudentById(stuId);
     }
 
+    /**
+     * 修改学员信息
+     * @param student 接收学员对象
+     * @return
+     */
     @Override
     public boolean updStudents(Student student) {
         return studentDao.updStudents(student);
     }
 
+    /**
+     * 根据id删除学员
+     * @param stuId 学员id
+     * @return 返回是否成功
+     */
     @Override
     public boolean delStudentByStuId(int stuId) {
         return studentDao.delStudentByStuId(stuId);
+    }
+
+    /**
+     * 批量删除学员信息
+     * @param stuIds 接收id数组
+     * @return 返回是否成功
+     */
+    @Override
+    public boolean delStudentsById(String stuIds) {
+        return studentDao.delStudentsById(stuIds);
     }
 
 }

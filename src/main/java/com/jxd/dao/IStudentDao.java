@@ -51,4 +51,11 @@ public interface IStudentDao {
      * @return 返回是否成功
      */
     boolean delStudentByStuId(int stuId);
+
+    /**
+     * 批量删除学员信息
+     * @param stuIds 接收id数组
+     * @return 返回是否成功
+     */
+    boolean delStudentsById(@Param("stuIds") String stuIds);
 }

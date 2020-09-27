@@ -14,7 +14,7 @@
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center">
+<div align="center" class="layui-form">
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="deptName" id="deptName" placeholder="请输入部门名称进行查询"
@@ -118,7 +118,7 @@
                             })
                         },
                         error: function (data) {
-                            layer.msg("执行失败");
+                            layer.msg("该部门下有学员，不能删除");
                         }
                     })
                 })
