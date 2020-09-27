@@ -8,17 +8,19 @@
     <script src="../../static/layui/layui.js"></script>
 </head>
 <body>
-<div action="roles" method="post">
-    <select name="roleId" id="roleId" layui-verify="required">
-        <option value="0">请选择</option>
-            <c:forEach items="${sessionScope.roles}" var="role" >
-            <option value="${role.roleId}">
-                    ${role.roleName}
-            </option>
-        </c:forEach>
-    </select>
+<div style="text-align: center">
+    <div style="margin-top: 20px;margin-bottom: 20px;">
+        <select name="roleId" id="roleId" style="width: 200px;height: 30px;border-radius: 5% ;border-color: #01AAED;">
+            <option value="0">请选择</option>
+            <c:forEach items="${sessionScope.roles}" var="role">
+                <option value="${role.roleId}">
+                        ${role.roleName}
+                </option>
+            </c:forEach>
+        </select>
+    </div>
     <br>
-    <button id="btn" class="layui-btn">确定</button>
+    <button id="btn" class="layui-btn" style="width: 200px;height: 40px;">确定</button>
 </div>
 <script>
     $(function () {

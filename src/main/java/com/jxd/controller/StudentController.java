@@ -55,7 +55,7 @@ public class StudentController {
         return studentData;
     }
 
-    @RequestMapping("/stuList")
+    @RequestMapping("/studentList")
     public String getDeptAndClassList(Model model) {
         model.addAttribute("deptList",deptService.getAllDept());
         model.addAttribute("classList",classService.getAllClass());
