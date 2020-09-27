@@ -36,7 +36,7 @@ public interface IStudentService {
      * @param stuId 学员id
      * @return 返回学员对象
      */
-    List<Map<String, Object>> getStudentById(int stuId);
+    Map<String, Object> getStudentById(int stuId);
 
     /**
      * 修改学员信息

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 张新云
+  User:
   Date: 2020/9/23
   Time: 15:22
   To change this template use File | Settings | File Templates.
@@ -14,7 +14,7 @@
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center">
+<div align="center" class="layui-form">
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="deptName" id="deptName" placeholder="请输入部门名称进行查询"
