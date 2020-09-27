@@ -13,7 +13,9 @@
         LEFT JOIN course co
         ON a.courseid = co.courseid
         <where>
+            <if test="stuName !=''">
                 stuName like concat('%',#{stuName},'%')
+            </if>
         </where>
         order by stuId
         limit #{pageIndex},#{pageSize}
