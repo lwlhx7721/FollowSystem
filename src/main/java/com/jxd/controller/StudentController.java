@@ -162,7 +162,7 @@ public class StudentController {
     @RequestMapping(value = "/detailStudent",produces = "text/html;charset=UTF-8")
     public String getStudentsByID(String stuId,Model model) {
         int id = stuId == null ? 0:Integer.parseInt(stuId);
-        List<Map<String, Object>> list = studentService.getStudentById(id);
+        Map<String, Object> list = studentService.getStudentById(id);
         model.addAttribute("list", list);
         return "student/detailStudent";
     }
@@ -172,7 +172,7 @@ public class StudentController {
         List<Map<String, Object>> cityList = cityService.getCity(parentId);
         model.addAttribute("cityList", cityList);
         int id = stuId == null ? 0:Integer.parseInt(stuId);
-        List<Map<String, Object>> list = studentService.getStudentById(id);
+        Map<String, Object> list = studentService.getStudentById(id);
         model.addAttribute("list", list);
         return "student/updStudent";
     }

@@ -59,7 +59,7 @@
         where stuId = #{stuId}
     </update>
 
-    <!--List<Map<String, Object>> getStudentsById(int stuId);-->
+    <!--Map<String, Object> getStudentsById(int stuId);-->
     <select id="getStudentById" resultType="map">
         SELECT
         s.stuId,s.stuName,s.sex,s.nation,s.birthday,s.birthPlace,s.marry,

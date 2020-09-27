@@ -19,7 +19,7 @@
             height: 100%;
         }
         #container {
-            background-image: url("../../static/images/bg5.jpg");
+            background-image: url("../../static/images/student_bg.png");
             width: 100%;
             height: 100%;
             text-align: center;
@@ -27,15 +27,16 @@
             margin: 0 auto;
         }
         #login {
-            width: 400px;
+            width: 300px;
             height: 300px;
             text-align: center;
             position: absolute;
-            top: 200px;
+            top: 120px;
             right: 150px;
             padding: 50px 50px 20px 5px;
             background-color: white;
             border-radius: 5%;
+            background-color: rgba(189,196,193,0.5);
         }
         #title {
             width: 800px;
@@ -58,28 +59,30 @@
 <body>
 <div class="layui-carousel" id="container">
     <div carousel-item>
+        <div class="a" style="background-image: url('../../static/images/bg1.jpg')"></div>
         <div class="a" style="background-image: url('../../static/images/bg2.jpg')"></div>
-        <div class="a" style="background-image: url('../../static/images/bg3.jpg')"></div>
-        <div class="a" style="background-image: url('../../static/images/bg4.jpg')"></div>
-        <div class="a" style="background-image: url('../../static/images/bg5.jpg')"></div>
+        <div class="a" style="background-image: url('../../static/images/student_bg.png')"></div>
+        <div class="a" style="background-image: url('../../static/images/student_bg.png')"></div>
     </div>
     <div id="title"></div>
     <div id="login">
-        <h1 style="color:#009688;margin: 30px;margin-top: 0px;font-family: 华文隶书">登&nbsp;&nbsp;&nbsp;&nbsp;录</h1>
+        <h1 style="color:#009688;margin: 30px;margin-left: 60px;margin-top: 0px;font-family: 华文隶书">登&nbsp;&nbsp;&nbsp;&nbsp;录</h1>
         <div style="display: flex;justify-content: center">
             <div class="layui-form">
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="text" id="userId" style="width: 250px; margin-left: 50px" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input t">
+                        <input type="text" id="userId" style="width: 250px; margin-left: 50px;background-color: rgba(128,128,128,0.9);" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input t">
                     </div>
                 </div>
                 <br><br>
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
-                        <input type="password" style="width: 250px; margin-left: 50px" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
+                        <input type="password" style="width: 250px; margin-left: 50px;background-color: rgba(128,128,128,0.9);" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
                     </div>
                 </div>
-                <input type="checkbox" name="rememberPwd" value="1" checked>记住密码
+                <div style="margin-left: 50px;margin-bottom:15px;float: left;">
+                    <input type="checkbox" value="1" checked>记住密码
+                </div>
                 <br>
                 <br>
                 <div class="layui-form-item">

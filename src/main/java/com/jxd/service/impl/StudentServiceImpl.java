@@ -54,7 +54,7 @@ public class StudentServiceImpl implements IStudentService {
      * @return 返回学员对象
      */
     @Override
-    public List<Map<String, Object>> getStudentById(int stuId) {
+    public Map<String, Object> getStudentById(int stuId) {
         return studentDao.getStudentById(stuId);
     }
 
