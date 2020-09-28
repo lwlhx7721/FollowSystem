@@ -88,10 +88,10 @@
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
-                        layer.msg("新增成功");
+                        layer.msg("修改成功");
                         setTimeout('closeLayer();',1000);
                     } else {
-                        layer.msg("新增失败");
+                        layer.msg("修改失败");
                     }
                 },
                 error:function () {

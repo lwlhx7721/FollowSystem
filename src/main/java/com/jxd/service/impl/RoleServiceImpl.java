@@ -46,4 +46,15 @@ public class RoleServiceImpl implements IRoleService {
     public List<Map<String, Object>> getUserAndRole(int pageSize, int pageIndex, String userName) {
         return roleDao.getUserAndRole(pageSize, pageIndex, userName);
     }
+
+    /**
+     * 添加权限
+     * @param userId，用户编号
+     * @param roleId 权限编号
+     * @return 是否成功
+     */
+    @Override
+    public boolean addRole(int userId,int roleId) {
+        return roleDao.addRole(userId, roleId);
+    }
 }

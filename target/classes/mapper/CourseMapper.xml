@@ -32,8 +32,8 @@
 
     <update id="updCourse">
         UPDATE course
-        SET couresename=#{coursename},coursentate=#{coursestate}
-        WHERE courseid=#{courseid}
+        SET courseName=#{courseName},courseState=#{courseState}
+        WHERE courseid=#{courseId}
     </update>
 
     <delete id="delCourse">

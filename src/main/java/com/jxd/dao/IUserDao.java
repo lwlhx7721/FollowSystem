@@ -71,7 +71,15 @@ public interface IUserDao {
      * 通过用户名和身份获取所有用户分页查询
      * @return 用户登录信息及权限
      */
-    List<Map<String,Object>> getAllUserByRole(@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex,@Param("userName")String userName,@Param("roleId") int roleId);
+    List<Map<String,Object>> getAllUserByRole(@Param("pageSize")int pageSize,@Param("pageIndex")int pageIndex,@Param("userName")String userName,@Param("deptId") int deptId);
+
+    /**
+     * 重置密码
+     * @param userId 用户Id
+     * @param pwd 密码
+     * @return 是否成功
+     */
+    boolean updPwd(int userId,String pwd);
 
     /**
      * 用户自己修改自己的信息

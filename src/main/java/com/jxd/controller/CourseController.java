@@ -52,7 +52,7 @@ public class CourseController {
     public String addCourse(){
         return "course/addcourse";
     }
-    @RequestMapping("/addCourse")
+    @RequestMapping(value = "addCourse",produces = "text/html;charset=utf-8")
     @ResponseBody
     public String addCourse(Course course){
         List<Course> list = courseService.getAllCourse();
@@ -70,17 +70,17 @@ public class CourseController {
 
     /**
      * 根据课程编号删除课程
-     * @param course 课程
+     * @param  courseId
+     * @param  courseState
      * @return 是否成功
      */
-    @RequestMapping(value = "delCourse",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/delCourse",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String delCourse(Course course){
-        int a = course.getCourseState();
-        if (course.getCourseState()==1){
+    public String delCourse(int courseId,Integer courseState){
+         if (courseState==1){
          return "该课程已选，无法删除";
         }else {
-            boolean flag = courseService.delCourse(course.getCourseId());
+            boolean flag = courseService.delCourse(courseId);
             if (flag){
                 return "删除成功";
             }else {
@@ -98,9 +98,6 @@ public class CourseController {
     @RequestMapping("/updCourse")
     @ResponseBody
     public boolean updCourse(Course course) {
-        if (course.getCourseName() == null){
-            return false;
-        }
         return courseService.updCourse(course);
     }
 }
