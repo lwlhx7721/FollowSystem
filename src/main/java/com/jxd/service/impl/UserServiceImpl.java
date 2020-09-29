@@ -98,9 +98,20 @@ public class UserServiceImpl implements IUserService {
      * @return 用户登录信息及权限
      */
     @Override
-    public List<Map<String, Object>> getAllUserByRole(int pageSize, int pageIndex, String userName, int roleId) {
-        return userDao.getAllUserByRole(pageSize,pageIndex,userName,roleId);
+    public List<Map<String, Object>> getAllUserByRole(int pageSize, int pageIndex, String userName, int deptId) {
+        return userDao.getAllUserByRole(pageSize,pageIndex,userName,deptId);
     }
+    /**
+     * 重置密码
+     * @param userId 用户Id
+     * @param pwd 密码
+     * @return 是否成功
+     */
+    @Override
+    public boolean updPwd(int userId, String pwd) {
+        return userDao.updPwd(userId,pwd);
+    }
+
     /**
      * 用户自己修改自己的信息
      * @param user 用户

@@ -24,22 +24,30 @@
     </select>
 
     <select id="getUserAndRole" resultType="Map">
-        SELECT a.userid AS userId,a.username AS userName,GROUP_CONCAT(r.rolename) AS roleName
+        SELECT	b.userId,b.userName,b.roleName
+        FROM
+        (SELECT a.userid AS userId,a.username AS userName,GROUP_CONCAT(r.rolename) AS roleName
         FROM
         (SELECT u.userid,u.username,us.roleid
         FROM `user` u
         LEFT JOIN userrolerelationship us
-        On u.userid=us.userid
-        WHERE NOT us.roleid=1) a
+        ON u.userid=us.userid
+        WHERE not u.userid in
+        (SELECT userid FROM userrolerelationship WHERE roleid = 1)) a
         LEFT JOIN role r
         ON a.roleid=r.roleid
-        GROUP BY a.userid
+        GROUP BY a.userid)b
         <where>
             <if test="userName !=''">
-                userName like concat('%', #{userName}, '%')
+                b.userName like concat('%',#{userName},'%')
             </if>
         </where>
-        order by a.userId
+        order by b.userId
         limit #{pageIndex},#{pageSize}
     </select>
+
+    <insert id="addRole">
+        INSERT INTO UserRoleRelationship(userId,roleId)
+        VALUES (#{userId},#{roleId})
+    </insert>
 </mapper>

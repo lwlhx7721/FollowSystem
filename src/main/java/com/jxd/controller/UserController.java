@@ -115,6 +115,7 @@ public class UserController {
     @RequestMapping("/addUser")
     @ResponseBody
     public boolean addUser(User user) {
+
         return userService.addUser(user);
     }
 
@@ -128,9 +129,6 @@ public class UserController {
     @RequestMapping("/updUser")
     @ResponseBody
     public boolean updUser(User user) {
-        if(user.getUserName() == null) {
-            return false;
-        }
         return userService.updUser(user);
     }
 
@@ -162,23 +160,20 @@ public class UserController {
 
     @RequestMapping("/pwdList")
     public String pwdList(Model model) {
-        model.addAttribute("roleList",roleService.getAllRole());
+        model.addAttribute("deptList",deptService.getAllDept());
         return "user/pwdList";
     }
 
 
     @RequestMapping("/updpwd")
     public String updpwd(int userId, Model model) {
-        model.addAttribute("upduser",userService.getUserByUserId(userId));
+        model.addAttribute("userId",userId);
         return "user/updpwd";
     }
     @RequestMapping("/updPwd")
     @ResponseBody
-    public boolean updPwd(User user) {
-        if(user.getUserName() == null) {
-            return false;
-        }
-        return userService.updUser(user);
+    public boolean updPwd(int userId,String pwd) {
+        return userService.updPwd(userId,pwd);
     }
 
     @RequestMapping("/edituser")
