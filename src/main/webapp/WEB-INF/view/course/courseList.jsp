@@ -87,11 +87,6 @@
             var data = obj.data;
             //查看消息
             if(obj.event == 'udp'){
-                var checkStatus = table.checkStatus("courseList").data;
-                if (checkStatus.length != 1) {
-                    layer.msg("请选择一条要修改的数据");
-                    return;
-                }else {
                     layer.open({
                         type: 2,
                         content: "updcourse?courseId=" + data.courseId,
@@ -100,16 +95,15 @@
                     }), table.reload("courseList", {
                         url: "getCourseList"
                     })
-                }
             } else if(obj.event == 'del') {
                 //删除消息
-                var checkStatus = table.checkStatus("courseList").data;
                 layer.confirm('确定删除吗', '删除指令', function () {
                     $.ajax({
                         type: "post",
-                        url: "delCourse?courseId=" + data.courseId,
+                        url: "delCourse",
                         data: {
                             courseId: data.courseId,
+                            courseState:data.courseState,
                         },
                         dataType: "text",
                         success: function (data) {

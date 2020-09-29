@@ -19,7 +19,7 @@
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="add">授予权限</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">收回权限</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="del">收回权限</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -89,27 +89,15 @@
             } else if(obj.event == 'del'){
                 //删除消息
                 layer.confirm('确定收回权限吗', '确定指令', function(){
-                    $.ajax({
-                        url: "delRole",
-                        type: "post",
-                        data: {
-                            userId: data.userId
-                        },
-                        dataType: "text",
-                        success: function(data) {
-                            if(data) {
-                                layer.msg("权限已收回");
-                            } else {
-                                layer.msg("用户未拥有该权限");
-                            }
-                            table.reload("roleList",  {
-                                url: "getRoleList"
-                            })
-                        },
-                        error: function (data) {
-                            layer.msg("执行失败");
-                        }
-                    })
+                    layer.open({
+                        type:2,
+                        content:"delrole?userId=" + data.userId,
+                        title:"收回用户权限",
+                        area:['800px','500px'],//设置弹框的宽高
+                    }),
+                        table.reload("roleList",  {
+                            url:"getRoleList"
+                        })
                 })
             }
         });

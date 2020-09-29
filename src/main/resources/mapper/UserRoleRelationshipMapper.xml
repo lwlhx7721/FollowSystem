@@ -22,11 +22,11 @@
 
     <insert id="addRole">
         INSERT INTO UserRoleRelationship(userId,roleId)
-        VALUES (#{userID},#{roleId})
+        VALUES (#{userId},#{roleId})
     </insert>
 
     <delete id="delRole">
         DELETE FROM role
-        WHERE userId=#{userId}
+        WHERE userId=#{userId};
     </delete>
 </mapper>

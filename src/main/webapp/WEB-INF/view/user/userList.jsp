@@ -140,7 +140,7 @@
                 layer.open({
                     type:2,
                     content:"upduser?userId=" + data.userId,
-                    title:"编辑学生信息",
+                    title:"编辑用户信息",
                     area:['800px','500px'],//设置弹框的宽高
                 }),
                 table.reload("userList",  {

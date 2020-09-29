@@ -44,7 +44,6 @@
             $.ajax({
                 type: "post",
                 url:"addRole",
-                async: false,
                 data: {
                     userId: $("#userId").val(),
                     roleId: $("#roleId").val()
@@ -55,7 +54,7 @@
                         setTimeout('closeLayer();',1000);
                 },
                 error:function () {
-                    layer.msg("执行失败");
+                    layer.msg("授权失败，该用户已有此权限");
                 }
             })
         })
