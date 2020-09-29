@@ -41,7 +41,7 @@ public interface IScoreService {
      * @param stuId 学生id
      * @return 成绩信息
      */
-    Score getScoreByStuId(int stuId);
+    Map<String, Object> getScoreByStuId(int stuId, int courseId);
     /**
      * 修改学生成绩
      * @param score 学生成绩

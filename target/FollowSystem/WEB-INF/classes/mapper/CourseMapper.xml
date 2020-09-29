@@ -6,15 +6,7 @@
 <mapper namespace="com.jxd.dao.ICourseDao">
 
     <select id="getAllCourseByPage" resultType="Map">
-        SELECT courseId,courseName,
-        (
-            CASE coursestate
-            WHEN '0' THEN
-                '未选'
-            WHEN '1' THEN
-                '已选'
-            END
-        ) AS courseState
+        SELECT courseId,courseName,courseState
         FROM course
         <where>
             <if test="courseName !=''">
@@ -32,13 +24,13 @@
 
     <update id="updCourse">
         UPDATE course
-        SET couresename=#{coursename},coursentate=#{coursestate}
-        WHERE courseid=#{courseid}
+        SET coursename=#{courseName}
+        WHERE courseid=#{courseId}
     </update>
 
-    <delete id="delCourse">
-        DELETE FROM course WHERE courseId=#{courseId}
-    </delete>
+    <update id="delCourse">
+        update course set courseState = #{id} where courseId = #{courseId}
+    </update>
 
     <select id="getCourse" resultType="Course">
         SELECT courseId,courseName,coursestate

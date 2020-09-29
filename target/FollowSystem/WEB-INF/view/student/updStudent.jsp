@@ -15,8 +15,17 @@
     <link rel="stylesheet" href="../../../static/js/jquery-3.3.1.js">
 </head>
 <body>
-<c:forEach items="${list}" var="list" >
 <form class="layui-form" id="updForm">
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <div class="layui-upload-list">
+                <img class="layui-upload-img" id="demo1" style="width: 90px;margin-left: 650px;position: absolute">
+                <p id="demoText"></p>
+            </div>
+            <a id="test1" style="margin-left: 650px;margin-top:50px;position: absolute">上传照片</a>
+        </div>
+    </div>
+    <div style="float: left">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-inline">
@@ -25,16 +34,89 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="0" title="男" checked>
+                <input type="radio" name="sex" value="1" title="女">
+            </div>
+    </div>
+    </div>
+    <div style="float: left">
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">民族</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="nation" name="nation" required  lay-verify="required" value="${list.nation}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">婚否</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="0" title="男" checked>
-            <input type="radio" name="sex" value="1" title="女">
+            <input type="radio" name="marry" value="0" title="未婚" checked>
+            <input type="radio" name="marry" value="1" title="已婚">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">生日</label>
-        <div class="layui-input-inline">
-            <input type="text" id="birthday" required lay-verify="date" value="yyyy-MM-dd" class="layui-input" name="birthday">
+    </div>
+
+    <div style="float: left">
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-inline">
+                <input type="text" id="telephone" name="telephone" required  lay-verify="required" value="${list.telephone}" autocomplete="off" class="layui-input">
+            </div>
         </div>
+    </div>
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="idCard" name="idCard" required  lay-verify="required" value="${list.idCard}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float: left">
+
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">毕业院校</label>
+            <div class="layui-input-inline">
+                <input type="text" id="university" name="university" required  lay-verify="required" value="${list.university}" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">专业</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="major" name="major" required  lay-verify="required" value="${list.major}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float: left">
+        <div class="layui-form-item">
+            <label class="layui-form-label">生日</label>
+            <div class="layui-input-inline">
+                <input type="text" id="birthday" required lay-verify="date" value="yyyy-MM-dd" class="layui-input" name="birthday">
+            </div>
+        </div>
+    </div>
+    <div style="float: left">
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select name="classId" id="classId">
+                <option value="">请选择班级</option>
+                <c:forEach items="${classList}" var="class1">
+                    <option value="${class1.classId}">${class1.className}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">出生地</label>
@@ -49,7 +131,6 @@
         <div class="layui-input-inline">
             <select name="city" id="city" lay-filter="city">
                 <option value="">--请选择市--</option>
-
             </select>
         </div>
         <div class="layui-input-inline">
@@ -58,93 +139,21 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">婚否</label>
-        <div class="layui-input-block">
-            <input type="radio" name="marry" value="0" title="未婚" checked>
-            <input type="radio" name="marry" value="1" title="已婚">
-        </div>
-    </div>
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">民族</label>
-            <div class="layui-input-inline">
-                <input type="text" id="nation" name="nation" required  lay-verify="required" value="${list.nation}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">联系电话</label>
-            <div class="layui-input-inline">
-                <input type="text" id="telephone" name="telephone" required  lay-verify="required" value="${list.telephone}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">身份证号</label>
-            <div class="layui-input-inline">
-                <input type="text" id="idCard" name="idCard" required  lay-verify="required" value="${list.idCard}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">毕业院校</label>
-            <div class="layui-input-inline">
-                <input type="text" id="university" name="university" required  lay-verify="required" value="${list.university}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">专业</label>
-            <div class="layui-input-inline">
-                <input type="text" id="major" name="major" required  lay-verify="required" value="${list.major}" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">班级</label>
-        <div class="layui-input-inline">
-            <select name="classId" id="classId">
-                <option value="">请选择班级</option>
-                <c:forEach items="${classList}" var="class1">
-                    <option value="${class1.classId}">${class1.className}</option>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-
     <input type="hidden" name="photo" class="image">
     <input type="hidden" name="stuId" value="${list.stuId}">
-
-    <div class="layui-form-item">
-        <label class="layui-form-label ">照片:</label>
-        <div class="layui-upload">
-            <input type="button" class="layui-btn" id="test1">上传照片</input>
-            <div class="layui-upload-list">
-                <img class="layui-upload-img" id="demo1" style="width: 90px;margin-left: 110px">
-                <p id="demoText"></p>
-            </div>
-        </div>
-    </div>
-
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea value="${list.note}" class="layui-textarea" id="note" name="note"></textarea>
+            <textarea value="${list.note}" class="layui-textarea" id="note" name="note" style="width: 592px"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
-        <div class="layui-input-block">
+        <div class="layui-input-block" style="margin-left:300px">
             <a class="layui-btn" id="ok">确定</a>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
 </form>
-</c:forEach>
 <script>
     //Demo
     layui.use(['form','laydate','layer','upload'], function(){
@@ -171,7 +180,6 @@
             ,accept:'images'
             ,size:50000
             ,before: function(obj){
-
                 obj.preview(function(index, file, result){
                     $('#demo1').attr('src', result);
                 });
@@ -182,9 +190,7 @@
                     return layer.msg('上传失败');
                 }
                 //上传成功
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #4cae4c;margin-left: 110px">上传成功</span>');
-
+                $("#test1").css('display','none')
                 var fileupload = $(".image");
                 fileupload.attr("value",res.data.src);
                 console.log(fileupload.attr("value"));
@@ -221,7 +227,6 @@
                 error:function(){
                     layer.alert('请求失败，稍后再试', {icon: 5});
                 }
-
             });
         });
 

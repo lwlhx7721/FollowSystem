@@ -25,7 +25,8 @@ public class ScoreServiceImpl implements IScoreService {
      */
     @Override
     public List<Map<String, Object>> getAllScoreByPage(int pageSize, int pageIndex, String stuName) {
-        return scoreDao.getAllScoreByPage(pageSize, pageIndex, stuName);
+        int PageIndex = (pageIndex - 1)*pageSize;
+        return scoreDao.getAllScoreByPage(pageSize, PageIndex, stuName);
     }
     /**
      * 获取学生姓名
@@ -61,8 +62,8 @@ public class ScoreServiceImpl implements IScoreService {
      * @return 成绩信息
      */
     @Override
-    public Score getScoreByStuId(int stuId) {
-        return scoreDao.getScoreByStuId(stuId);
+    public Map<String, Object> getScoreByStuId(int stuId, int courseId) {
+        return scoreDao.getScoreByStuId(stuId, courseId);
     }
 
     /**

@@ -4,8 +4,25 @@
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
 一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IScoreDao">
-    <select id="getAllScoreByPage" resultType="Map">
-        SELECT a.stuid,a.stuname,co.coursename,a.score
+    <select id="getAllScore" resultType="map">
+        SELECT
+        student.stuid,
+        student.stuname,
+        class.classname,
+        <foreach collection="courseList" item="course" separator=",">
+            ${course.courseName}.score ${course.courseName}
+        </foreach>
+        FROM
+        student
+        <foreach collection="courseList" item="course" separator=" ">
+            LEFT JOIN score ${course.courseName} ON student.stuid = ${course.courseName}.stuid
+            AND ${course.courseName}.courseid = ${course.courseId}
+        </foreach>
+        left join 'class' on calss.classId = student.classId
+    </select>
+
+        <select id="getAllScoreByPage" resultType="Map">
+        SELECT a.stuid,a.stuname,co.coursename,a.score,a.courseid
         FROM(SELECT c.stuid,s.stuname,c.score,c.courseid
             FROM score c
             LEFT JOIN student s
@@ -13,7 +30,9 @@
         LEFT JOIN course co
         ON a.courseid = co.courseid
         <where>
+            <if test="stuName !=''">
                 stuName like concat('%',#{stuName},'%')
+            </if>
         </where>
         order by stuId
         limit #{pageIndex},#{pageSize}
@@ -24,7 +43,7 @@
         FROM student
     </select>
 
-    <select id="getAllScore" resultType="Score">
+    <select id="getAllScore" resultType="Map">
         SELECT stuId,courseId,score
         FROM score
     </select>
@@ -34,20 +53,21 @@
         VALUES (#{stuId},#{courseId},#{score})
     </insert>
 
-    <select id="getScoreByStuId" resultType="Score">
-        SELECT stuId,courseId,score
-        FROM score
-        WHERE stuId=#{stuId}
+    <select id="getScoreByStuId" resultType="map">
+        SELECT s.stuId,s.courseId,s.score, c.courseName
+        FROM score s left join course c
+        on s.courseId = c.courseId
+        WHERE s.stuId= #{stuId} and s.courseId = #{courseId}
     </select>
 
     <update id="updScore">
         UPDATE score
-        SET score = #{score},courseId=#{courseId}
-        WHERE stuId=#{stuId}
+        SET score = #{score}
+        WHERE stuId= #{stuId} and courseId= #{courseId}
     </update>
 
-    <delete id="delScore">
+    <delete id="delScore" >
         DELETE FROM score
-        WHERE stuId=#{stuId} and courseId=#{courseId}
+        WHERE stuId = #{stuId} and courseId = #{courseId}
     </delete>
 </mapper>

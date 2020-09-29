@@ -19,8 +19,8 @@
     <table class="layui-hide" id="courseList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: pink;" lay-event="udp">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: skyblue;" lay-event="del">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -66,7 +66,13 @@
                 {type:'numbers',title: '序号'}
                 ,{field:'courseId',title:'课程号',sort:true}
                 ,{field:'courseName',title: '课程名'}
-                ,{field:'courseState',title: '课程状态'}
+                ,{field:'courseState',title: '课程状态',templet:function (d) {
+                        if(d.courseState == 1) {
+                            return "在用";
+                        } else {
+                            return "停用";
+                        }
+                    }}
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
@@ -85,13 +91,7 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            //查看消息
             if(obj.event == 'udp'){
-                var checkStatus = table.checkStatus("courseList").data;
-                if (checkStatus.length != 1) {
-                    layer.msg("请选择一条要修改的数据");
-                    return;
-                }else {
                     layer.open({
                         type: 2,
                         content: "updcourse?courseId=" + data.courseId,
@@ -100,16 +100,14 @@
                     }), table.reload("courseList", {
                         url: "getCourseList"
                     })
-                }
+
             } else if(obj.event == 'del') {
-                //删除消息
-                var checkStatus = table.checkStatus("courseList").data;
-                layer.confirm('确定删除吗', '删除指令', function () {
                     $.ajax({
                         type: "post",
-                        url: "delCourse?courseId=" + data.courseId,
+                        url: "delCourse",
                         data: {
                             courseId: data.courseId,
+                            courseState:data.courseState,
                         },
                         dataType: "text",
                         success: function (data) {
@@ -121,7 +119,6 @@
                         error: function (data) {
                             layer.msg("执行失败");
                         }
-                    })
                 })
             }
         });
