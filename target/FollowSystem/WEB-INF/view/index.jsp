@@ -59,7 +59,7 @@
                         <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
                     </c:when>
                     <c:otherwise>
-                        <iframe src="stuList" frameborder="0"  name="main" scrolling="no"></iframe>
+                        <iframe src="stuList" frameborder="0"  name="main"></iframe>
                     </c:otherwise>
                 </c:choose>
             </div>

@@ -14,7 +14,12 @@
             <input type="text" id="pwd" name="pwd" required  lay-verify="required" placeholder="请输入重置密码" autocomplete="off" class="layui-input">
         </div>
     </div>
-
+    <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">用户</label>
+        <div class="layui-input-inline">
+            <input type="text" id="userId" name="userId" required  lay-verify="required" value="${userId}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" id="ok">确定</button>
@@ -37,7 +42,7 @@
                 type: "post",
                 url:"updPwd",
                 data: {
-                    userId: ${upduser.userId},
+                    userId: $("#userId").val(),
                     pwd: $("#pwd").val(),
                 },
                 dataType: "text",

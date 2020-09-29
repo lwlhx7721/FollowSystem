@@ -11,4 +11,5 @@ import java.util.Map;
 public interface IEvaluateService {
     List<Map<String,Object>> getAllStuList();
     List<Map<String,Object>> getAllStuListByPage(int pageIndex, int pageSize);
+    Map<String, Object> getStuByStuId(int stuId);
 }

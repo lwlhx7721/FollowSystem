@@ -29,9 +29,9 @@
         <thead>
         <tr style="height: 10px">
             <th lay-data="{type:'numbers',width:'3%'}" rowspan="2">序号</th>
-            <th lay-data="{field:'stuid',width:'7%'}" rowspan="2">学号</th>
-            <th lay-data="{field:'stuname',width:'6%',templet:function (d) {
-                        return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>' + d.stuname + '</a>'
+            <th lay-data="{field:'stuId',width:'7%'}" rowspan="2">学号</th>
+            <th lay-data="{field:'stuName',width:'6%',templet:function (d) {
+                        return '<a href=\'eva?stuId=' + d.stuId + '\' target=\'main\' style=\'color: blue;\'>' + d.stuName + '</a>'
                 }}" rowspan="2">姓名</th>
             <th lay-data="{field:'sex',width:'4%',templet:function (d) {
                         if(d.sex == 1) {
@@ -58,39 +58,34 @@
             </c:forEach>
             <th lay-data="{field:'学校评价',templet:function (d) {
                         if(d.学校评价 == null) {
-                            return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
+                            <c:choose>
+                                <c:when test="${sessionScope.role == 3}">
+                                    return '<a href=\'eva?stuId=' + d.stuId + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
+                                </c:when>
+                                <c:otherwise>
+                                    return '待评价'
+                                </c:otherwise>
+                            </c:choose>
                         } else {
                             return d.学校评价;
                         }
                 }}">学校评价</th>
-            <th lay-data="{field:'转正评价',templet:function (d) {
-                        if(d.转正评价 == null) {
-                            return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
+            <c:forEach items="${evaluateDateList}" var="evaluateDate">
+                <th lay-data="{field:'${evaluateDate.dateName}',templet:function (d) {
+                        if(d.${evaluateDate.dateName} == null) {
+                            <c:choose>
+                                <c:when test="${sessionScope.role == 4}">
+                                    return '<a href=\'eva?stuId=' + d.stuId + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
+                                </c:when>
+                                <c:otherwise>
+                                    return '待评价'
+                                </c:otherwise>
+                            </c:choose>
                         } else {
-                            return d.转正评价;
+                            return d.${evaluateDate.dateName};
                         }
-                }}">转正</th>
-            <th lay-data="{field:'工作一年评价',templet:function (d) {
-                        if(d.工作一年评价 == null) {
-                            return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
-                        } else {
-                            return d.工作一年评价;
-                        }
-                }}">工作一年</th>
-            <th lay-data="{field:'工作两年评价',templet:function (d) {
-                        if(d.工作两年评价 == null) {
-                            return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
-                        } else {
-                            return d.工作两年评价;
-                        }
-                }}">工作两年</th>
-            <th lay-data="{field:'工作三年评价',templet:function (d) {
-                        if(d.工作三年评价 == null) {
-                            return '<a href=\'evaluate?stuId=' + d.stuid + '\' target=\'main\' style=\'color: blue;\'>待评价</a>';
-                        } else {
-                            return d.工作三年评价;
-                        }
-                }}">工作三年</th>
+                }}">${evaluateDate.dateName}</th>
+            </c:forEach>
         </tr>
         </thead>
     </table>

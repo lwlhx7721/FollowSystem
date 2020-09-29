@@ -50,8 +50,8 @@
                 },
                 dataType: "text",
                 success: function (data) {
-                    layer.msg(data);
-                    setTimeout('closeLayer();',1000);
+                        layer.msg(data);
+                        setTimeout('closeLayer();',1000);
                 },
                 error:function () {
                     layer.msg("执行失败");

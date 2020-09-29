@@ -172,8 +172,9 @@ public class UserController {
     }
     @RequestMapping("/updPwd")
     @ResponseBody
-    public boolean updPwd(int userId,String pwd) {
-        return userService.updPwd(userId,pwd);
+    public boolean updPwd(String userId,String pwd) {
+        int id = userId == null ? 0:Integer.parseInt(userId);
+        return userService.updPwd(id,pwd);
     }
 
     @RequestMapping("/edituser")
