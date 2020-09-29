@@ -17,7 +17,7 @@
         td {
             text-align: center;
         }
-       body{
+        body{
             background: url("../../../static/images/student_bg.png");
             background-repeat: no-repeat;
            background-size: 100% 100%;
@@ -25,28 +25,8 @@
     </style>
 </head>
 <body>
-    <%--
-    stuName 姓名    ${list.stuName}
-    nation 民族
-    sex 性别        <c:if test="${list.stuname} == 0" >
-                        <c:out value="男" ></c:out>
-                    </c:if>
-
-    marry 婚否      <c:if test="${list.marry} == 0" >
-                        <c:out value="未婚" ></c:out>
-                    </c:if>
-
-    telephone 电话
-    idCard 身份证号
-    university 毕业院校
-    major 专业
-    photo 照片       <img src="../../static${list.photo}" alt="照片">
-    note  备注
-    class 班级
-    dept  部门
-    --%>
-    <div align="center">
-        <table style="width: 80%" class="layui-table">
+    <div align="center" style="margin-top: 50px">
+        <table style="width: 95%;background-color: rgba(255,255,255,0.5);" class="layui-table">
             <tr>
                 <td>姓名</td>
                 <td>${list.stuName}</td>

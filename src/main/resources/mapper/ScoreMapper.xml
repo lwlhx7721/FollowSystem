@@ -43,10 +43,10 @@
         FROM student
     </select>
 
-    <select id="getAllScore" resultType="Map">
+    <!--<select id="getAllScore" resultType="Map">
         SELECT stuId,courseId,score
         FROM score
-    </select>
+    </select>-->
 
     <insert id="addScore">
         INSERT INTO score(stuId,courseId,score)

@@ -5,8 +5,12 @@
 <mapper namespace="com.jxd.dao.IEvaluateDao">
     <select id="getAllStuList" resultType="map">
         SELECT
-            student.stuid,
-            student.stuname,
+            student.stuId,
+            student.stuName,
+            student.sex,
+            student.university,
+            student.birthPlace,
+            class.className,
             <foreach collection="courseList" item="course" separator=",">
                 ${course.courseName}.score ${course.courseName}
             </foreach>
@@ -30,6 +34,7 @@
             ON student.stuid = job3.stuid
             LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000004 GROUP BY stuid) job4
             ON student.stuid = job4.stuid
+            LEFT JOIN class on student.classId = class.classId
     </select>
 
     <!--List<Map<String,Object>> getAllStuListByPage(@Param("courseList") List<Course> courseList,@Param("pageIndex") int pageIndex,@Param("pageSize") int pageSize);-->
@@ -37,6 +42,10 @@
         SELECT
         student.stuid,
         student.stuname,
+        student.sex,
+        student.university,
+        student.birthPlace,
+        class.className,
         <foreach collection="courseList" item="course" separator=",">
             ${course.courseName}.score ${course.courseName}
         </foreach>
@@ -60,6 +69,7 @@
         ON student.stuid = job3.stuid
         LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000004 GROUP BY stuid) job4
         ON student.stuid = job4.stuid
+        LEFT JOIN class ON student.classId = class.classId
         order by student.stuid limit #{pageIndex},#{pageSize}
     </select>
 </mapper>

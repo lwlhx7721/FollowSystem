@@ -24,12 +24,12 @@ public class EvaluateServiceImpl implements IEvaluateService {
 
     @Override
     public List<Map<String, Object>> getAllStuList() {
-        return evaluateDao.getAllStuList(courseDao.getAllCourse());
+        return evaluateDao.getAllStuList(courseDao.getAllCourseByState());
     }
 
     @Override
     public List<Map<String, Object>> getAllStuListByPage(int pageIndex, int pageSize) {
         int index = (pageIndex - 1) * pageSize;
-        return evaluateDao.getAllStuListByPage(courseDao.getAllCourse(),index,pageSize);
+        return evaluateDao.getAllStuListByPage(courseDao.getAllCourseByState(),index,pageSize);
     }
 }
