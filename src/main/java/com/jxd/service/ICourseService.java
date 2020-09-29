@@ -36,7 +36,7 @@ public interface ICourseService {
      * @param courseId 课程编号
      * @return 是否成功
      */
-    boolean delCourse(int courseId);
+    boolean delCourse(int courseId, int id);
 
     /**
      *遍历所有的课程
@@ -49,4 +49,11 @@ public interface ICourseService {
      * @return 结果集
      */
     List<Course> getAllCourse();
+
+    /**
+     * 根据使用状态获取课程列表
+     * @return 返回课程集合
+     */
+    List<Course> getAllCourseByState();
+
 }

@@ -41,7 +41,7 @@ public class ScoreController {
     public ListData getCourseList(int limit, int page, String name) {
         String scoreName = name ==null? "" : name;
         List<Map<String, Object>> scoreList = scoreService.getAllScoreByPage(limit,page,scoreName);
-        int size = scoreList.size();
+        int size = scoreService.getAllScore().size();
         ListData scoreData = new ListData(size,scoreList);
         return scoreData;
     }
@@ -64,10 +64,11 @@ public class ScoreController {
     }
 
     @RequestMapping("/updscore")
-    public String updscore(int stuId, Model model) {
-        model.addAttribute("stuList",scoreService.getStuName());
-        model.addAttribute("updscore",scoreService.getScoreByStuId(stuId));
-        model.addAttribute("courseList",courseService.getAllCourse());
+    public String updscore(String stuId,String courseId, Model model) {
+        int id = stuId == null? 0:Integer.parseInt(stuId);
+        int cId = courseId == null ? 0:Integer.parseInt(courseId);
+        Map<String, Object> scoreMap = scoreService.getScoreByStuId(id,cId);
+        model.addAttribute("scoreMap",scoreMap);
         return "score/updscore";
     }
     @RequestMapping("/updScore")
@@ -76,13 +77,15 @@ public class ScoreController {
         return scoreService.updScore(score);
     }
 
-    @RequestMapping("/delScore")
+    @RequestMapping(value = "/delScore",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public boolean delScore(String stuId,String courseId) {
-        if(stuId == null || courseId==null) {
-            return false;
+    public String delScore(String stuId,String courseId) {
+        int sId = stuId == null ? 0:Integer.parseInt(stuId);
+        int cId = courseId == null ? 0:Integer.parseInt(courseId);
+        if(scoreService.delScore(sId, cId)) {
+            return "删除成功";
+        } else {
+            return "删除失败";
         }
-        return scoreService.delScore(Integer.parseInt(stuId),Integer.parseInt(courseId));
     }
-
 }

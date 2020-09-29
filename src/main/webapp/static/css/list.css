@@ -1,13 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 body {
     background-color: #f2f2f2;
 }
 table tr:nth-child(odd)
 {
-    background: #C6DAF1;
+    background: #EFEFEF;
 }
 table tr:nth-child(even)
 {
-    background: #A1C7EE;
+    background: #FFFAE3;
 }
 table th
 {

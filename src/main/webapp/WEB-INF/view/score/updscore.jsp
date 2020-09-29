@@ -9,19 +9,15 @@
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">选择修改课程</label>
+        <label class="layui-form-label">修改课程</label>
         <div class="layui-input-inline">
-            <select name="courseId" id="courseId" lay-verify="required">
-                <c:forEach items="${courseList}" var="course">
-                    <option value="${course.courseId}">${course.courseName}</option>
-                </c:forEach>
-            </select>
+            <input type="text" placeholder="${scoreMap.courseName}" readonly>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">填写修改成绩</label>
         <div class="layui-input-inline">
-            <input type="text" id="score" name="score" required value="${updscore.score}" lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" id="score" name="score" required value="${scoreMap.score}" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -48,8 +44,8 @@
                 type: "post",
                 url:"updScore",
                 data: {
-                    stuId: $("#stuId").val(),
-                    courseId: $("#courseId").val(),
+                    stuId: ${scoreMap.stuId},
+                    courseId: ${scoreMap.courseId},
                     score: $("#score").val(),
                 },
                 dataType: "text",

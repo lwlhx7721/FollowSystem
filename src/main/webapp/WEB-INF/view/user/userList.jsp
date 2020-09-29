@@ -73,7 +73,6 @@
                     layer.msg("请选择要删除的数据");
                 } else {
                     layer.confirm("确定删除吗？","删除",function () {
-                        debugger;
                         var userIds = "(";
                         for(var i = 0; i < checkStatus.length; i++) {
                             userIds += checkStatus[i].userId + ",";
@@ -141,7 +140,7 @@
                 layer.open({
                     type:2,
                     content:"upduser?userId=" + data.userId,
-                    title:"编辑学生信息",
+                    title:"编辑用户信息",
                     area:['800px','500px'],//设置弹框的宽高
                 }),
                 table.reload("userList",  {

@@ -33,7 +33,8 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public List<Map<String, Object>> getAllCourseByPage(int pageSize, int pageIndex, String courseName) {
-        return courseDao.getAllCourseByPage(pageSize,pageIndex,courseName);
+        int PageIndex = (pageIndex - 1)*pageSize;
+        return courseDao.getAllCourseByPage(pageSize,PageIndex,courseName);
     }
 
 
@@ -52,8 +53,8 @@ public class CourseServiceImpl implements ICourseService {
      * @return 是否成功
      */
     @Override
-    public boolean delCourse(int courseId) {
-        return courseDao.delCourse(courseId);
+    public boolean delCourse(int courseId, int id) {
+        return courseDao.delCourse(courseId,id);
     }
     /**
      *遍历所有的课程
@@ -70,5 +71,10 @@ public class CourseServiceImpl implements ICourseService {
     @Override
     public List<Course> getAllCourse() {
         return courseDao.getAllCourse();
+    }
+
+    @Override
+    public List<Course> getAllCourseByState() {
+        return courseDao.getAllCourseByState();
     }
 }

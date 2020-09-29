@@ -4,17 +4,14 @@
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
 一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ICourseDao">
+    <!--List<Course> getAllCourseByState();-->
+    <select id="getAllCourseByState" resultType="Course">
+         SELECT courseId,courseName,courseState
+        FROM course where courseState = 1
+    </select>
 
     <select id="getAllCourseByPage" resultType="Map">
-        SELECT courseId,courseName,
-        (
-            CASE coursestate
-            WHEN '0' THEN
-                '未选'
-            WHEN '1' THEN
-                '已选'
-            END
-        ) AS courseState
+        SELECT courseId,courseName,courseState
         FROM course
         <where>
             <if test="courseName !=''">
@@ -32,13 +29,13 @@
 
     <update id="updCourse">
         UPDATE course
-        SET couresename=#{coursename},coursentate=#{coursestate}
-        WHERE courseid=#{courseid}
+        SET coursename=#{courseName}
+        WHERE courseid=#{courseId}
     </update>
 
-    <delete id="delCourse">
-        DELETE FROM course WHERE courseId=#{courseId}
-    </delete>
+    <update id="delCourse">
+        update course set courseState = #{id} where courseId = #{courseId}
+    </update>
 
     <select id="getCourse" resultType="Course">
         SELECT courseId,courseName,coursestate

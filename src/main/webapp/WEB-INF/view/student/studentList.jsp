@@ -4,11 +4,12 @@
 <head>
     <title>用户列表</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css ">
+    <link rel="stylesheet" href="../../../static/css/list.css">
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center">
-    <div class="demoTable" style="margin-top: 5px;">
+<div align="center" class="layui-form">
+    <div class="demoTable">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">
         </div>
@@ -28,9 +29,9 @@
                 </c:forEach>
             </select>
         </div>
-        <button class="layui-btn" style="width: 100px;background-color: skyblue;;margin-left: 30px;" data-type="reload">查询</button>
-        <button class="layui-btn" style="width: 100px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
-        <button class="layui-btn" style="width: 100px;background-color: skyblue;margin-left: 30px;" data-type="delAll">一键删除</button>
+        <button class="layui-btn" style="width: 100px;background-color: skyblue;;margin-left: 10px;" data-type="reload">查询</button>
+        <button class="layui-btn" style="width: 100px;background-color: skyblue;margin-left: 60px;" data-type="add">添加</button>
+        <button class="layui-btn" style="width: 100px;background-color: skyblue;margin-left: 10px;" data-type="delAll">一键删除</button>
     </div>
     <table class="layui-hide" id="studentList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
@@ -75,8 +76,45 @@
                     area: ['800px', '500px'],//设置弹框的宽高
                     shadeClose: true //点击遮罩是否关闭弹窗
                 })
+            },
+            delAll:function () {
+            var checkStatus = table.checkStatus("studentList").data;
+            if (checkStatus.length == 0) {
+                layer.msg("请选择一条要修改的数据");
+                return;
+            }else {
+                layer.confirm('确定删除吗', '删除指令', function() {
+                    var stuIds = "(";
+                    for (var i = 0; i < checkStatus.length; i++) {
+                        stuIds += checkStatus[i].stuId + ",";
+                    }
+                    stuIds = stuIds.substr(0, stuIds.length - 1);
+                    stuIds += ")";
+                    $.ajax({
+                        url: "delAllStudentsById"
+                        , type: "post"
+                        , data: {
+                            stuIds: stuIds
+                        }, dataType: "text"
+                        , success: function (data) {
+                            if ("true" == data) {
+                                layer.msg("删除成功")
+                                table.reload("studentList",{
+                                    url:"getStudentList"
+                                })
+                            } else {
+                                layer.msg("删除失败")
+                            }
+
+                        }, error: function (data) {
+                            layer.msg("执行失败")
+                        }
+                    })
+                })
+
             }
-        };
+        }
+    };
 
         table.render({
             elem: '#studentList'//对应table的id属性

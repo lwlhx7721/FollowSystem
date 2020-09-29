@@ -18,43 +18,38 @@
         WHERE userId=#{userId}
     </update>
     <select id="getAllUsers" resultType="Map">
-        SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
-        FROM (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
-        FROM `user`u
-        LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE NOT us.roleid = 1) a
-        LEFT JOIN dept d
-        ON a.deptId=d.deptId
-        <where>
-            <if test="userName !=''">
-                a.userName like concat('%', #{userName}, '%')
-            </if>
-            <if test="deptId != 0">
-                and a.deptId = #{deptId}
-            </if>
-        </where>
-    </select>
-
-    <select id="getAllUserByPage" resultType="Map">
-        SELECT a.userId,a.userName,a.pwd,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
+        SELECT userId,userName,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
         FROM
-        (SELECT u.userId,u.userName,u.pwd,u.phone,u.email,u.note,u.flag,u.loginTime,u.deptid,us.roleid
-        FROM `user`u
-        LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE NOT us.roleid = 1) a
+        (SELECT * FROM `user` WHERE not userid in (
+        SELECT userid FROM userrolerelationship WHERE roleid = 1)) a
         LEFT JOIN dept d
         ON a.deptid=d.deptid
         <where>
             <if test="userName !=''">
-                a.userName like concat('%', #{userName}, '%')
+             userName like concat('%',#{userName},'%')
             </if>
             <if test="deptId != 0">
                 and a.deptId=#{deptId}
             </if>
         </where>
-        order by a.userId
+    </select>
+
+    <select id="getAllUserByPage" resultType="Map">
+        SELECT a.userId AS userId,a.userName AS userName,a.phone,a.email,a.note,a.flag,DATE_FORMAT(a.loginTime,'%Y-%m-%d %H:%i:%S') loginTime,d.deptName
+        FROM
+        (SELECT * FROM `user` WHERE not userid in
+        (SELECT userid FROM userrolerelationship WHERE roleid = 1)) a
+        LEFT JOIN dept d
+        ON a.deptid=d.deptid
+        <where>
+            <if test="userName !=''">
+                userName like concat('%',#{userName},'%')
+            </if>
+            <if test="deptId != 0">
+                and a.deptId=#{deptId}
+            </if>
+        </where>
+        order by userId
         limit #{pageIndex},#{pageSize}
     </select>
     <insert id="addUser">
@@ -64,7 +59,6 @@
     <update id="updUser">
         UPDATE followsystem.user
         SET userName=#{userName}
-        ,pwd=#{pwd}
         ,phone=#{phone}
         ,email=#{email}
         ,note=#{note}
@@ -83,21 +77,18 @@
     </delete>
 
     <select id="getAllUserByRole" resultType="Map">
-        SELECT a.userid,a.userName,a.pwd,r.roleName
+        SELECT a.userId AS userId,a.userName AS userName,a.pwd,a.deptId
         FROM
-        (SELECT u.userId,u.userName,u.pwd,us.roleid
-        FROM `user`u
-        LEFT JOIN userrolerelationship us
-        ON u.userid=us.userid
-        WHERE NOT us.roleid = 1) a
-        LEFT JOIN role r
-        ON a.roleid=r.roleid
+        (SELECT * FROM `user` WHERE not userid in
+        (SELECT userid FROM userrolerelationship WHERE roleid = 1)) a
+        LEFT JOIN dept d
+        ON a.deptid=d.deptid
         <where>
             <if test="userName !=''">
                 a.userName like concat('%', #{userName}, '%')
             </if>
-            <if test="roleId != 0">
-                and a.roleId=#{roleId}
+            <if test="deptId != 0">
+                and a.deptId=#{deptId}
             </if>
         </where>
         order by a.userId
@@ -108,5 +99,11 @@
         UPDATE `user`
         SET pwd=#{pwd},phone=#{phone},email=#{email},note=#{note}
         WHERE userid=#{userId}
+    </update>
+
+    <update id="updPwd">
+        UPDATE followsystem.user
+        SET pwd=#{pwd}
+        WHERE userId=#{userId}
     </update>
 </mapper>

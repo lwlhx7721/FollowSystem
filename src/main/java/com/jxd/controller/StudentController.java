@@ -47,7 +47,6 @@ public class StudentController {
         int cId = classId == null ? 0 : Integer.parseInt(classId);
         int limit1 = limit == null ? 0 : Integer.parseInt(limit);
         int page1 = page == null ? 0 : Integer.parseInt(page);
-        System.out.println(limit);
         int dId = deptId == null ? 0 : Integer.parseInt(deptId);
         List<Map<String, Object>> studentList = studentService.getAllStudentByPage(stuName, cId, dId, page1, limit1);
         int size = studentService.getAllStudent(stuName, cId, dId).size();
@@ -55,7 +54,7 @@ public class StudentController {
         return studentData;
     }
 
-    @RequestMapping("/stuList")
+    @RequestMapping("/studentList")
     public String getDeptAndClassList(Model model) {
         model.addAttribute("deptList",deptService.getAllDept());
         model.addAttribute("classList",classService.getAllClass());
@@ -151,7 +150,6 @@ public class StudentController {
     @RequestMapping("/addStudents")
     @ResponseBody
     public boolean addStudents(Student student, String province, String city, String area) {
-        System.out.println(province);
         int provinceId = province == null ? 0:Integer.parseInt(province);
         int cityId = city == null ? 0:Integer.parseInt(city);
         int areaId = area == null ? 0:Integer.parseInt(area);
@@ -181,7 +179,7 @@ public class StudentController {
     @RequestMapping("/updStudents")
     @ResponseBody
     public boolean updStudents(Student student, String province, String city, String area) {
-        System.out.println(province + city + area);
+        System.out.println("我是id"+ province + city + area);
         System.out.println(student.getStuName());
         int provinceId = province == null ? 0:Integer.parseInt(province);
         int cityId = city == null ? 0:Integer.parseInt(city);
@@ -200,5 +198,11 @@ public class StudentController {
         } else {
             return "删除失败";
         }
+    }
+
+    @RequestMapping("/delAllStudentsById")
+    @ResponseBody
+    public Boolean delAllStudentById(String stuIds) {
+        return studentService.delStudentsById(stuIds);
     }
 }

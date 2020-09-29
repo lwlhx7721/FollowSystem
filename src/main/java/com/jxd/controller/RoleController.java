@@ -34,8 +34,8 @@ public class RoleController {
     @RequestMapping("/getRoleList")
     @ResponseBody
     public ListData getRoleList(int limit, int page, String name) {
-        String username = name == null ? "" : name;
-        List<Map<String, Object>> roleList = roleService.getUserAndRole(limit,page,username);
+        String userName = name == null ? "" : name;
+        List<Map<String, Object>> roleList = roleService.getUserAndRole(limit,page,userName);
         int size = roleList.size();
         ListData roleData = new ListData(size,roleList);
         return roleData;
@@ -47,30 +47,32 @@ public class RoleController {
         model.addAttribute("roleList",roleService.getAllRole());
         return "role/addrole";
     }
-    @RequestMapping("/addRole")
+    @RequestMapping(value = "/addRole",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String addRole(UserRoleRelationship us) {
-        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
-        for(UserRoleRelationship user:usList){
-            if ((int)user.getUserId() == (int)us.getUserId() && (int)user.getRoleId() == (int)us.getRoleId()){
-                return "该用户已有此权限，授权失败";
-            }
-        }
-       boolean flag = userRoleRelationshipService.addRole(us);
+    public String addRole(int userId,int roleId) {
+//        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
+//        for(UserRoleRelationship user:usList){
+//            if (user.getUserId() == userId && user.getRoleId() == roleId){
+//                return "该用户已有此权限，授权失败";
+//            }
+//        }
+       boolean flag = roleService.addRole(userId,roleId);
         if (flag){
             return "授权成功";
         }else {
             return "授权失败";
         }
     }
+
+    @RequestMapping("/delrole")
+    public String delrole(int userId,Model model) {
+        model.addAttribute("userId",userId);
+        model.addAttribute("roleList",roleService.getAllRole());
+        return "role/delrole";
+    }
     @RequestMapping("/delRole")
     @ResponseBody
     public boolean delRole(UserRoleRelationship us){
-        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
-        for(UserRoleRelationship user:usList){
-            if ((int)user.getUserId() == (int)us.getUserId() && (int)user.getRoleId() == (int)us.getRoleId()){
-              return userRoleRelationshipService.delRole(us.getUserId(),us.getRoleId());
-            }
-        }return false;
+        return roleService.addRole(us.getUserId(),us.getRoleId());
     }
 }

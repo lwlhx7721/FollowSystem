@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>添加用户</title>
+    <title>修改用户信息</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 </head>
@@ -67,6 +67,7 @@
             ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
+
         $("#close").click(function () {
             //当你在iframe页面关闭自身时
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
@@ -87,10 +88,10 @@
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
-                        layer.msg("新增成功");
+                        layer.msg("修改成功");
                         setTimeout('closeLayer();',1000);
                     } else {
-                        layer.msg("新增失败");
+                        layer.msg("修改失败");
                     }
                 },
                 error:function () {

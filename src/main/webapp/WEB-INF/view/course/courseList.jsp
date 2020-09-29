@@ -15,13 +15,12 @@
         </div>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
-        <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>
     </div>
     <table class="layui-hide" id="courseList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: pink;" lay-event="udp">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: skyblue;" lay-event="del">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -64,11 +63,16 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'courseId',title:'课程号',sort:true}
                 ,{field:'courseName',title: '课程名'}
-                ,{field:'courseState',title: '课程状态'}
+                ,{field:'courseState',title: '课程状态',templet:function (d) {
+                        if(d.courseState == 1) {
+                            return "在用";
+                        } else {
+                            return "停用";
+                        }
+                    }}
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
@@ -87,13 +91,7 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            //查看消息
             if(obj.event == 'udp'){
-                var checkStatus = table.checkStatus("courseList").data;
-                if (checkStatus.length != 1) {
-                    layer.msg("请选择一条要修改的数据");
-                    return;
-                }else {
                     layer.open({
                         type: 2,
                         content: "updcourse?courseId=" + data.courseId,
@@ -102,37 +100,30 @@
                     }), table.reload("courseList", {
                         url: "getCourseList"
                     })
-                }
-            } else if(obj.event == 'del'){
-                //删除消息
-                var checkStatus = table.checkStatus("courseList").data;
-                if (checkStatus.length == 0) {
-                    layer.msg("请选择要删除的数据");
-                    return;
-                }else{
-                    layer.confirm('确定删除吗', '删除指令', function(){
-                        $.ajax({
-                            type: "post",
-                            url: "delCourse?courseId=" + data.courseId,
-                            data: {
-                                courseId: data.courseId,
-                            },
-                            dataType: "text",
-                            success: function(data) {
-                                layer.msg(data);
-                                table.reload("courseList",  {
-                                    url: "getCourseList"
-                                })
-                            },
-                            error: function (data) {
-                                layer.msg("执行失败");
-                            }
-                        })
-                    })
-                }
+
+            } else if(obj.event == 'del') {
+                    $.ajax({
+                        type: "post",
+                        url: "delCourse",
+                        data: {
+                            courseId: data.courseId,
+                            courseState:data.courseState,
+                        },
+                        dataType: "text",
+                        success: function (data) {
+                            layer.msg(data);
+                            table.reload("courseList", {
+                                url: "getCourseList"
+                            })
+                        },
+                        error: function (data) {
+                            layer.msg("执行失败");
+                        }
+                })
             }
         });
-    });
+});
+
 </script>
 </body>
 </html>

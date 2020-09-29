@@ -54,7 +54,7 @@
     </insert>
     <!-- boolean updStudents(Student student);-->
     <update id="updStudents">
-        update student set stuname = #{stuName}, sex = #{sex}, nation = #{nation}, birthday = #{birthday}, birthPlace = #{birthPlace}, marry = #{marry},
+        update student set stuName = #{stuName}, sex = #{sex}, nation = #{nation}, birthday = #{birthday}, birthPlace = #{birthPlace}, marry = #{marry},
          telephone = #{telephone}, idCard = #{idCard}, university = #{university}, major = #{major}, note = #{note}, photo = #{photo}, classId = #{classId}
         where stuId = #{stuId}
     </update>
@@ -75,5 +75,10 @@
     <!--boolean delStudentByStuId(String stuId);-->
     <delete id="delStudentByStuId">
         delete from student where stuId = #{stuId}
+    </delete>
+
+    <!--boolean delStudentsById(String stuIds);-->
+    <delete id="delStudentsById">
+        delete from student where stuId in ${stuIds}
     </delete>
 </mapper>

@@ -32,4 +32,12 @@ public interface IRoleService {
      * @return 用户登录信息及权限
      */
     List<Map<String,Object>> getUserAndRole(int pageSize, int pageIndex, String userName);
+
+    /**
+     * 添加权限
+     * @param userId，用户编号
+     * @param roleId 权限编号
+     * @return 是否成功
+     */
+    boolean addRole(int userId,int roleId);
 }
