@@ -15,10 +15,9 @@
                 ${course.courseName}.score ${course.courseName}
             </foreach>
             ,sc.evaluatescore 学校评价,
-            job1.totalscore 转正评价,
-            job2.totalscore 工作一年评价,
-            job3.totalscore 工作两年评价,
-            job4.totalscore 工作三年评价
+            <foreach collection="evaluateDateList" item="evaluateDate" separator=",">
+                ${evaluateDate.dateName}.evaluatescore ${evaluateDate.dateName}
+            </foreach>
         FROM
             student
             <foreach collection="courseList" item="course" separator=" ">
@@ -26,22 +25,20 @@
                 AND ${course.courseName}.courseid = ${course.courseId}
             </foreach>
             LEFT JOIN schoolevaluation sc ON student.stuid = sc.stuid
-            LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000001 GROUP BY stuid) job1
-            ON student.stuid = job1.stuid
-            LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000002 GROUP BY stuid) job2
-            ON student.stuid = job2.stuid
-            LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000003 GROUP BY stuid) job3
-            ON student.stuid = job3.stuid
-            LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000004 GROUP BY stuid) job4
-            ON student.stuid = job4.stuid
+            <foreach collection="evaluateDateList" item="evaluateDate" separator=" ">
+                LEFT JOIN (select stuid,evaluatescore from jobevaluation
+                                where jobevaluation.dateid = ${evaluateDate.dateId}
+                                and jobevaluation.optionid = 1000009) ${evaluateDate.dateName}
+                ON student.stuid = ${evaluateDate.dateName}.stuid
+            </foreach>
             LEFT JOIN class on student.classId = class.classId
     </select>
 
     <!--List<Map<String,Object>> getAllStuListByPage(@Param("courseList") List<Course> courseList,@Param("pageIndex") int pageIndex,@Param("pageSize") int pageSize);-->
     <select id="getAllStuListByPage" resultType="map">
         SELECT
-        student.stuid,
-        student.stuname,
+        student.stuId,
+        student.stuName,
         student.sex,
         student.university,
         student.birthPlace,
@@ -50,10 +47,9 @@
             ${course.courseName}.score ${course.courseName}
         </foreach>
         ,sc.evaluatescore 学校评价,
-        job1.totalscore 转正评价,
-        job2.totalscore 工作一年评价,
-        job3.totalscore 工作两年评价,
-        job4.totalscore 工作三年评价
+        <foreach collection="evaluateDateList" item="evaluateDate" separator=",">
+            ${evaluateDate.dateName}.evaluatescore ${evaluateDate.dateName}
+        </foreach>
         FROM
         student
         <foreach collection="courseList" item="course" separator=" ">
@@ -61,15 +57,45 @@
             AND ${course.courseName}.courseid = ${course.courseId}
         </foreach>
         LEFT JOIN schoolevaluation sc ON student.stuid = sc.stuid
-        LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000001 GROUP BY stuid) job1
-        ON student.stuid = job1.stuid
-        LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000002 GROUP BY stuid) job2
-        ON student.stuid = job2.stuid
-        LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000003 GROUP BY stuid) job3
-        ON student.stuid = job3.stuid
-        LEFT JOIN (select stuid,sum(evaluatescore) totalscore from jobevaluation where jobevaluation.dateid = 1000004 GROUP BY stuid) job4
-        ON student.stuid = job4.stuid
-        LEFT JOIN class ON student.classId = class.classId
+        <foreach collection="evaluateDateList" item="evaluateDate" separator=" ">
+            LEFT JOIN (select stuid,evaluatescore from jobevaluation
+            where jobevaluation.dateid = ${evaluateDate.dateId}
+            and jobevaluation.optionid = 1000009) ${evaluateDate.dateName}
+            ON student.stuid = ${evaluateDate.dateName}.stuid
+        </foreach>
+        LEFT JOIN class on student.classId = class.classId
         order by student.stuid limit #{pageIndex},#{pageSize}
+    </select>
+
+    <!--Map<String, Object> getStuByStuId(@Param("courseList") List<Course> courseList,@Param("stuId") int stuId);-->
+    <select id="getStuByStuId" resultType="map">
+        SELECT
+        student.stuId,
+        class.className,
+        <foreach collection="courseList" item="course" separator=",">
+            ${course.courseName}.score ${course.courseName}
+        </foreach>
+        ,sc.evaluatescore,
+        sc.evaluatecontent,
+        sc.userName
+        FROM
+        student
+        <foreach collection="courseList" item="course" separator=" ">
+            LEFT JOIN score ${course.courseName} ON student.stuid = ${course.courseName}.stuid
+            AND ${course.courseName}.courseid = ${course.courseId}
+        </foreach>
+        LEFT JOIN (SELECT
+                        schoolevaluation.evaluateid,
+                        schoolevaluation.stuid,
+                        schoolevaluation.evaluateperson,
+                        schoolevaluation.evaluatescore,
+                        schoolevaluation.evaluatecontent,
+                        `user`.username
+                    from schoolevaluation
+                    LEFT JOIN `user`
+                    ON schoolevaluation.evaluateperson = `user`.userid
+                    )  sc ON student.stuid = sc.stuid
+        LEFT JOIN class on student.classId = class.classId
+        WHERE student.stuid = #{stuId}
     </select>
 </mapper>
