@@ -38,7 +38,7 @@ public class CourseController {
     public ListData getCourseList(int limit, int page, String name) {
         String courseName = name ==null? "" : name;
         List<Map<String, Object>> courseList=courseService.getAllCourseByPage(limit,page,courseName);
-        int size = courseList.size();
+        int size = courseService.getAllCourse().size();
         ListData courseData = new ListData(size,courseList);
         return courseData;
     }
@@ -48,11 +48,11 @@ public class CourseController {
      * @param
      * @return 是否成功
      */
-    @RequestMapping("/addcourse")
+    @RequestMapping(value="/addcourse",produces = "text/html;charset=utf-8")
     public String addCourse(){
         return "course/addcourse";
     }
-    @RequestMapping(value = "addCourse",produces = "text/html;charset=utf-8")
+    @RequestMapping("/addCourse")
     @ResponseBody
     public String addCourse(Course course){
         List<Course> list = courseService.getAllCourse();
@@ -69,23 +69,22 @@ public class CourseController {
     }
 
     /**
-     * 根据课程编号删除课程
-     * @param  courseId
-     * @param  courseState
+     * 根据课程编号启用/停用课程
+     * @param courseState 课程状态
      * @return 是否成功
      */
-    @RequestMapping(value = "/delCourse",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "delCourse",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String delCourse(int courseId,Integer courseState){
-         if (courseState==1){
-         return "该课程已选，无法删除";
-        }else {
-            boolean flag = courseService.delCourse(courseId);
-            if (flag){
-                return "删除成功";
-            }else {
-                return "删除失败";
-            }
+    public String delCourse(int courseState, int courseId) {
+        System.out.println(courseId + courseState);
+        if(courseState == 1 ) {
+            courseService.delCourse(courseId, 0);
+            return "操作成功";
+        } else if(courseState == 0 ) {
+            courseService.delCourse(courseId, 1);
+            return "操作成功";
+        } else {
+            return "操作失败";
         }
     }
 

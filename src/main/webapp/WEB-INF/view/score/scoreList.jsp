@@ -89,35 +89,25 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             //查看消息
-            if(obj.event == 'udp'){
-                var checkStatus = table.checkStatus("scoreList").data;
-                if (checkStatus.length != 1) {
-                    layer.msg("请选择一条要修改的数据");
-                    return;
-                }else {
+            if(obj.event == 'udp') {
                     layer.open({
                         type: 2,
-                        content: "updscore?stuId=" + data.stuId,
+                        content: "updscore?stuId=" + data.stuid + "&courseId=" + data.courseid,
                         title: "编辑学生成绩",
                         area: ['800px', '500px'],//设置弹框的宽高
                     }), table.reload("scoreList", {
                         url: "getScoreList"
                     })
-                }
+
             } else if(obj.event == 'del'){
                 //删除消息
-                var checkStatus = table.checkStatus("scoreList").data;
-                if (checkStatus.length == 0) {
-                    layer.msg("请选择要删除的数据");
-                    return;
-                }else{
                     layer.confirm('确定删除吗', '删除指令', function(){
                         $.ajax({
                             type: "post",
                             url: "delScore",
                             data: {
-                                stuId:data.stuId,
-                                courseId:data.courseId
+                                stuId:data.stuid,
+                                courseId:data.courseid
                             },
                             dataType: "text",
                             success: function(data) {
@@ -131,7 +121,7 @@
                             }
                         })
                     })
-                }
+
             }
         });
     });

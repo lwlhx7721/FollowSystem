@@ -150,7 +150,6 @@ public class StudentController {
     @RequestMapping("/addStudents")
     @ResponseBody
     public boolean addStudents(Student student, String province, String city, String area) {
-        System.out.println(province);
         int provinceId = province == null ? 0:Integer.parseInt(province);
         int cityId = city == null ? 0:Integer.parseInt(city);
         int areaId = area == null ? 0:Integer.parseInt(area);
@@ -180,7 +179,7 @@ public class StudentController {
     @RequestMapping("/updStudents")
     @ResponseBody
     public boolean updStudents(Student student, String province, String city, String area) {
-        System.out.println(province + city + area);
+        System.out.println("我是id"+ province + city + area);
         System.out.println(student.getStuName());
         int provinceId = province == null ? 0:Integer.parseInt(province);
         int cityId = city == null ? 0:Integer.parseInt(city);
@@ -204,7 +203,6 @@ public class StudentController {
     @RequestMapping("/delAllStudentsById")
     @ResponseBody
     public Boolean delAllStudentById(String stuIds) {
-        System.out.println(stuIds);
         return studentService.delStudentsById(stuIds);
     }
 }

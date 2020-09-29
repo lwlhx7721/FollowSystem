@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+    ${stuId}
 </body>
 </html>

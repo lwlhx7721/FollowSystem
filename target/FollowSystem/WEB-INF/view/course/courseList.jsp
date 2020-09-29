@@ -19,8 +19,8 @@
     <table class="layui-hide" id="courseList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: pink;" lay-event="udp">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: skyblue;" lay-event="del">启用/停用</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -66,7 +66,13 @@
                 {type:'numbers',title: '序号'}
                 ,{field:'courseId',title:'课程号',sort:true}
                 ,{field:'courseName',title: '课程名'}
-                ,{field:'courseState',title: '课程状态'}
+                ,{field:'courseState',title: '课程状态',templet:function (d) {
+                        if(d.courseState == 1) {
+                            return "在用";
+                        } else {
+                            return "停用";
+                        }
+                    }}
                 ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
             ]]
             ,page: true
@@ -85,7 +91,6 @@
         //监听工具条
         table.on('tool(demo)', function(obj){
             var data = obj.data;
-            //查看消息
             if(obj.event == 'udp'){
                     layer.open({
                         type: 2,
@@ -95,9 +100,8 @@
                     }), table.reload("courseList", {
                         url: "getCourseList"
                     })
+
             } else if(obj.event == 'del') {
-                //删除消息
-                layer.confirm('确定删除吗', '删除指令', function () {
                     $.ajax({
                         type: "post",
                         url: "delCourse",
@@ -115,7 +119,6 @@
                         error: function (data) {
                             layer.msg("执行失败");
                         }
-                    })
                 })
             }
         });

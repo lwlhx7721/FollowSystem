@@ -40,7 +40,7 @@ public interface IScoreDao {
      * @param stuId 学生id
      * @return 成绩信息
      */
-    Score getScoreByStuId(int stuId);
+    Map<String, Object> getScoreByStuId(@Param("stuId") int stuId, @Param("courseId") int courseId);
     /**
      * 修改学生成绩
      * @param score 学生成绩
@@ -53,5 +53,5 @@ public interface IScoreDao {
      * @param courseId 课程编号
      * @return
      */
-    boolean delScore(int stuId,int courseId);
+    boolean delScore(@Param("stuId") int stuId, @Param("courseId") int courseId);
 }

@@ -21,12 +21,6 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">课程状态</label>
-        <div class="layui-input-inline">
-            <input type="text" id="state" name="state" required lay-verify="required" value="${course.courseState}" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" id="ok">确定</button>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
@@ -52,7 +46,6 @@
                 data: {
                     courseId:$("#courseId").val(),
                     courseName: $("#name").val(),
-                    courseState: $("#state").val(),
                 },
                 dataType: "text",
                 success: function (data) {
