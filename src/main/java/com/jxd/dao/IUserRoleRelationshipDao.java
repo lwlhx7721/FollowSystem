@@ -39,13 +39,6 @@ public interface IUserRoleRelationshipDao {
      */
     List<UserRoleRelationship> getAllUserRole();
 
-    /**
-     * 添加权限
-     * @param userId 用户编号
-     * @param roleId 权限编号
-     * @return 是否成功
-     */
-    boolean addRole(@Param("userId")int userId,@Param("roleId")int roleId);
 
     /**
      * 收回权限
@@ -53,5 +46,5 @@ public interface IUserRoleRelationshipDao {
      * @param roleId 用户权限
      * @return 是否成功
      */
-    boolean delRole(int userId,int roleId);
+    boolean delRole(@Param("userId")int userId,@Param("roleId")int roleId);
 }

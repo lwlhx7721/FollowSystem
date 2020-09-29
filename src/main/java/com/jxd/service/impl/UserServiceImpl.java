@@ -99,7 +99,8 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public List<Map<String, Object>> getAllUserByRole(int pageSize, int pageIndex, String userName, int deptId) {
-        return userDao.getAllUserByRole(pageSize,pageIndex,userName,deptId);
+        int PageIndex = (pageIndex - 1) * pageSize;
+        return userDao.getAllUserByRole(pageSize,PageIndex,userName,deptId);
     }
     /**
      * 重置密码

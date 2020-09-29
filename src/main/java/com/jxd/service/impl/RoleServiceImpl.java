@@ -44,7 +44,8 @@ public class RoleServiceImpl implements IRoleService {
      */
     @Override
     public List<Map<String, Object>> getUserAndRole(int pageSize, int pageIndex, String userName) {
-        return roleDao.getUserAndRole(pageSize, pageIndex, userName);
+        int PageIndex = (pageIndex - 1) * pageSize;
+        return roleDao.getUserAndRole(pageSize, PageIndex, userName);
     }
 
     /**

@@ -79,7 +79,7 @@ public interface IUserDao {
      * @param pwd 密码
      * @return 是否成功
      */
-    boolean updPwd(int userId,String pwd);
+    boolean updPwd(@Param("userId") int userId,@Param("pwd") String pwd);
 
     /**
      * 用户自己修改自己的信息
