@@ -84,9 +84,7 @@
         LEFT JOIN dept d
         ON a.deptid=d.deptid
         <where>
-            <if test="userName !=''">
-                a.userName like concat('%', #{userName}, '%')
-            </if>
+                a.userName like concat('%',#{userName},'%')
             <if test="deptId != 0">
                 and a.deptId=#{deptId}
             </if>

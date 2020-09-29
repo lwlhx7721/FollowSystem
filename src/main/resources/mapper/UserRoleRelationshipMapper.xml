@@ -26,7 +26,11 @@
     </insert>
 
     <delete id="delRole">
-        DELETE FROM role
-        WHERE userId=#{userId};
+        DELETE FROM UserRoleRelationship
+        WHERE userId=#{userId} and roleId = #{roleId};
     </delete>
+    <select id="getAllUserRole" resultType="UserRoleRelationship">
+        SELECT userId,roleId
+        FROM UserRoleRelationship
+    </select>
 </mapper>
