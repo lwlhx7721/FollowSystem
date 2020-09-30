@@ -43,7 +43,7 @@
             height: 200px;
             text-align: center;
             position: absolute;
-            top: 40px;
+            top: 160px;
             left: 40px;
             background-image: url("../../static/images/title.png");
         }
