@@ -29,7 +29,6 @@
         </div>--%>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
-        <%--<button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>--%>
     </div>
     <table class="layui-hide" id="jobevaluateoptionList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
@@ -80,8 +79,7 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'optionId',title:'评分项ID',sort:true}
                 ,{field:'optionName',title: '评分项名'}
                 ,{field:'optionState',title: '评分项状态',templet:function (d){
