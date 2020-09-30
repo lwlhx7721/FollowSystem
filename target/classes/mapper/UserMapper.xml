@@ -95,7 +95,7 @@
 
     <update id="updUserByUser">
         UPDATE `user`
-        SET pwd=#{pwd},phone=#{phone},email=#{email},note=#{note}
+        SET userName=#{userName},phone=#{phone},email=#{email},note=#{note}
         WHERE userid=#{userId}
     </update>
 

@@ -180,11 +180,33 @@ public class UserController {
     @RequestMapping("/edituser")
     public String updUser(int userId,Model model) {
         model.addAttribute("user",userService.getUserByUserId(userId));
+        model.addAttribute("deptList",deptService.getAllDept());
         return "user/edituser";
     }
     @RequestMapping("/updUserByUser")
     @ResponseBody
     public boolean updUserByUser(User user){
-        return userService.updUserByUser(user);
+        int deptId = user.getDeptId();
+        if (deptId==0){
+            return userService.updUserByUser(user);
+        }else {
+            return userService.updUser(user);
+        }
     }
+
+
+
+    @RequestMapping("/edituserpwd")
+    public String edituserpwd(int userId,Model model) {
+        model.addAttribute("user",userService.getUserByUserId(userId));
+        return "user/edituserpwd";
+    }
+    @RequestMapping("/editPwd")
+    @ResponseBody
+    public boolean editPwd(String userId,String pwd) {
+        int id = userId == null ? 0:Integer.parseInt(userId);
+        return userService.updPwd(id,pwd);
+    }
+
+
 }
