@@ -74,7 +74,6 @@
                 $ = layui.jquery;
             //监听导航点击
             element.on('nav(demo)', function(elem){
-
             });
             $("#updSelf").click(function () {
                 layer.open({

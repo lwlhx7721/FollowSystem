@@ -52,11 +52,14 @@
                         if(d.${course.courseName} == null) {
                             return '待录入';
                         } else {
+                        <%--${course.courseName} 表示课程对应的分数--%>
                             return d.${course.courseName};
                         }
+                        <%--${course.courseName} 表示课程名--%>
                 }}">${course.courseName}</th>
             </c:forEach>
             <th lay-data="{field:'学校评价',templet:function (d) {
+                        <%--d.学校评价 表示学校评价对应的分数--%>
                         if(d.学校评价 == null) {
                             <c:choose>
                                 <c:when test="${sessionScope.role == 3}">
@@ -82,8 +85,10 @@
                                 </c:otherwise>
                             </c:choose>
                         } else {
+                        <%--${evaluateDate.dateName} 表示工作年数对应的分数--%>
                             return d.${evaluateDate.dateName};
                         }
+                        <%--${evaluateDate.dateName} 表示工作的年数--%>
                 }}">${evaluateDate.dateName}</th>
             </c:forEach>
         </tr>
