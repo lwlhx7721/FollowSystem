@@ -187,4 +187,20 @@ public class UserController {
     public boolean updUserByUser(User user){
         return userService.updUserByUser(user);
     }
+
+
+
+    @RequestMapping("/edituserpwd")
+    public String edituserpwd(int userId,Model model) {
+        model.addAttribute("user",userService.getUserByUserId(userId));
+        return "user/edituserpwd";
+    }
+    @RequestMapping("/editPwd")
+    @ResponseBody
+    public boolean editPwd(String userId,String pwd) {
+        int id = userId == null ? 0:Integer.parseInt(userId);
+        return userService.updPwd(id,pwd);
+    }
+
+
 }

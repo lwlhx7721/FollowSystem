@@ -8,11 +8,10 @@
 </head>
 <body>
 <div class="layui-form">
-
     <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
+        <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
-            <input type="text" id="pwd" name="pwd" required value="${user.pwd}" lay-verify="required|pwd" autocomplete="off" class="layui-input">
+            <input type="text" id="userName" name="userName" required value="${user.userName}" lay-verify="required|pwd" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -59,7 +58,7 @@
                 url:"updUserByUser",
                 data: {
                     userId: ${user.userId},
-                    pwd: $("#pwd").val(),
+                    userName: $("#userName").val(),
                     phone: $("#phone").val(),
                     email: $("#email").val(),
                     note: $("#note").val(),
