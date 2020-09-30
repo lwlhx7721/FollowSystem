@@ -26,7 +26,23 @@
             <input type="text" id="email" name="email" required value="${user.email}" lay-verify="required|email" autocomplete="off" class="layui-input">
         </div>
     </div>
-
+    <c:if test="${sessionScope.role < 3}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-inline">
+                <select name="deptId" id="deptId" lay-verify="required">
+                    <c:forEach items="${deptList}" var="dept">
+                        <c:if test="${dept.deptId == upduser.deptId}">
+                            <option value="${dept.deptId}" selected>${dept.deptName}</option>
+                        </c:if>
+                        <c:if test="${dept.deptId != upduser.deptId}">
+                            <option value="${dept.deptId}">${dept.deptName}</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </c:if>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
@@ -59,6 +75,7 @@
                 data: {
                     userId: ${user.userId},
                     userName: $("#userName").val(),
+                    deptId: $("#deptId").val(),
                     phone: $("#phone").val(),
                     email: $("#email").val(),
                     note: $("#note").val(),

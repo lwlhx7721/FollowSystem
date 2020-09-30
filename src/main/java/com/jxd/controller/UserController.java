@@ -180,12 +180,18 @@ public class UserController {
     @RequestMapping("/edituser")
     public String updUser(int userId,Model model) {
         model.addAttribute("user",userService.getUserByUserId(userId));
+        model.addAttribute("deptList",deptService.getAllDept());
         return "user/edituser";
     }
     @RequestMapping("/updUserByUser")
     @ResponseBody
     public boolean updUserByUser(User user){
-        return userService.updUserByUser(user);
+        int deptId = user.getDeptId();
+        if (deptId==0){
+            return userService.updUserByUser(user);
+        }else {
+            return userService.updUser(user);
+        }
     }
 
 
