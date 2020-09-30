@@ -2,6 +2,13 @@
 <%@ page import="com.jxd.model.Course" %>
 <%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2020/9/27
+  Time: 17:12
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,6 +23,9 @@
             border: 0;
             text-align: center;
             height: 800px;
+            background-image: url("../../../static/images/bg7.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
         }
         td {
             text-align: center;
@@ -23,20 +33,20 @@
         #main {
             text-align: center;
             margin-top: 10px;
-            margin-left: 53px;
+            margin-left: 183px;
             border: 1px solid #2F4056;
-            background-color: white;
-            width: 1260px;
+            /*background-color: white;*/
+            width: 1000px;
             height: 800px;
         }
     </style>
 </head>
 <body>
 <div id="main">
-    <table style="width: 100%;background-color: rgba(255,255,255,0.5);" class="layui-table">
-        <caption>
-            金桥学员成长跟踪表
-        </caption>
+    <br>  <br>
+    <p style="font-size: 25px">金桥学员成长跟踪表</p>
+    <br><br>
+    <table style="width: 100%;background-color: rgba(255,255,255,0.2);font-family: 黑体;" class="layui-table">
         <tr>
             <td>姓名</td>
             <td>${student.stuName}</td>
@@ -86,15 +96,15 @@
             <td>部门</td>
             <td colspan="2">${student.deptName}</td>
         </tr>
-        <tr>
+        <tr style="height: 60px;">
             <td>备注</td>
             <td colspan="6">${student.note}</td>
         </tr>
     </table>
-    <table style="width: 100%;background-color: rgba(255,255,255,0.5);" class="layui-table">
-        <caption>
-            学校评价
-        </caption>
+    <br>
+    <p style="font-size: 20px">培训学校评价</p>
+    <br>
+    <table style="width: 100%;background-color: rgba(255,255,255,0.2);font-family: 黑体" class="layui-table">
         <tr>
             <td rowspan="2">培训学校</td>
             <td rowspan="2">班期</td>
@@ -125,7 +135,7 @@
             %>
             <td>${stuSchoolEva.evaluatescore}</td>
         </tr>
-        <tr>
+        <tr style="height: 100px">
             <td rowspan="3">整体评价</td>
             <td rowspan="3" colspan="${courseList.size() + 3}">${stuSchoolEva.evaluatecontent}</td>
         </tr>
