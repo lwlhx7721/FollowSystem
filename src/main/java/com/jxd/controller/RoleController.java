@@ -49,14 +49,16 @@ public class RoleController {
     }
     @RequestMapping(value = "/addRole",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String addRole(int userId,int roleId) {
-//        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
-//        for(UserRoleRelationship user:usList){
-//            if (user.getUserId() == userId && user.getRoleId() == roleId){
-//                return "该用户已有此权限，授权失败";
-//            }
-//        }
-       boolean flag = roleService.addRole(userId,roleId);
+    public String addRole(String userId,String roleId) {
+        int usId = userId == null ? 0:Integer.parseInt(userId);
+        int roId = userId == null ? 0:Integer.parseInt(roleId);
+        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
+        for(UserRoleRelationship user:usList){
+            if (user.getUserId() == usId && user.getRoleId() == roId){
+                return "该用户已有此权限，授权失败";
+            }
+        }
+       boolean flag = roleService.addRole(usId,roId);
         if (flag){
             return "授权成功";
         }else {
@@ -70,9 +72,18 @@ public class RoleController {
         model.addAttribute("roleList",roleService.getAllRole());
         return "role/delrole";
     }
-    @RequestMapping("/delRole")
+    @RequestMapping(value = "/delRole",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public boolean delRole(UserRoleRelationship us){
-        return roleService.addRole(us.getUserId(),us.getRoleId());
+    public String delRole(String userId,String roleId) {
+        int usId = userId == null ? 0 : Integer.parseInt(userId);
+        int roId = userId == null ? 0 : Integer.parseInt(roleId);
+        List<UserRoleRelationship> usList = userRoleRelationshipService.getAllUserRole();
+        for (UserRoleRelationship user : usList) {
+            if (user.getUserId() == usId && user.getRoleId() == roId) {
+                 userRoleRelationshipService.delRole(usId, roId);
+                 return "收回权限成功";
+            }
+        }
+        return "收回权限失败，请检查是否具有该权限";
     }
 }

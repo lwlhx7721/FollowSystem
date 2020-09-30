@@ -50,4 +50,10 @@
         select optionId,optionName,optionState from jobevaluateoption
         where optionId = #{optionId}
     </select>
+
+    <!--List<JobEvaluateOption> getAllJobEvaluateOptionByState();-->
+    <select id="getAllJobEvaluateOptionByState" resultType="JobEvaluateOption">
+        select optionId,optionName,optionState from jobevaluateoption
+        where optionState = 1;
+    </select>
 </mapper>

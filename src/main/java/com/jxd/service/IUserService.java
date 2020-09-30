@@ -87,4 +87,5 @@ public interface IUserService {
      * @return 是否成功
      */
     boolean updUserByUser(User user);
+
 }

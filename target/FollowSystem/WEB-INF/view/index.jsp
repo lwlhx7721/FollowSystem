@@ -24,6 +24,7 @@
                     <a href="javascript:">${sessionScope.loginUser.userName}</a>
                     <dl class="layui-nav-child" style="background-color: #009688">
                         <dd><a id="updSelf">修改个人资料</a></dd>
+                        <dd><a id="updSelfPwd">修改密码</a></dd>
                         <dd><a href="logout">退出</a></dd>
                     </dl>
                 </li>
@@ -59,7 +60,7 @@
                         <iframe src="${menus[0].address}" frameborder="0"  name="main" scrolling="no"></iframe>
                     </c:when>
                     <c:otherwise>
-                        <iframe src="stuList" frameborder="0"  name="main" scrolling="no"></iframe>
+                        <iframe src="stuList" frameborder="0"  name="main"></iframe>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -74,13 +75,20 @@
                 $ = layui.jquery;
             //监听导航点击
             element.on('nav(demo)', function(elem){
-
             });
             $("#updSelf").click(function () {
                 layer.open({
                     type:2,
                     content:"edituser?userId=" + ${sessionScope.loginUser.userId},
                     title:"修改个人资料",
+                    area:['800px','600px'],//设置弹框的宽高
+                })
+            })
+            $("#updSelfPwd").click(function () {
+                layer.open({
+                    type:2,
+                    content:"edituserpwd?userId=" + ${sessionScope.loginUser.userId},
+                    title:"修改密码",
                     area:['800px','600px'],//设置弹框的宽高
                 })
             })

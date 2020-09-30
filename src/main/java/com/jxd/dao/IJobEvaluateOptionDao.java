@@ -45,6 +45,8 @@ public interface IJobEvaluateOptionDao {
      */
     List<JobEvaluateOption> getAllJobEvaluateOption();
 
+    List<JobEvaluateOption> getAllJobEvaluateOptionByState();
+
     /**
      * 通过评分项名获取评分项信息
      * @param optionName 评分项名

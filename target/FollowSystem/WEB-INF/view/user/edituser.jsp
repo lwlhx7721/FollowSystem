@@ -8,11 +8,10 @@
 </head>
 <body>
 <div class="layui-form">
-
     <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
+        <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
-            <input type="text" id="pwd" name="pwd" required value="${user.pwd}" lay-verify="required|pwd" autocomplete="off" class="layui-input">
+            <input type="text" id="userName" name="userName" required value="${user.userName}" lay-verify="required|pwd" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -27,7 +26,23 @@
             <input type="text" id="email" name="email" required value="${user.email}" lay-verify="required|email" autocomplete="off" class="layui-input">
         </div>
     </div>
-
+    <c:if test="${sessionScope.role < 3}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-inline">
+                <select name="deptId" id="deptId" lay-verify="required">
+                    <c:forEach items="${deptList}" var="dept">
+                        <c:if test="${dept.deptId == upduser.deptId}">
+                            <option value="${dept.deptId}" selected>${dept.deptName}</option>
+                        </c:if>
+                        <c:if test="${dept.deptId != upduser.deptId}">
+                            <option value="${dept.deptId}">${dept.deptName}</option>
+                        </c:if>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </c:if>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
@@ -59,7 +74,8 @@
                 url:"updUserByUser",
                 data: {
                     userId: ${user.userId},
-                    pwd: $("#pwd").val(),
+                    userName: $("#userName").val(),
+                    deptId: $("#deptId").val(),
                     phone: $("#phone").val(),
                     email: $("#email").val(),
                     note: $("#note").val(),
