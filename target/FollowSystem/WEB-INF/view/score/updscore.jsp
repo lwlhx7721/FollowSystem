@@ -2,22 +2,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>密码重置</title>
+    <title>修改成绩</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="layui-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
+        <label class="layui-form-label">修改课程</label>
         <div class="layui-input-inline">
-            <input type="text" id="pwd" name="pwd" required  lay-verify="required" placeholder="请输入重置密码" autocomplete="off" class="layui-input">
+            <input type="text" placeholder="${scoreMap.courseName}" readonly>
         </div>
     </div>
-    <div class="layui-form-item" style="display: none">
-        <label class="layui-form-label">用户</label>
+    <div class="layui-form-item">
+        <label class="layui-form-label">填写修改成绩</label>
         <div class="layui-input-inline">
-            <input type="text" id="userId" name="userId" required  lay-verify="required" value="${userId}" autocomplete="off" class="layui-input">
+            <input type="text" id="score" name="score" required value="${scoreMap.score}" lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -30,7 +30,9 @@
 <script>
     //Demo
     layui.use(['form','laydate','layer'], function(){
-        var layer = layui.layer
+        var form = layui.form
+            ,laydate = layui.laydate
+            ,layer = layui.layer
             ,$ = layui.jquery;
         $("#close").click(function () {
             //当你在iframe页面关闭自身时
@@ -40,10 +42,11 @@
         $("#ok").click(function () {
             $.ajax({
                 type: "post",
-                url:"updPwd",
+                url:"updScore",
                 data: {
-                    userId: $("#userId").val(),
-                    pwd: $("#pwd").val(),
+                    stuId: ${scoreMap.stuId},
+                    courseId: ${scoreMap.courseId},
+                    score: $("#score").val(),
                 },
                 dataType: "text",
                 success: function (data) {
@@ -66,5 +69,4 @@
 </script>
 </body>
 </html>
-
 

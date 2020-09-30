@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: swz
@@ -12,6 +13,7 @@
     <title>添加学员信息</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
 <form class="layui-form" id="addForm">
@@ -21,14 +23,14 @@
                 <img class="layui-upload-img" id="demo1" style="width: 90px;margin-left: 650px;position: absolute">
                 <p id="demoText"></p>
             </div>
-            <a id="test1" style="margin-left: 650px;margin-top:50px;position: absolute">上传照片</a>
+            <a id="test1" style="margin-left: 670px;margin-top:130px;position: absolute">上传照片</a>
         </div>
     </div>
     <div style="float: left">
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" id="stuName" name="stuName" required  lay-verify="required" placeholder="请输入姓名" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" id="stuName" name="stuName" required  lay-verify="required" placeholder="请输入姓名"  autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -78,7 +80,6 @@
         </div>
     </div>
     <div style="float: left">
-
         <div class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">毕业院校</label>
@@ -142,7 +143,6 @@
 
 
     <input type="hidden" name="photo" class="image">
-    <input type="hidden" name="stuId" value="${list.stuId}">
 
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
@@ -182,8 +182,7 @@
             ,url: '/upload/'
             ,accept:'images'
             ,size:50000
-            ,before: function(obj){
-
+            ,before: function(obj) {
                 obj.preview(function(index, file, result){
                     $('#demo1').attr('src', result);
                 });
@@ -260,7 +259,7 @@
         $("#ok").click(function () {
             $.ajax({
                 type: "post",
-                url:"addStudents",
+                url:"addStudentsForm",
                 data:$("#addForm").serialize(),
                 dataType: "text",
                 success: function (data) {

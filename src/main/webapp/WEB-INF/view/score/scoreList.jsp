@@ -13,6 +13,14 @@
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="name" id="name" placeholder="请输入学生姓名查找" autocomplete="off">
         </div>
+        <div class="layui-input-inline">
+            <select name="classId" id="classId" lay-verify="required">
+                <option value="0">请选择班级查找</option>
+                <c:forEach items="${classList}" var="class1">
+                    <option value="${class1.classId}">${class1.className}</option>
+                </c:forEach>
+            </select>
+        </div>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
         <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>
@@ -36,11 +44,13 @@
             reload: function(){
                 //获取查询框的值
                 var name = $('#name').val();
+                var classId = $("#classId").val();
                 //执行重载
                 table.reload('scoreList', {
                     url:'getScoreList'
                     ,where: {
                         name: name,
+                        classId:classId,
                     },
                     page: {
                         curr: 1 //重新从第 1 页开始
@@ -64,13 +74,15 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'10%'}
+                {type:'checkbox',width:'5%'}
                 ,{type:'numbers',title: '序号'}
-                ,{field:'stuid',title:'学号',sort:true}
-                ,{field:'stuname',title: '姓名'}
-                ,{field:'coursename',title: '课程名'}
-                ,{field:'score',title: '成绩'}
-                ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo'}
+                ,{field:'stuId',title:'学号',sort:true,width:'7%'}
+                ,{field:'stuName',title: '姓名',width:'8%'}
+                ,{field:'className',title: '班级名',width:'13%'}
+                <c:forEach items="${courseList}" var="course">
+                    ,{field:'${course.courseName}',title: '${course.courseName}'}
+                </c:forEach>
+                ,{fixed:'right',title: '操作', align:'center', toolbar: '#barDemo',width:'10%'}
             ]]
             ,page: true
             ,limit:10
@@ -106,8 +118,8 @@
                             type: "post",
                             url: "delScore",
                             data: {
-                                stuId:data.stuid,
-                                courseId:data.courseid
+                                stuId:data.stuId,
+                                courseId:data.courseId
                             },
                             dataType: "text",
                             success: function(data) {

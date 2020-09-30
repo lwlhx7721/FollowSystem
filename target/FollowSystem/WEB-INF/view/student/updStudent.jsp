@@ -20,9 +20,10 @@
         <div class="layui-upload">
             <div class="layui-upload-list">
                 <img class="layui-upload-img" id="demo1" style="width: 90px;margin-left: 650px;position: absolute">
+                <img src="../${list.photo}" alt="" id="photo1" style="width: 90px;margin-left: 650px;position: absolute">
                 <p id="demoText"></p>
             </div>
-            <a id="test1" style="margin-left: 650px;margin-top:50px;position: absolute">上传照片</a>
+            <a id="test1" style="margin-left: 670px;margin-top:130px;position: absolute">上传照片</a>
         </div>
     </div>
     <div style="float: left">
@@ -190,7 +191,7 @@
                     return layer.msg('上传失败');
                 }
                 //上传成功
-                $("#test1").css('display','none')
+                $("#photo1").css('display','none');
                 var fileupload = $(".image");
                 fileupload.attr("value",res.data.src);
                 console.log(fileupload.attr("value"));

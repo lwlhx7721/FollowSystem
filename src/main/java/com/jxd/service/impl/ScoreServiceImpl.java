@@ -1,9 +1,11 @@
 package com.jxd.service.impl;
 
 import com.jxd.dao.IScoreDao;
+import com.jxd.model.Course;
 import com.jxd.model.Score;
 import com.jxd.model.Student;
 import com.jxd.service.IScoreService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,17 @@ public class ScoreServiceImpl implements IScoreService {
      * @return 课程集合
      */
     @Override
-    public List<Map<String, Object>> getAllScoreByPage(int pageSize, int pageIndex, String stuName) {
+    public List<Map<String, Object>> getAllScoreByPage(int pageSize, int pageIndex, String stuName, List<Course> courseList, int classId) {
         int PageIndex = (pageIndex - 1)*pageSize;
-        return scoreDao.getAllScoreByPage(pageSize, PageIndex, stuName);
+        return scoreDao.getAllScoreByPage(pageSize, PageIndex, stuName, courseList, classId);
     }
     /**
      * 获取学生姓名
      * @return 结果集
      */
     @Override
-    public List<Student> getStuName() {
-        return scoreDao.getStuName();
+    public List<Map<String,Object>> getStuNameByClass(int classId) {
+        return scoreDao.getStuNameByClass(classId);
     }
 
     /**
@@ -47,13 +49,14 @@ public class ScoreServiceImpl implements IScoreService {
     }
 
     /**
-     * 添加学生成绩
-     * @param score 成绩对象
-     * @return 是否成功
+     * 添加学成绩
+     * @param stuId 学员id
+     * @param scoreList 成绩集合
+     * @return 返回是否成功
      */
     @Override
-    public boolean addScore(Score score) {
-        return scoreDao.addScore(score);
+    public boolean addScore(int stuId, List<Score> scoreList) {
+        return scoreDao.addScore(stuId, scoreList);
     }
 
     /**

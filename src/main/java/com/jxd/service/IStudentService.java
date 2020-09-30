@@ -13,6 +13,11 @@ import java.util.Map;
  */
 public interface IStudentService {
     /**
+     * 获取数据库里的学生数
+     * @return 返回一个学生集合
+     */
+    List<Student> getAllStudents();
+    /**
      * 获取所有学员信息
      * @return 返回查询到的学员信息集合
      */

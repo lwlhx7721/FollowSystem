@@ -6,51 +6,65 @@
 <mapper namespace="com.jxd.dao.IScoreDao">
     <select id="getAllScore" resultType="map">
         SELECT
-        student.stuid,
-        student.stuname,
-        class.classname,
+        student.stuId,
+        student.stuName,
+        class.className,
         <foreach collection="courseList" item="course" separator=",">
             ${course.courseName}.score ${course.courseName}
         </foreach>
         FROM
         student
         <foreach collection="courseList" item="course" separator=" ">
-            LEFT JOIN score ${course.courseName} ON student.stuid = ${course.courseName}.stuid
-            AND ${course.courseName}.courseid = ${course.courseId}
+            LEFT JOIN score ${course.courseName} ON student.stuId = ${course.courseName}.stuId
+            AND ${course.courseName}.courseId = ${course.courseId}
         </foreach>
-        left join 'class' on calss.classId = student.classId
+        left join class on class.classId = student.classId
     </select>
 
-        <select id="getAllScoreByPage" resultType="Map">
-        SELECT a.stuid,a.stuname,co.coursename,a.score,a.courseid
-        FROM(SELECT c.stuid,s.stuname,c.score,c.courseid
-            FROM score c
-            LEFT JOIN student s
-            on c.stuid = s.stuid)a
-        LEFT JOIN course co
-        ON a.courseid = co.courseid
+    <select id="getAllScoreByPage" resultType="map">
+        SELECT
+        student.stuId,
+        student.stuName,
+        class.className,
+        <foreach collection="courseList" item="course" separator=",">
+            ${course.courseName}.score ${course.courseName}
+        </foreach>
+        FROM
+        student
+        <foreach collection="courseList" item="course" separator=" ">
+            LEFT JOIN score ${course.courseName} ON student.stuId = ${course.courseName}.stuId
+            AND ${course.courseName}.courseId = ${course.courseId}
+        </foreach>
+        left join class on class.classId = student.classId
         <where>
-            <if test="stuName !=''">
-                stuName like concat('%',#{stuName},'%')
+            stuName like concat('%',#{stuName},'%')
+            <if test="classId != 0">
+                and class.classId = #{classId}
             </if>
         </where>
-        order by stuId
-        limit #{pageIndex},#{pageSize}
+        order by student.stuId limit #{pageIndex},#{pageSize}
     </select>
-
-    <select id="getStuName" resultType="Student">
-        SELECT stuid,stuName
+<!--List<Map<String, Object>> getStuNameByClass(int classId);-->
+    <select id="getStuNameByClass" resultType="map">
+        SELECT stuId,stuName
         FROM student
+        where classId = #{classId}
     </select>
 
-    <select id="getAllScore" resultType="Map">
-        SELECT stuId,courseId,score
-        FROM score
-    </select>
+<!--    <select id="getAllScore" resultType="Map">-->
+<!--        SELECT stuId,courseId,score-->
+<!--        FROM score-->
+<!--    </select>-->
 
+  <!--boolean addScore(int classId, int stuId, String[] scores);-->
     <insert id="addScore">
         INSERT INTO score(stuId,courseId,score)
-        VALUES (#{stuId},#{courseId},#{score})
+        VALUES
+        <foreach collection="scoreList" item="score" separator=",">
+        <if test="score != -1">
+            (#{stuId},#{score.courseId},#{score.score})
+        </if>
+        </foreach>
     </insert>
 
     <select id="getScoreByStuId" resultType="map">
@@ -66,7 +80,7 @@
         WHERE stuId= #{stuId} and courseId= #{courseId}
     </update>
 
-    <delete id="delScore" >
+    <delete id="delScore">
         DELETE FROM score
         WHERE stuId = #{stuId} and courseId = #{courseId}
     </delete>

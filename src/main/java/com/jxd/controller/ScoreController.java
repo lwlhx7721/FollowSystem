@@ -1,15 +1,24 @@
 package com.jxd.controller;
 
+import com.jxd.dao.IStudentDao;
+import com.jxd.model.Course;
 import com.jxd.model.ListData;
 import com.jxd.model.Score;
+import com.jxd.service.IClassService;
 import com.jxd.service.ICourseService;
 import com.jxd.service.IScoreService;
+import com.jxd.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,9 +33,16 @@ public class ScoreController {
     private IScoreService scoreService;
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private IStudentService studentService;
+    @Autowired
+    private IClassService classService;
 
     @RequestMapping("/scoreList")
-    public String scoreList() {
+    public String scoreList(Model model) {
+        List<Course> courseList = courseService.getAllCourseByState();
+        model.addAttribute("courseList", courseList);
+        model.addAttribute("classList",classService.getAllClass());
         return "score/scoreList";
     }
     /**
@@ -38,10 +54,11 @@ public class ScoreController {
      */
     @RequestMapping("/getScoreList")
     @ResponseBody
-    public ListData getCourseList(int limit, int page, String name) {
-        String scoreName = name ==null? "" : name;
-        List<Map<String, Object>> scoreList = scoreService.getAllScoreByPage(limit,page,scoreName);
-        int size = scoreService.getAllScore().size();
+    public ListData getCourseList(int limit, int page, String name,String classId) {
+        int cId = classId == null ? 0:Integer.parseInt(classId);
+        String scoreName = name == null? "" : name;
+        List<Map<String, Object>> scoreList = scoreService.getAllScoreByPage(limit,page,scoreName,courseService.getAllCourseByState(), cId);
+        int size = studentService.getAllStudents().size();
         ListData scoreData = new ListData(size,scoreList);
         return scoreData;
     }
@@ -53,14 +70,35 @@ public class ScoreController {
      */
     @RequestMapping("/addscore")
     public String addscore(Model model) {
-        model.addAttribute("stuList",scoreService.getStuName());
-        model.addAttribute("courseList",courseService.getAllCourse());
+        model.addAttribute("classList",classService.getAllClass());
+        model.addAttribute("courseList",courseService.getAllCourseByState());
         return "score/addscore";
     }
+
+    @RequestMapping(value="/getStu",method = RequestMethod.POST )
+    @ResponseBody
+    public List<Map<String, Object>> getStuByClass(String classId) {
+        int id = classId == null ? 0:Integer.parseInt(classId);
+        List<Map<String, Object>> stuList = scoreService.getStuNameByClass(id);
+        return stuList;
+    }
+
     @RequestMapping("/addScore")
     @ResponseBody
-    public boolean addScore(Score score) {
-        return scoreService.addScore(score);
+    public boolean addScore(HttpServletRequest request,String stu) {
+        String[] scores = request.getParameterValues("score");
+        System.out.println(stu);
+        int id = stu == null ? 0 : Integer.parseInt(stu);
+        int[] sc = new int[scores.length];
+        for (int i = 0;i < scores.length;i++) {
+            sc[i] = scores[i] == null ? -1 : Integer.parseInt(scores[i]);
+        }
+        List<Course> courseList = courseService.getAllCourseByState();
+        List<Score> scoreList = new ArrayList<>();
+        for (int i = 0;i < courseList.size();i++) {
+            scoreList.add(new Score(courseList.get(i).getCourseId(),sc[i]));
+        }
+        return scoreService.addScore(id, scoreList);
     }
 
     @RequestMapping("/updscore")

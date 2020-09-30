@@ -77,4 +77,14 @@ public class CourseServiceImpl implements ICourseService {
     public List<Course> getAllCourseByState() {
         return courseDao.getAllCourseByState();
     }
+
+    /**
+     * 根据学员id获取未录入成绩的课程
+     * @param stuId 学员id
+     * @return 返回课程集合
+     */
+    @Override
+    public List<Map<String, Object>> getCourseByStuId(int stuId) {
+        return courseDao.getCourseByStuId(stuId);
+    }
 }

@@ -41,7 +41,7 @@
                 </c:choose>
                 <td>民族</td>
                 <td>${list.nation}</td>
-                <td rowspan="4"> <img src="${list.photo}" alt="照片"></td>
+                <td rowspan="4"> <img src="../${list.photo}" alt="照片"></td>
             </tr>
             <tr>
                 <td>出生年月</td>

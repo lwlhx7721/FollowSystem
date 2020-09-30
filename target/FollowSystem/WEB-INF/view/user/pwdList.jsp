@@ -13,11 +13,11 @@
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">
         </div>
-        <div class="layui-input-inline">
-            <select name="roleId" id="roleId" style="width: 200px;" lay-verify="required">
-                <option value="0">请选择身份查找</option>
-                <c:forEach items="${roleList}" var="role">
-                    <option value="${role.roleId}">${role.roleName}</option>
+        <div class="layui-input-inline" style="color: #757575">
+            <select name="deptId" id="deptId" style="width: 200px;margin-left: 5px;color: #757575">
+                <option value="0">请选择部门查找</option>
+                <c:forEach items="${deptList}" var="dept">
+                    <option value="${dept.deptId}">${dept.deptName}</option>
                 </c:forEach>
             </select>
         </div>
@@ -41,13 +41,13 @@
             reload: function(){
                 //获取查询框的值
                 var name = $('#name').val();
-                var roleId = $('#roleId').val();
+                var deptId = $('#deptId').val();
                 //执行重载
                 table.reload('pwdList', {
                     url:'getPwdList'
                     ,where: {
                         name: name,
-                        roleId: roleId
+                        deptId: deptId
                     },
                     page: {
                         curr: 1 //重新从第 1 页开始

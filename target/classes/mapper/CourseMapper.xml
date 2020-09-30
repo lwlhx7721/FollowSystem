@@ -4,6 +4,11 @@
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，
 一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ICourseDao">
+    <!--List<Course> getAllCourseByState();-->
+    <select id="getAllCourseByState" resultType="Course">
+         SELECT courseId,courseName,courseState
+        FROM course where courseState = 1 order by courseId
+    </select>
 
     <select id="getAllCourseByPage" resultType="Map">
         SELECT courseId,courseName,courseState
@@ -42,4 +47,18 @@
          SELECT courseId,courseName,coursestate
             FROM course
     </select>
+<select id="" resultType="map">
+    SELECT
+    s.stuid,
+    c.coursename,
+    sc.score,
+    c.courseid
+    FROM
+    course AS c ,
+    student AS s
+    INNER JOIN score AS sc ON sc.courseid = c.courseid AND sc.stuid = s.stuid
+    WHERE
+    s.stuid = #{stuId} AND
+    score IS NULL
+</select>
 </mapper>

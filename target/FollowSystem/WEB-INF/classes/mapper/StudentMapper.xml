@@ -81,4 +81,9 @@
     <delete id="delStudentsById">
         delete from student where stuId in ${stuIds}
     </delete>
+
+    <!--List<Student> getAllStudents()-->
+    <select id="getAllStudents" resultType="Student">
+        select stuId, stuName from student
+    </select>
 </mapper>

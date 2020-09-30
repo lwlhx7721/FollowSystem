@@ -91,8 +91,6 @@ public class StudentController {
                 String uuid = UUID.randomUUID()+"";
                 String filepath = "D:\\study\\java\\FollowSystem\\src\\main\\webapp\\static\\files\\"+uuid+"." + prefix;
                 File files=new File(filepath);
-                //打印查看上传路径
-                System.out.println(filepath);
                 if(!files.getParentFile().exists()){
                     files.getParentFile().mkdirs();
                 }
@@ -106,8 +104,8 @@ public class StudentController {
                 return map;
             }
 
-        }catch (Exception e){
-        }finally{
+        } catch (Exception e){
+        } finally {
             try {
                 if(out != null){
                     out.close();
@@ -147,7 +145,7 @@ public class StudentController {
         }
     }
 
-    @RequestMapping("/addStudents")
+    @RequestMapping("/addStudentsForm")
     @ResponseBody
     public boolean addStudents(Student student, String province, String city, String area) {
         int provinceId = province == null ? 0:Integer.parseInt(province);
@@ -179,8 +177,6 @@ public class StudentController {
     @RequestMapping("/updStudents")
     @ResponseBody
     public boolean updStudents(Student student, String province, String city, String area) {
-        System.out.println("我是id"+ province + city + area);
-        System.out.println(student.getStuName());
         int provinceId = province == null ? 0:Integer.parseInt(province);
         int cityId = city == null ? 0:Integer.parseInt(city);
         int areaId = area == null ? 0:Integer.parseInt(area);

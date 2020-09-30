@@ -5,47 +5,48 @@
     <title>成绩添加</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
     <script src="../../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<div class="layui-form">
+<form class="layui-form" id="addScoreForm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select name="classId" id="classId" lay-filter="classId">
+                <option value="">--请选择班级--</option>
+                <c:forEach items="${classList}" var="class1">
+                    <option value="${class1.classId}">${class1.className}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">学生姓名</label>
         <div class="layui-input-inline">
-            <select name="stuId" id="stuId" lay-verify="required">
-                <c:forEach items="${stuList}" var="student">
-                    <option value="${student.stuId}">${student.stuName}</option>
-                </c:forEach>
+            <select name="stu" id="stu" lay-filter="stu">
+                    <option value="">--请选择学生--</option>
             </select>
         </div>
     </div>
+    <c:forEach items="${courseList}" var="course">
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名</label>
+        <label class="layui-form-label">${course.courseName}</label>
         <div class="layui-input-inline">
-            <select name="courseId" id="courseId" lay-verify="required">
-                <c:forEach items="${courseList}" var="course">
-                    <option value="${course.courseId}">${course.courseName}</option>
-                </c:forEach>
-            </select>
+            <input type="text"  name="score">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">成绩</label>
-        <div class="layui-input-inline">
-            <input type="text" id="score" name="score" required  lay-verify="required" placeholder="请输入成绩" autocomplete="off" class="layui-input">
-        </div>
-    </div>
+    </c:forEach>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" id="ok">确定</button>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
-</div>
+</form>
 <script>
     //Demo
     layui.use(['form','laydate','layer'], function(){
         var form = layui.form
-            ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
         $("#close").click(function () {
@@ -53,15 +54,37 @@
             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             parent.layer.close(index); //再执行关闭
         })
+
+        form.render('select');
+        //一级下拉框
+        form.on('select(classId)', function(data) {
+            var classId = data.value;
+            $.ajax({
+                type : "post",
+                url : "getStu",
+                data : {classId:classId},
+                dataType : "json",
+                success : function(d) {
+                    var tmp = '<option value="">--请选择学生--</option>';
+                    //改变时第三级下拉框回复原样
+                    for ( var i in d) {
+                        tmp += '<option value="' + d[i].id +  '">' + d[i].stuName + '</option>';
+                    }
+                    $("#stuId").html(tmp);
+                    form.render();
+                },
+                error:function(){
+                    layer.alert('请求失败，稍后再试', {icon: 5});
+                }
+            });
+        });
+
+
         $("#ok").click(function () {
             $.ajax({
                 type: "post",
                 url:"addScore",
-                data: {
-                    stuId: $("#stuId").val(),
-                    courseId: $("#courseId").val(),
-                    score: $("#score").val(),
-                },
+                data: $("#addScoreForm").serialize(),
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
@@ -69,10 +92,12 @@
                         setTimeout('closeLayer();',1000);
                     } else {
                         layer.msg("新增失败");
+                        setTimeout('closeLayer();',1000);
                     }
                 },
                 error:function () {
                     layer.msg("执行失败");
+                    setTimeout('closeLayer();',1000);
                 }
             })
         })

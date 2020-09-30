@@ -20,6 +20,15 @@ public class StudentServiceImpl implements IStudentService {
     private IStudentDao studentDao;
 
     /**
+     * 获取数据库里的学生数
+     * @return 返回一个学生集合
+     */
+    @Override
+    public List<Student> getAllStudents() {
+        return studentDao.getAllStudents();
+    }
+
+    /**
      * 获取所有学员信息
      * @return 返回查询到的学员信息集合
      */

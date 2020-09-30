@@ -7,7 +7,7 @@
     <!--List<Course> getAllCourseByState();-->
     <select id="getAllCourseByState" resultType="Course">
          SELECT courseId,courseName,courseState
-        FROM course where courseState = 1
+        FROM course where courseState = 1 order by courseId
     </select>
 
     <select id="getAllCourseByPage" resultType="Map">
@@ -47,4 +47,18 @@
          SELECT courseId,courseName,coursestate
             FROM course
     </select>
+<select id="" resultType="map">
+    SELECT
+    s.stuid,
+    c.coursename,
+    sc.score,
+    c.courseid
+    FROM
+    course AS c ,
+    student AS s
+    INNER JOIN score AS sc ON sc.courseid = c.courseid AND sc.stuid = s.stuid
+    WHERE
+    s.stuid = #{stuId} AND
+    score IS NULL
+</select>
 </mapper>

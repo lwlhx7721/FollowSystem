@@ -99,4 +99,11 @@ public class CourseController {
     public boolean updCourse(Course course) {
         return courseService.updCourse(course);
     }
+
+    @RequestMapping("/getCourse")
+    @ResponseBody
+    public List<Map<String, Object>> getCourseByStuId(String stuId) {
+        int id = stuId == null ? 0:Integer.parseInt(stuId);
+        return courseService.getCourseByStuId(id);
+    }
 }

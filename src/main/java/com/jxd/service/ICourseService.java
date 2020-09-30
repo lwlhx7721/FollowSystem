@@ -56,4 +56,10 @@ public interface ICourseService {
      */
     List<Course> getAllCourseByState();
 
+    /**
+     * 根据学员id获取未录入成绩的课程
+     * @param stuId 学员id
+     * @return 返回课程集合
+     */
+    List<Map<String, Object>> getCourseByStuId(int stuId);
 }
