@@ -14,7 +14,7 @@
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center">
+<div align="center" class="layui-form">
     <div class="demoTable" style="margin-top: 5px;">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="optionName" id="optionName" placeholder="请输入评价分项名称" autocomplete="off">
