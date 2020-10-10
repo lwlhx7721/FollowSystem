@@ -46,7 +46,7 @@
     </select>
 <!--List<Map<String, Object>> getStuNameByClass(int classId);-->
     <select id="getStuNameByClass" resultType="map">
-        SELECT stuId,stuName
+        SELECT stuid,stuname
         FROM student
         where classId = #{classId}
     </select>
@@ -56,14 +56,12 @@
 <!--        FROM score-->
 <!--    </select>-->
 
-  <!--boolean addScore(int classId, int stuId, String[] scores);-->
+    <!--boolean addScore(@Param("stuId") int stuId,@Param("scoreList") List<Score> scoreList);-->
     <insert id="addScore">
-        INSERT INTO score(stuId,courseId,score)
-        VALUES
-        <foreach collection="scoreList" item="score" separator=",">
-        <if test="score != -1">
-            (#{stuId},#{score.courseId},#{score.score})
-        </if>
+        <foreach collection="scoreList" item="score" separator=";">
+            INSERT INTO score(stuId,courseId,score)
+            VALUES (#{stuId},#{score.courseId},#{score.score})
+            on DUPLICATE KEY UPDATE score = #{score.score}
         </foreach>
     </insert>
 
@@ -71,17 +69,15 @@
         SELECT s.stuId,s.courseId,s.score, c.courseName
         FROM score s left join course c
         on s.courseId = c.courseId
-        WHERE s.stuId= #{stuId} and s.courseId = #{courseId}
+        WHERE s.stuId= #{stuId}
     </select>
-
-    <update id="updScore">
-        UPDATE score
-        SET score = #{score}
-        WHERE stuId= #{stuId} and courseId= #{courseId}
-    </update>
 
     <delete id="delScore">
         DELETE FROM score
-        WHERE stuId = #{stuId} and courseId = #{courseId}
+        WHERE stuId = #{stuId}
+    </delete>
+
+    <delete id="delScores">
+        delete from score where stuId in ${stuIds}
     </delete>
 </mapper>

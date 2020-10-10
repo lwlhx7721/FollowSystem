@@ -103,7 +103,6 @@ public class StudentController {
                 map2.put("src","../../static/files/" + uuid + "." + prefix);
                 return map;
             }
-
         } catch (Exception e){
         } finally {
             try {

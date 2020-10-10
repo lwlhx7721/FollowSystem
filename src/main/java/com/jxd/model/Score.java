@@ -28,6 +28,10 @@ public class Score {
         this.score = score;
     }
 
+    public Score(int courseId) {
+        this.courseId = courseId;
+    }
+
     public Score(int courseId, int score) {
         this.courseId = courseId;
         this.score = score;

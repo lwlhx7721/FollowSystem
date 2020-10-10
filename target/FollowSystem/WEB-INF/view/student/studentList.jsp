@@ -8,7 +8,7 @@
     <script src="../../../static/layui/layui.js"></script>
 </head>
 <body>
-<div align="center" class="layui-form">
+<div align="center" class="layui-form" style="margin-top: 5px;">
     <div class="demoTable">
         <div class="layui-inline">
             <input class="layui-input" style="width: 200px;" name="name" id="name" placeholder="请输入名字查找" autocomplete="off">

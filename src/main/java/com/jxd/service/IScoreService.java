@@ -43,7 +43,7 @@ public interface IScoreService {
      * @param stuId 学生id
      * @return 成绩信息
      */
-    Map<String, Object> getScoreByStuId(int stuId, int courseId);
+    List<Map<String, Object>> getScoreByStuId(int stuId);
     /**
      * 修改学生成绩
      * @param score 学生成绩
@@ -54,8 +54,7 @@ public interface IScoreService {
     /**
      * 根据学生编号以及课程编号删除成绩
      * @param stuId 学生编号
-     * @param courseId 课程编号
      * @return
      */
-    boolean delScore(int stuId,int courseId);
+    boolean delScore(int stuId);
 }

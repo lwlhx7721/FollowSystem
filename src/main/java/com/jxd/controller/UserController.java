@@ -34,7 +34,6 @@ public class UserController {
     @Autowired
     private IDeptService deptService;
 
-
     /**
      *
      * @param userId
@@ -60,6 +59,8 @@ public class UserController {
         if(rememberPwd == 1) {
             Cookie cookie1 = new Cookie("userId",userId + "");
             Cookie cookie2 = new Cookie("pwd",pwd);
+            cookie1.setMaxAge(1000 * 30);
+            cookie2.setMaxAge(1000 * 30);
             response.addCookie(cookie1);
             response.addCookie(cookie2);
         }
