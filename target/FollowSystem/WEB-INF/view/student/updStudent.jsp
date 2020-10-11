@@ -110,7 +110,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-inline">
-            <select name="classId" id="classId">
+            <select name="classId" id="classId" required>
                 <option value="">请选择班级</option>
                 <c:forEach items="${classList}" var="class1">
                     <option value="${class1.classId}">${class1.className}</option>
@@ -122,7 +122,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">出生地</label>
         <div class="layui-input-inline">
-            <select name="province" id="province" lay-filter="province">
+            <select name="province" id="province" lay-filter="province" required>
                 <option value="">请选择省</option>
                 <c:forEach items="${cityList}" var="city">
                     <option value="${city.id}">${city.cityName}</option>
@@ -145,7 +145,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
-            <textarea value="${list.note}" class="layui-textarea" id="note" name="note" style="width: 592px"></textarea>
+            <textarea value="${list.note}" class="layui-textarea" required id="note" name="note" style="width: 592px"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -252,8 +252,61 @@
                 }
             });
         });
-
+        var nameCheck = function() {
+            var name= $("#stuName").val();
+            var nameReg =/^[\u4e00-\u9fa5]{2,4}$/;
+            if (name.length==0){
+                layer.msg("请输入姓名")
+                return false;
+            }else if (!nameReg.test(name)){
+                layer.msg("请输入正确的姓名")
+                return false;
+            }else {
+                return true;
+            }
+        }
+        $("#name").blur(function () {
+            nameCheck()
+        });
+        var phoneCheck = function() {
+            var phone= $("#telephone").val();
+            var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(18[0-9]{1})|(19[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+            if (phone.length == 0){
+                layer.msg("请输入手机号码")
+                return false;
+            }else if (phone.length != 11){
+                layer.msg("请确认手机号码长度无误")
+                return false;
+            }else if (!myreg.test(phone)){
+                layer.msg("请输入有效手机号码")
+                return false;
+            }else {
+                return true;
+            }
+        }
+        $("#phone").blur(function () {
+            phoneCheck();
+        });
+        var idCardCheck = function() {
+            var name= $("#idCard").val();
+            var nameReg =/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/;
+            if (name.length==0){
+                layer.msg("请输入身份证号码")
+                return false;
+            }else if (!nameReg.test(name)){
+                layer.msg("确认输入的身份证是否正确")
+                return false;
+            }else {
+                return true;
+            }
+        }
+        $("#IdCard").blur(function () {
+            idCardCheck()
+        });
         $("#ok").click(function () {
+            if (!nameCheck() || !phoneCheck() || idCardCheck()) {
+                return;
+            }
             $.ajax({
                 type: "post",
                 url:"updStudents",

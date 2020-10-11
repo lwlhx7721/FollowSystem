@@ -14,7 +14,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">权限</label>
         <div class="layui-input-inline">
-            <select name="roleId" id="roleId" lay-verify="required">
+            <select name="roleId" id="roleId" lay-verify="required" required>
                 <c:forEach items="${roleList}" var="role">
                     <option value="${role.roleId}">${role.roleName}</option>
                 </c:forEach>

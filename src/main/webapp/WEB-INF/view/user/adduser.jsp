@@ -59,50 +59,56 @@
             ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
-        $("#name").blur(function () {
+        var nameCheck = function() {
             var name= $("#name").val();
             var nameReg =/^[\u4e00-\u9fa5]{2,4}$/;
             if (name.length==0){
-                $("#nameTest").text("请输入姓名")
+               layer.msg("请输入姓名")
                 return false;
             }else if (!nameReg.test(name)){
-                $("#nameTest").text("请输入正确的姓名")
+               layer.msg("请输入正确的姓名")
                 return false;
             }else {
-                $("#nameTest").text("")
                 return true;
             }
+        }
+        $("#name").blur(function () {
+           nameCheck()
         });
-        $("#phone").blur(function () {
+        var phoneCheck = function() {
             var phone= $("#phone").val();
             var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(18[0-9]{1})|(19[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
             if (phone.length == 0){
-                $("#phoneTest").text("请输入手机号码")
+               layer.msg("请输入手机号码")
                 return false;
             }else if (phone.length != 11){
-                $("#phoneTest").text("请确认手机号码长度无误")
+               layer.msg("请确认手机号码长度无误")
                 return false;
             }else if (!myreg.test(phone)){
-                $("#phoneTest").text("请输入有效手机号码")
+               layer.msg("请输入有效手机号码")
                 return false;
             }else {
-                $("#phoneTest").text("")
                 return true;
             }
+        }
+        $("#phone").blur(function () {
+           phoneCheck();
         });
-        $("#email").blur(function () {
+        var emailCheck = function(){
             var email= $("#email").val();
             var reg = RegExp("([\\w-.])+@([\\w-])+((\.[\\w-]{2,3}){1,2})", "g");
             if (email.length == 0){
-                $("#emailTest").text("请输入邮箱")
+               layer.msg("请输入邮箱")
                 return false;
             }else if (!reg.test(email)){
-                $("#emailTest").text("请输入正确的邮箱")
+               layer.msg("请输入正确的邮箱")
                 return false;
             }else {
-                $("#emailTest").text("");
                 return true;
             }
+        }
+        $("#email").blur(function () {
+            emailCheck();
         });
 
         $("#close").click(function () {
@@ -111,6 +117,9 @@
             parent.layer.close(index); //再执行关闭
         });
         $("#ok").click(function () {
+            if (!nameCheck() || !phoneCheck() || !emailCheck()) {
+                return;
+            }
             $.ajax({
                 type: "post",
                 url:"addUser",
