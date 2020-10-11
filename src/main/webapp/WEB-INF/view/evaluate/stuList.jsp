@@ -44,7 +44,7 @@
             <th lay-data="{field:'birthPlace',width:'7%'}" rowspan="2">籍贯</th>
             <%--<th lay-data="{field:'className',width:'9%'}" rowspan="2">班级</th>--%>
             <th lay-data="{align:'center',width:'33%'}" colspan="${courseList.size()}">培训成绩</th>
-            <th lay-data="{align:'center',width:'33%'}" colspan="5">评价</th>
+            <th lay-data="{align:'center'}" colspan="5">评价</th>
         </tr>
         <tr>
             <c:forEach items="${courseList}" var="course">

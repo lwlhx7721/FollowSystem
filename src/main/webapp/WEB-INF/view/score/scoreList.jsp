@@ -23,13 +23,12 @@
         </div>
         <button class="layui-btn" style="width: 150px;background-color: pink;margin-left: 30px;" data-type="reload">查询</button>
         <button class="layui-btn" style="width: 150px;background-color: skyblue;margin-left: 30px;" data-type="add">添加</button>
-        <button class="layui-btn" style="width: 200px;background-color: red;margin-left: 30px;" data-type="delAll">一键删除</button>
     </div>
     <table class="layui-hide" id="scoreList"  lay-filter="demo" lay-skin="nob"></table>
 </div>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" style="background-color: #01AAED;" lay-event="udp">修改</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #FF0000;" lay-event="del">清空</a>
 </script>
 <script>
     layui.use(['table','layer'], function(){
@@ -74,8 +73,7 @@
             ,width: 1150
             ,height: 480
             ,cols: [[
-                {type:'checkbox',width:'5%'}
-                ,{type:'numbers',title: '序号'}
+                {type:'numbers',title: '序号'}
                 ,{field:'stuId',title:'学号',sort:true,width:'7%'}
                 ,{field:'stuName',title: '姓名',width:'8%'}
                 ,{field:'className',title: '班级名',width:'13%'}
@@ -102,37 +100,35 @@
             var data = obj.data;
             //查看消息
             if(obj.event == 'udp') {
-                    layer.open({
-                        type: 2,
-                        content: "updscore?stuId=" + data.stuid + "&courseId=" + data.courseid,
-                        title: "编辑学生成绩",
-                        area: ['800px', '500px'],//设置弹框的宽高
-                    }), table.reload("scoreList", {
-                        url: "getScoreList"
-                    })
-
+                layer.open({
+                    type: 2,
+                    content: "updscore?stuId=" + data.stuId,
+                    title: "编辑学生成绩",
+                    area: ['800px', '500px'],//设置弹框的宽高
+                }), table.reload("scoreList", {
+                    url: "getScoreList"
+                })
             } else if(obj.event == 'del'){
                 //删除消息
-                    layer.confirm('确定删除吗', '删除指令', function(){
-                        $.ajax({
-                            type: "post",
-                            url: "delScore",
-                            data: {
-                                stuId:data.stuId,
-                                courseId:data.courseId
-                            },
-                            dataType: "text",
-                            success: function(data) {
-                                layer.msg(data);
-                                table.reload("scoreList",  {
-                                    url: "getScoreList"
-                                })
-                            },
-                            error: function (data) {
-                                layer.msg("执行失败");
-                            }
-                        })
+                layer.confirm('确定清空该学生的成绩吗', '删除指令', function(){
+                    $.ajax({
+                        type: "post",
+                        url: "delScore",
+                        data: {
+                            stuId:data.stuId,
+                        },
+                        dataType: "text",
+                        success: function(data) {
+                            layer.msg(data);
+                            table.reload("scoreList",  {
+                                url: "getScoreList"
+                            })
+                        },
+                        error: function (data) {
+                            layer.msg("执行失败");
+                        }
                     })
+                })
 
             }
         });

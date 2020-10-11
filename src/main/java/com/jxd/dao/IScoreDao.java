@@ -37,13 +37,13 @@ public interface IScoreDao {
      * @param scoreList 成绩集合
      * @return 返回是否成功
      */
-    boolean addScore(int stuId, List<Score> scoreList);
+    boolean addScore(@Param("stuId") int stuId,@Param("scoreList") List<Score> scoreList);
     /**
      * 根据学生id获取成绩信息
      * @param stuId 学生id
      * @return 成绩信息
      */
-    Map<String, Object> getScoreByStuId(@Param("stuId") int stuId, @Param("courseId") int courseId);
+    List<Map<String, Object>> getScoreByStuId(@Param("stuId") int stuId);
     /**
      * 修改学生成绩
      * @param score 学生成绩
@@ -53,8 +53,8 @@ public interface IScoreDao {
     /**
      * 根据学生编号以及课程编号删除成绩
      * @param stuId 学生编号
-     * @param courseId 课程编号
      * @return
      */
-    boolean delScore(@Param("stuId") int stuId, @Param("courseId") int courseId);
+    boolean delScore(@Param("stuId") int stuId);
+    boolean delScores(@Param("stuIds") String stuIds);
 }

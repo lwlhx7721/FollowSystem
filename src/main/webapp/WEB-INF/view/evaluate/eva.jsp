@@ -44,7 +44,7 @@
 <body>
 <div id="main">
     <br>  <br>
-    <p style="font-size: 25px">金桥学员成长跟踪表</p>
+    <p style="font-size: 25px">${student.stuName}成长跟踪表</p>
     <br><br>
     <table style="width: 100%;background-color: rgba(255,255,255,0.2);font-family: 黑体;" class="layui-table">
         <tr>

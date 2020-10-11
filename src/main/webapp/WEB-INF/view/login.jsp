@@ -43,7 +43,7 @@
             height: 200px;
             text-align: center;
             position: absolute;
-            top: 160px;
+            top: 120px;
             left: 40px;
             background-image: url("../../static/images/title.png");
         }
@@ -74,15 +74,13 @@
                         <input type="text" id="userId" style="width: 250px; margin-left: 50px;background-color: rgba(128,128,128,0.9);" name="userId" required  lay-verify="required" placeholder="请输入用户名" value="${cookie.userId.value}" autocomplete="off" class="layui-input t">
                     </div>
                 </div>
-                <div id="userTest"></div>
                 <div class="layui-form-item">
                     <div class="layui-input-inline">
                         <input type="password" style="width: 250px; margin-left: 50px;background-color: rgba(128,128,128,0.9);" required lay-verify="required" placeholder="请输入密码" value="${cookie.pwd.value}" class="layui-input" id="pwd" name="pwd">
                     </div>
                 </div>
-                <div id="pwdTest"></div>
                 <div style="margin-left: 50px;margin-bottom:15px;float: left;">
-                    <input type="checkbox" value="1" checked>记住密码
+                    <input type="checkbox" value="1" name="rememberPwd" checked>记住密码
                 </div>
                 <br>
                 <br>
@@ -114,34 +112,34 @@
         var form = layui.form
             ,layer = layui.layer
             ,$ = layui.jquery;
-        $("#userId").blur(function () {
+        var userCheck = function() {
+            var userReg = /^[0-9]*$/;
             if ($("#userId").val()==""){
-                $("#userTest").text("用户名不能为空");
-
                 return false;
-            } else if(isNaN($("#userId").val())){
-                $("#userTest").text("请输入纯数字的用户号");
-
+            } else if(!userReg.test($("#userId").val())){
+                layer.msg("请输入纯数字的用户号")
                 return false;
             }else if ($("#userId").val().length!=7){
-                $("#userTest").text("请确认输入的为7位用户号");
-
+                layer.msg("请确认输入的为7位用户号")
                 return false;
             }else {
-                $("#userTest").text("");
-
+                return true;
             }
+        }
+        $("#userId").blur(function () {
+            userCheck();
         });
-        $("#pwd").blur(function () {
-            if($("#pwd").val()==""){
-                $("#pwdTest").text("密码不能为空");
-
+        var check = function() {
+            if (!userCheck() || $("#pwd").val()=="") {
                 return false;
-            }else {
-                    $("#pwdTest").text("");
-                }
-            });
+            } else {
+                return true;
+            }
+        }
         $("#ok").click(function () {
+            if (!check()) {
+                return;
+            }
             var rememberPwd = $("input[name=rememberPwd]:checked").val() == null ? 0 : 1
             $.ajax({
                 type: "post",

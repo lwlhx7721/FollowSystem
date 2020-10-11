@@ -1,37 +1,43 @@
+<%@ page import="com.jxd.model.Course" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.jxd.model.Score" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>修改成绩</title>
+    <title>成绩添加</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
-    <script src="../../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/layui/layui.js"></script>
+    <script src="../../../static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<div class="layui-form">
+<form class="layui-form" id="addScoreForm">
     <div class="layui-form-item">
-        <label class="layui-form-label">修改课程</label>
+        <label class="layui-form-label">学生姓名</label>
         <div class="layui-input-inline">
-            <input type="text" placeholder="${scoreMap.courseName}" readonly>
+            <input type="text" value="${student.stuName}" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">填写修改成绩</label>
-        <div class="layui-input-inline">
-            <input type="text" id="score" name="score" required value="${scoreMap.score}" lay-verify="required" autocomplete="off" class="layui-input">
+    <input type="hidden" name="stu" value="${student.stuId}">
+    <c:forEach items="${courseList}" var="course">
+        <div class="layui-form-item">
+            <label class="layui-form-label">${course.courseName}</label>
+            <div class="layui-input-inline">
+                <input type="text"  name="score" placeholder="待录入或不修改请输入-1">
+            </div>
         </div>
-    </div>
+    </c:forEach>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="ok">确定</button>
+            <a class="layui-btn" id="ok">确定</a>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
-</div>
+</form>
 <script>
     //Demo
     layui.use(['form','laydate','layer'], function(){
         var form = layui.form
-            ,laydate = layui.laydate
             ,layer = layui.layer
             ,$ = layui.jquery;
         $("#close").click(function () {
@@ -41,13 +47,9 @@
         })
         $("#ok").click(function () {
             $.ajax({
-                type: "post",
-                url:"updScore",
-                data: {
-                    stuId: ${scoreMap.stuId},
-                    courseId: ${scoreMap.courseId},
-                    score: $("#score").val(),
-                },
+                type: "get",
+                url:"addScore",
+                data: $("#addScoreForm").serialize(),
                 dataType: "text",
                 success: function (data) {
                     if("true" == data) {
@@ -55,10 +57,12 @@
                         setTimeout('closeLayer();',1000);
                     } else {
                         layer.msg("修改失败");
+                        setTimeout('closeLayer();',1000);
                     }
                 },
                 error:function () {
                     layer.msg("执行失败");
+                    //setTimeout('closeLayer();',1000);
                 }
             })
         })

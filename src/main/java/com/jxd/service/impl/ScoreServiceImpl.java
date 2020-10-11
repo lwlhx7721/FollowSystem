@@ -65,8 +65,8 @@ public class ScoreServiceImpl implements IScoreService {
      * @return 成绩信息
      */
     @Override
-    public Map<String, Object> getScoreByStuId(int stuId, int courseId) {
-        return scoreDao.getScoreByStuId(stuId, courseId);
+    public List<Map<String, Object>>getScoreByStuId(int stuId) {
+        return scoreDao.getScoreByStuId(stuId);
     }
 
     /**
@@ -81,11 +81,10 @@ public class ScoreServiceImpl implements IScoreService {
     /**
      * 根据学生编号以及课程编号删除成绩
      * @param stuId 学生编号
-     * @param courseId 课程编号
      * @return
      */
     @Override
-    public boolean delScore(int stuId, int courseId) {
-        return scoreDao.delScore(stuId, courseId);
+    public boolean delScore(int stuId) {
+        return scoreDao.delScore(stuId);
     }
 }

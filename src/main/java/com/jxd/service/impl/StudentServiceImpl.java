@@ -1,5 +1,8 @@
 package com.jxd.service.impl;
 
+import com.jxd.dao.IJobEvaluationDao;
+import com.jxd.dao.ISchoolEvaluationDao;
+import com.jxd.dao.IScoreDao;
 import com.jxd.dao.IStudentDao;
 import com.jxd.model.Student;
 import com.jxd.service.IStudentService;
@@ -18,6 +21,12 @@ import java.util.Map;
 public class StudentServiceImpl implements IStudentService {
     @Autowired
     private IStudentDao studentDao;
+    @Autowired
+    private IScoreDao scoreDao;
+    @Autowired
+    private ISchoolEvaluationDao schoolEvaluationDao;
+    @Autowired
+    private IJobEvaluationDao jobEvaluationDao;
 
     /**
      * 获取数据库里的学生数
@@ -84,6 +93,9 @@ public class StudentServiceImpl implements IStudentService {
      */
     @Override
     public boolean delStudentByStuId(int stuId) {
+        scoreDao.delScore(stuId);
+        schoolEvaluationDao.delSchoolEvaluationByStuId(stuId);
+        jobEvaluationDao.delJobEvaluationByStuId(stuId);
         return studentDao.delStudentByStuId(stuId);
     }
 
@@ -94,6 +106,9 @@ public class StudentServiceImpl implements IStudentService {
      */
     @Override
     public boolean delStudentsById(String stuIds) {
+        scoreDao.delScores(stuIds);
+        schoolEvaluationDao.delSchoolEvaluationsByStuId(stuIds);
+        jobEvaluationDao.delJobEvaluationsByStuId(stuIds);
         return studentDao.delStudentsById(stuIds);
     }
 

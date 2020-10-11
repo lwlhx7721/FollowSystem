@@ -92,36 +92,34 @@ public class ScoreController {
         int id = stu == null ? 0 : Integer.parseInt(stu);
         int[] sc = new int[scores.length];
         for (int i = 0;i < scores.length;i++) {
-            sc[i] = scores[i] == null ? -1 : Integer.parseInt(scores[i]);
+            sc[i] = Integer.parseInt(scores[i]);
         }
+        System.out.println(sc.length);
         List<Course> courseList = courseService.getAllCourseByState();
         List<Score> scoreList = new ArrayList<>();
         for (int i = 0;i < courseList.size();i++) {
-            scoreList.add(new Score(courseList.get(i).getCourseId(),sc[i]));
+            if(sc[i] != -1) {
+                scoreList.add(new Score(courseList.get(i).getCourseId(),sc[i]));
+            }
         }
         return scoreService.addScore(id, scoreList);
     }
 
     @RequestMapping("/updscore")
-    public String updscore(String stuId,String courseId, Model model) {
+    public String updscore(String stuId,Model model) {
         int id = stuId == null? 0:Integer.parseInt(stuId);
-        int cId = courseId == null ? 0:Integer.parseInt(courseId);
-        Map<String, Object> scoreMap = scoreService.getScoreByStuId(id,cId);
-        model.addAttribute("scoreMap",scoreMap);
+        List<Map<String, Object>> scoreList = scoreService.getScoreByStuId(id);
+        model.addAttribute("scoreList",scoreList);
+        model.addAttribute("courseList",courseService.getAllCourseByState());
+        model.addAttribute("student",studentService.getStudentById(id));
         return "score/updscore";
-    }
-    @RequestMapping("/updScore")
-    @ResponseBody
-    public boolean updScore(Score score) {
-        return scoreService.updScore(score);
     }
 
     @RequestMapping(value = "/delScore",produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String delScore(String stuId,String courseId) {
+    public String delScore(String stuId) {
         int sId = stuId == null ? 0:Integer.parseInt(stuId);
-        int cId = courseId == null ? 0:Integer.parseInt(courseId);
-        if(scoreService.delScore(sId, cId)) {
+        if(scoreService.delScore(sId)) {
             return "删除成功";
         } else {
             return "删除失败";

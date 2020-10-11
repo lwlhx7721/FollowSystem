@@ -4,7 +4,7 @@
 <head>
     <title>成绩添加</title>
     <link rel="stylesheet" href="../../../static/layui/css/layui.css"  media="all">
-    <script src="../../../static/layui/layui.js" charset="utf-8"></script>
+    <script src="../../../static/layui/layui.js"></script>
     <script src="../../../static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
@@ -29,16 +29,16 @@
         </div>
     </div>
     <c:forEach items="${courseList}" var="course">
-    <div class="layui-form-item">
-        <label class="layui-form-label">${course.courseName}</label>
-        <div class="layui-input-inline">
-            <input type="text"  name="score">
+        <div class="layui-form-item">
+            <label class="layui-form-label">${course.courseName}</label>
+            <div class="layui-input-inline">
+                <input type="text"  name="score" placeholder="待录入请输入-1">
+            </div>
         </div>
-    </div>
     </c:forEach>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" id="ok">确定</button>
+            <a class="layui-btn" id="ok">确定</a>
             <a class="layui-btn layui-btn-primary" id="close">取消</a>
         </div>
     </div>
@@ -67,10 +67,11 @@
                 success : function(d) {
                     var tmp = '<option value="">--请选择学生--</option>';
                     //改变时第三级下拉框回复原样
-                    for ( var i in d) {
-                        tmp += '<option value="' + d[i].id +  '">' + d[i].stuName + '</option>';
+                    $("#stu").html(tmp);
+                    for (var i in d) {
+                        tmp += '<option value="' + d[i].stuid +  '">' + d[i].stuname + '</option>';
                     }
-                    $("#stuId").html(tmp);
+                    $("#stu").html(tmp);
                     form.render();
                 },
                 error:function(){
@@ -78,32 +79,28 @@
                 }
             });
         });
-
-
         $("#ok").click(function () {
             $.ajax({
-                type: "post",
+                type: "get",
                 url:"addScore",
                 data: $("#addScoreForm").serialize(),
                 dataType: "text",
-                success: function (data) {
-                    if("true" == data) {
+                success: function (d) {
+                    if("true" == d) {
                         layer.msg("新增成功");
                         setTimeout('closeLayer();',1000);
                     } else {
                         layer.msg("新增失败");
-                        setTimeout('closeLayer();',1000);
                     }
                 },
                 error:function () {
                     layer.msg("执行失败");
-                    setTimeout('closeLayer();',1000);
                 }
             })
         })
     });
     var closeLayer = function () {
-        parent.location.reload();
+        window.parent.location.reload();
     }
 </script>
 </body>
