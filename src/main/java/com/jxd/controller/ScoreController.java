@@ -39,7 +39,8 @@ public class ScoreController {
     private IClassService classService;
 
     @RequestMapping("/scoreList")
-    public String scoreList(Model model) {
+    public String
+    scoreList(Model model) {
         List<Course> courseList = courseService.getAllCourseByState();
         model.addAttribute("courseList", courseList);
         model.addAttribute("classList",classService.getAllClass());
